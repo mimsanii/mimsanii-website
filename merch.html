@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micky Mimsanii — Merch Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Paystack -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<style>
+:root{
+  --d1:#0E2931;--d2:#12484C;--t1:#2B7574;--cr:#861211;
+  --pe:#E2E2E0;--pe2:rgba(226,226,224,.07);
+  --font-d:'Cormorant Garamond',serif;--font-b:'Outfit',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--d1);color:var(--pe);overflow-x:hidden;cursor:none;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+ul{list-style:none}
+img{display:block;width:100%;object-fit:cover}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+/* CURSOR */
+#cur{width:8px;height:8px;background:var(--cr);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+#cur-r{width:30px;height:30px;border:1.5px solid rgba(43,117,116,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:all .12s ease}
+
+/* GLOW RING */
+.ir{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:all .35s}
+.ir svg{display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ir{border:1px solid rgba(43,117,116,.5);background:radial-gradient(circle at 38% 38%,rgba(43,117,116,.22) 0%,transparent 68%);box-shadow:0 0 12px rgba(43,117,116,.22),inset 0 0 8px rgba(43,117,116,.08)}
+.ir svg{stroke:var(--t1);stroke-width:1.5}
+.ir.cr{border-color:rgba(134,18,17,.55);background:radial-gradient(circle at 38% 38%,rgba(134,18,17,.2) 0%,transparent 68%);box-shadow:0 0 12px rgba(134,18,17,.2),inset 0 0 8px rgba(134,18,17,.08)}
+.ir.cr svg{stroke:#c0302f}
+.ir.pe{border-color:rgba(226,226,224,.18);background:radial-gradient(circle at 38% 38%,rgba(226,226,224,.06) 0%,transparent 68%);box-shadow:0 0 8px rgba(226,226,224,.06),inset 0 0 6px rgba(226,226,224,.03)}
+.ir.pe svg{stroke:rgba(226,226,224,.45)}
+.ir.sm{width:32px;height:32px}.ir.sm svg{width:14px;height:14px}
+.ir.md{width:46px;height:46px}.ir.md svg{width:21px;height:21px}
+.ir.lg{width:58px;height:58px}.ir.lg svg{width:27px;height:27px}
+.ir.xl{width:76px;height:76px}.ir.xl svg{width:34px;height:34px}
+a:hover .ir,.ring-hover:hover .ir{box-shadow:0 0 22px rgba(43,117,116,.5),inset 0 0 14px rgba(43,117,116,.18);border-color:rgba(43,117,116,.9)}
+a:hover .ir.cr,.ring-hover:hover .ir.cr{box-shadow:0 0 22px rgba(134,18,17,.45),inset 0 0 14px rgba(134,18,17,.18);border-color:rgba(134,18,17,.9)}
+
+/* NAV */
+nav#mainNav{position:fixed;top:0;width:100%;z-index:900;padding:24px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav#mainNav.stuck{background:rgba(14,41,49,.92);backdrop-filter:blur(20px);padding:15px 6%;border-bottom:1px solid var(--pe2)}
+.n-logo{display:flex;align-items:center;gap:14px}
+.n-mark{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t1);box-shadow:0 0 12px rgba(43,117,116,.25);background:var(--d2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.25rem;font-weight:600;overflow:hidden;transition:all .3s;flex-shrink:0}
+.n-logo:hover .n-mark{border-color:var(--cr);box-shadow:0 0 18px rgba(134,18,17,.3)}
+.n-text{font-family:var(--font-d);font-size:1.05rem;font-weight:600;letter-spacing:3px;line-height:1.1}
+.n-text small{display:block;font-size:.58rem;letter-spacing:5px;color:var(--t1);font-family:var(--font-b);font-weight:400}
+.n-links{display:flex;gap:28px}
+.n-links a{color:rgba(226,226,224,.48);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cr);transition:width .3s}
+.n-links a:hover,.n-links a.active{color:var(--pe)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-tkt{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:1px solid var(--cr);color:var(--pe);padding:8px 20px;transition:all .3s}
+.n-tkt:hover{background:var(--cr)}
+.n-nav-icons{display:none;gap:10px;align-items:center}
+.n-nav-icon{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(226,226,224,.45);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;padding:4px}
+.n-nav-icon:hover,.n-nav-icon:active{color:var(--t1)}
+.n-nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n-nav-icon.tkt-icon{color:rgba(134,18,17,.8)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--pe);transition:all .3s}
+#mob{display:none;position:fixed;inset:0;z-index:800;background:var(--d1);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob.open{display:flex}
+#mob a{font-family:var(--font-d);font-size:2.6rem;font-style:italic;color:var(--pe);transition:color .3s;letter-spacing:2px}
+#mob a:hover{color:var(--t1)}
+.mob-x{position:absolute;top:26px;right:6%;font-size:1.3rem;cursor:pointer;color:rgba(226,226,224,.4);background:none;border:none;font-family:var(--font-b)}
+
+/* BOTTOM NAV */
+#bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(6,13,17,.96);backdrop-filter:blur(18px);border-top:1px solid rgba(43,117,116,.25);height:62px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-inner{display:flex;height:62px;align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(226,226,224,.35);text-decoration:none;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;position:relative;background:none;border:none;font-family:var(--font-b)}
+.bn-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.active{color:var(--t1)}
+.bn-item.active::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cr)}
+#bn-more-sheet{display:none;position:fixed;inset:0;z-index:940}
+#bn-more-sheet.open{display:block}
+.bn-sheet-bg{position:absolute;inset:0;background:rgba(6,13,17,.7)}
+.bn-sheet-panel{position:absolute;bottom:62px;left:0;right:0;background:var(--d2);border-top:1px solid rgba(43,117,116,.3);border-radius:20px 20px 0 0;padding:18px 0 24px;animation:sheetUp .28s cubic-bezier(.25,.8,.25,1) both}
+@keyframes sheetUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.bn-sheet-handle{width:36px;height:3px;border-radius:2px;background:rgba(226,226,224,.2);margin:0 auto 18px}
+.bn-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(226,226,224,.05)}
+.bn-sheet-item{background:var(--d1);padding:20px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--pe);-webkit-tap-highlight-color:transparent;transition:background .3s}
+.bn-sheet-item:active{background:rgba(43,117,116,.15)}
+.bn-sheet-item svg{width:22px;height:22px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-sheet-item.cr-item svg{stroke:#c0302f}
+.bn-sheet-item span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.55)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cr);color:var(--pe);padding:13px 30px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));transition:all .35s;border:none}
+.btn-primary:hover{background:#a01615;letter-spacing:4px}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(226,226,224,.2);color:rgba(226,226,224,.65);padding:12px 28px;font-size:.7rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all .35s;background:none}
+.btn-outline:hover{border-color:var(--t1);color:var(--pe)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+.sl{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase;margin-bottom:18px}
+.sl::before{content:'';width:26px;height:1px;background:var(--cr)}
+.st{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.92;letter-spacing:-1px;margin-bottom:18px}
+.st em{font-style:italic;color:var(--t1)}
+
+/* TOAST */
+#toast{position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--d2);border:1px solid rgba(43,117,116,.45);color:var(--pe);padding:13px 24px;font-size:.73rem;letter-spacing:2px;transform:translateY(70px);opacity:0;pointer-events:none;transition:all .4s}
+#toast.show{transform:none;opacity:1}
+#toast.err{border-color:rgba(134,18,17,.6);background:rgba(134,18,17,.12)}
+#toast.ok{border-color:rgba(43,117,116,.7);background:rgba(43,117,116,.1)}
+
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════
+   MERCH HERO
+══════════════════════ */
+#merch-hero{min-height:54vh;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding:100px 6% 64px}
+.mh-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 75% at 75% 35%,rgba(43,117,116,.28),transparent 60%),radial-gradient(ellipse 45% 55% at 10% 80%,rgba(134,18,17,.18),transparent 55%),linear-gradient(158deg,var(--d2) 0%,var(--d1) 100%)}
+.mh-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:clamp(7rem,20vw,18rem);font-weight:300;color:rgba(226,226,224,.03);right:-2%;top:50%;transform:translateY(-50%);letter-spacing:-8px;pointer-events:none;white-space:nowrap}
+.mh-content{position:relative;z-index:2;max-width:600px}
+.mh-tag{display:flex;align-items:center;gap:14px;margin-bottom:20px;opacity:0;animation:rise .9s .1s both}
+.mh-tag-line{width:36px;height:1px;background:var(--cr)}
+.mh-tag-txt{font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase}
+.mh-title{font-family:var(--font-d);font-size:clamp(3rem,9vw,8rem);font-weight:300;line-height:.88;letter-spacing:-2px;margin-bottom:20px;opacity:0;animation:rise .9s .25s both}
+.mh-title em{font-style:italic;color:var(--t1)}
+.mh-desc{font-size:.86rem;color:rgba(226,226,224,.42);line-height:1.9;opacity:0;animation:rise .9s .4s both}
+
+/* CART BADGE in nav area */
+#cartFab{position:fixed;bottom:88px;right:24px;z-index:890;width:52px;height:52px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(134,18,17,.4);transition:all .3s;transform:scale(0)}
+#cartFab.visible{transform:scale(1)}
+#cartFab:hover{background:#a01615;transform:scale(1.08)}
+#cartFab svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#cartBadge{position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:var(--t1);font-size:.58rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid var(--d1)}
+
+/* FILTER BAR */
+.filter-bar{background:var(--d2);border-top:1px solid var(--pe2);border-bottom:1px solid var(--pe2);padding:0 6%;display:flex;align-items:stretch;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:72px;z-index:80}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-btn{padding:18px 26px;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(226,226,224,.35);background:none;border:none;border-right:1px solid var(--pe2);cursor:pointer;white-space:nowrap;transition:all .3s;position:relative;flex-shrink:0}
+.filter-btn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--cr);transform:scaleX(0);transition:transform .3s}
+.filter-btn:hover{color:rgba(226,226,224,.7);background:rgba(43,117,116,.05)}
+.filter-btn.active{color:var(--pe)}
+.filter-btn.active::after{transform:scaleX(1)}
+
+/* ══════════════════════
+   PRODUCTS GRID
+══════════════════════ */
+#shop{padding:64px 6% 90px}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--pe2);margin-top:48px}
+.product-card{background:var(--d1);position:relative;overflow:hidden;transition:background .4s;display:flex;flex-direction:column}
+.product-card:hover{background:rgba(18,72,76,.15)}
+.product-img{position:relative;aspect-ratio:1;overflow:hidden;background:linear-gradient(155deg,var(--d2),var(--t1))}
+.product-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.product-card:hover .product-img img{transform:scale(1.05)}
+.product-img-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:rgba(226,226,224,.18);font-size:.54rem;letter-spacing:3px}
+.product-badge{position:absolute;top:12px;left:12px;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;background:var(--cr);color:var(--pe)}
+.product-badge.new-badge{background:var(--t1)}
+.product-body{padding:20px 18px;flex:1;display:flex;flex-direction:column}
+.product-cat{font-size:.52rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:6px}
+.product-name{font-family:var(--font-d);font-size:1.2rem;font-weight:400;line-height:1.1;margin-bottom:8px}
+.product-desc{font-size:.68rem;color:rgba(226,226,224,.32);line-height:1.7;margin-bottom:14px;flex:1}
+
+/* Size selector */
+.product-sizes{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.size-btn{padding:4px 10px;font-size:.54rem;letter-spacing:1px;border:1px solid rgba(226,226,224,.15);color:rgba(226,226,224,.4);background:none;cursor:pointer;transition:all .25s}
+.size-btn:hover,.size-btn.selected{border-color:var(--t1);color:var(--pe);background:rgba(43,117,116,.12)}
+
+.product-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+.product-price{font-family:var(--font-d);font-size:1.4rem;font-weight:300;color:var(--pe)}
+.product-price small{display:block;font-size:.5rem;font-family:var(--font-b);letter-spacing:2px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:2px}
+.add-to-cart{display:inline-flex;align-items:center;gap:6px;background:var(--cr);color:var(--pe);border:none;padding:9px 14px;font-size:.58rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));transition:all .3s;flex-shrink:0}
+.add-to-cart:hover{background:#a01615}
+.add-to-cart svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ══════════════════════
+   CART DRAWER
+══════════════════════ */
+#cartDrawer{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:100vw;z-index:9700;background:var(--d2);border-left:1px solid rgba(43,117,116,.2);transform:translateX(100%);transition:transform .4s cubic-bezier(.25,.8,.25,1);display:flex;flex-direction:column}
+#cartDrawer.open{transform:none}
+#cartOverlay{position:fixed;inset:0;z-index:9600;background:rgba(6,13,17,.7);display:none}
+#cartOverlay.open{display:block}
+.cd-head{padding:24px 24px 20px;border-bottom:1px solid var(--pe2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cd-title{font-family:var(--font-d);font-size:1.6rem;font-weight:300}
+.cd-title em{font-style:italic;color:var(--t1)}
+.cd-close{width:36px;height:36px;border-radius:50%;border:1px solid rgba(226,226,224,.15);background:none;color:rgba(226,226,224,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .3s}
+.cd-close:hover{border-color:var(--cr);color:var(--pe)}
+.cd-items{flex:1;overflow-y:auto;padding:16px}
+.cd-items::-webkit-scrollbar{width:4px}
+.cd-items::-webkit-scrollbar-track{background:transparent}
+.cd-items::-webkit-scrollbar-thumb{background:rgba(43,117,116,.3);border-radius:2px}
+.cd-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;color:rgba(226,226,224,.2);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;text-align:center}
+.cd-empty svg{width:48px;height:48px;fill:none;stroke:currentColor;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--pe2)}
+.cart-item:last-child{border-bottom:none}
+.ci-img{width:64px;height:64px;background:linear-gradient(135deg,var(--d1),var(--t1));flex-shrink:0;overflow:hidden}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-name{font-family:var(--font-d);font-size:1rem;font-weight:400;margin-bottom:3px;line-height:1.1}
+.ci-meta{font-size:.6rem;color:rgba(226,226,224,.32);letter-spacing:1px;margin-bottom:8px}
+.ci-qty{display:flex;align-items:center;gap:0}
+.ci-qty-btn{width:26px;height:26px;background:var(--d1);border:1px solid rgba(226,226,224,.1);color:var(--pe);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .25s}
+.ci-qty-btn:hover{background:rgba(43,117,116,.2);border-color:var(--t1)}
+.ci-qty-val{width:32px;text-align:center;font-size:.8rem;color:var(--pe);background:var(--d1);border-top:1px solid rgba(226,226,224,.1);border-bottom:1px solid rgba(226,226,224,.1);padding:3px 0}
+.ci-price{font-family:var(--font-d);font-size:1rem;color:var(--pe);white-space:nowrap}
+.ci-remove{display:block;margin-top:4px;font-size:.52rem;letter-spacing:1px;color:rgba(226,226,224,.2);cursor:pointer;text-align:right;transition:color .25s}
+.ci-remove:hover{color:var(--cr)}
+.cd-foot{padding:20px 24px;border-top:1px solid var(--pe2);flex-shrink:0;background:var(--d1)}
+.cd-subtotal{display:flex;justify-content:space-between;font-size:.7rem;color:rgba(226,226,224,.4);margin-bottom:8px}
+.cd-total{display:flex;justify-content:space-between;margin-bottom:20px;padding-top:10px;border-top:1px solid var(--pe2)}
+.cd-total span:first-child{font-size:.7rem;color:rgba(226,226,224,.5);letter-spacing:2px;text-transform:uppercase;align-self:center}
+.cd-total span:last-child{font-family:var(--font-d);font-size:1.6rem;font-weight:300;color:var(--pe)}
+.cd-checkout-btn{width:100%;background:var(--cr);color:var(--pe);border:none;padding:15px;font-family:var(--font-b);font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .35s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));display:flex;align-items:center;justify-content:center;gap:10px}
+.cd-checkout-btn:hover:not(:disabled){background:#a01615}
+.cd-checkout-btn:disabled{opacity:.4;cursor:not-allowed}
+.cd-checkout-btn .spinner{width:16px;height:16px;border:2px solid rgba(226,226,224,.3);border-top-color:var(--pe);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.cd-checkout-btn.loading .spinner{display:block}
+.cd-checkout-btn.loading .btn-label{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cd-secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:.54rem;letter-spacing:2px;color:rgba(226,226,224,.18);text-transform:uppercase}
+.cd-secure svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5}
+
+/* CHECKOUT FORM inside drawer */
+#checkoutForm{display:none;padding:16px}
+.cf-back{display:flex;align-items:center;gap:8px;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.35);cursor:pointer;margin-bottom:20px;transition:color .25s}
+.cf-back:hover{color:var(--t1)}
+.cf-back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cf-field{margin-bottom:14px}
+.cf-label{display:block;font-size:.56rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:7px}
+.cf-input{width:100%;background:var(--d1);border:1px solid rgba(226,226,224,.1);color:var(--pe);font-family:var(--font-b);font-size:.78rem;padding:11px 14px;outline:none;transition:border-color .3s}
+.cf-input::placeholder{color:rgba(226,226,224,.18)}
+.cf-input:focus{border-color:rgba(43,117,116,.5)}
+.cf-input.err{border-color:rgba(134,18,17,.55)}
+.cf-textarea{resize:vertical;min-height:72px}
+
+/* ORDER SUCCESS */
+#orderSuccess{display:none;padding:36px 24px;text-align:center;flex-direction:column;align-items:center;justify-content:center;height:100%}
+#orderSuccess.show{display:flex}
+.os-icon{width:64px;height:64px;border-radius:50%;border:2px solid var(--t1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 0 24px rgba(43,117,116,.3)}
+.os-icon svg{width:28px;height:28px;fill:none;stroke:var(--t1);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.os-title{font-family:var(--font-d);font-size:2rem;font-weight:300;margin-bottom:8px}
+.os-title em{font-style:italic;color:var(--t1)}
+.os-ref{font-family:var(--font-d);font-size:1rem;font-style:italic;color:var(--t1);margin:12px 0;letter-spacing:2px}
+.os-desc{font-size:.74rem;color:rgba(226,226,224,.38);line-height:1.85;margin-bottom:24px}
+
+/* ══════════════════════
+   SHIPPING INFO BANNER
+══════════════════════ */
+.shipping-bar{background:var(--d2);border-top:1px solid var(--pe2);border-bottom:1px solid var(--pe2);padding:18px 6%;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+.sb-item{display:flex;align-items:center;gap:10px;font-size:.62rem;letter-spacing:2px;color:rgba(226,226,224,.38);text-transform:uppercase}
+.sb-item svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* FOOTER */
+footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+.f-brand{font-family:var(--font-d);font-size:2rem;font-style:italic;font-weight:300;margin-bottom:12px}
+.f-brand em{color:var(--t1)}
+.f-tagline{font-size:.78rem;color:rgba(226,226,224,.28);line-height:1.9;max-width:280px}
+.f-socs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.f-col h5{font-size:.6rem;letter-spacing:5px;color:rgba(226,226,224,.22);text-transform:uppercase;margin-bottom:22px}
+.f-col ul{display:flex;flex-direction:column;gap:11px}
+.f-col ul li a{color:rgba(226,226,224,.38);font-size:.8rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--t1)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid var(--pe2);font-size:.63rem;letter-spacing:2px;color:rgba(226,226,224,.18);flex-wrap:wrap;gap:10px}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(min-width:481px) and (max-width:1024px){
+  #cur,#cur-r{display:none}
+  body{cursor:auto}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:18px 5%}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+  #cartDrawer{width:360px}
+}
+@media(max-width:480px){
+  body{font-size:14px;padding-bottom:62px;cursor:auto}
+  #cur,#cur-r{display:none}
+  #bottom-nav{display:block}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:13px 5%}
+  nav#mainNav.stuck{padding:9px 5%}
+  .n-mark{width:34px;height:34px;font-size:.95rem}
+  .n-text{font-size:.82rem;letter-spacing:2px}
+  .n-text small{font-size:.46rem;letter-spacing:3px}
+  #merch-hero{padding:90px 5% 48px;min-height:44vh}
+  .mh-title{font-size:clamp(2.8rem,13vw,4.5rem)}
+  .mh-desc{display:none}
+  .filter-bar{top:58px;padding:0 5%}
+  .filter-btn{padding:14px 16px;font-size:.54rem}
+  #shop{padding:36px 5% 60px}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .product-body{padding:14px 12px}
+  .product-name{font-size:1rem}
+  .shipping-bar{gap:20px;padding:14px 5%}
+  .sb-item{font-size:.54rem}
+  #cartDrawer{width:100vw}
+  #cartFab{bottom:76px;right:16px}
+  footer{padding:44px 5% 24px}
+  .foot-grid{grid-template-columns:1fr;gap:22px}
+  .f-bottom{font-size:.52rem;flex-direction:column;gap:4px}
+  #toast{bottom:70px;right:12px;left:12px;font-size:.62rem;padding:9px 14px}
+}
+@media(max-width:767px) and (orientation:landscape){
+  #bottom-nav{display:block}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  body{padding-bottom:62px}
+  .products-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(hover:none){body{cursor:auto}#cur,#cur-r{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15ms!important}
+  .rv,.rvl,.rvr{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div><div id="toast"></div>
+
+<!-- CART FAB -->
+<button id="cartFab" onclick="openCart()" aria-label="Open cart">
+  <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+  <span id="cartBadge">0</span>
+</button>
+
+<!-- ICON DEFS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527M9 15c1.5-1 3.5-.5 4.5.5M7 9c3-1.5 6-1 8.5 1"/></symbol>
+</svg>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕ close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="music.html" onclick="closeMob()">Music</a>
+  <a href="events.html" onclick="closeMob()">Events</a>
+  <a href="gallery.html" onclick="closeMob()">Gallery</a>
+  <a href="merch.html" onclick="closeMob()">Merch</a>
+  <a href="sponsors.html" onclick="closeMob()">Sponsors</a>
+  <a href="ministry.html" onclick="closeMob()">Ministry</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="partner.html" onclick="closeMob()">Partner</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="n-logo">
+    <div class="n-mark"><img src="assets/images/logo.webp" alt="Micky Mimsanii" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+    <div class="n-text">MICKY MIMSANII<small>#dreambig</small></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="merch.html" class="active">Merch</a></li>
+    <li><a href="sponsors.html">Sponsors</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="partner.html">Partner</a></li>
+  </ul>
+  <div class="n-nav-icons" id="navIcons"></div>
+  <a href="events.html" class="n-tkt">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Get Tickets
+  </a>
+  <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="merch-hero">
+  <div class="mh-bg"></div>
+  <div class="mh-ghost">DRIP</div>
+  <div class="mh-content">
+    <div class="mh-tag"><div class="mh-tag-line"></div><span class="mh-tag-txt">Official Merchandise · #DreamBig</span></div>
+    <h1 class="mh-title">The <em>Store</em></h1>
+    <p class="mh-desc">Wear the vision. Carry the sound. Official Micky Mimsanii merchandise — built for believers, dreamers and worshippers.</p>
+  </div>
+</section>
+
+<!-- SHIPPING BAR -->
+<div class="shipping-bar">
+  <div class="sb-item"><svg viewBox="0 0 24 24"><use href="#i-truck"/></svg>Delivery across Kenya</div>
+  <div class="sb-item"><svg viewBox="0 0 24 24"><use href="#i-refresh"/></svg>7-day returns</div>
+  <div class="sb-item"><svg viewBox="0 0 24 24"><use href="#i-shield"/></svg>Secure checkout</div>
+  <div class="sb-item"><svg viewBox="0 0 24 24"><use href="#i-lock"/></svg>M-Pesa & Card accepted</div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterProducts('all',this)">All Items</button>
+  <button class="filter-btn" onclick="filterProducts('apparel',this)">Apparel</button>
+  <button class="filter-btn" onclick="filterProducts('accessories',this)">Accessories</button>
+  <button class="filter-btn" onclick="filterProducts('music',this)">Music</button>
+</div>
+
+<!-- PRODUCTS -->
+<section id="shop">
+  <div class="sl rv">Official Store</div>
+  <h2 class="st rv">Shop the <em>Collection</em></h2>
+
+  <div class="products-grid" id="productsGrid">
+
+    <!-- T-SHIRT -->
+    <div class="product-card rv" data-cat="apparel">
+      <div class="product-img" style="background:linear-gradient(155deg,#0E2931,#2B7574)">
+        <div class="product-img-ph">
+          <span class="ir lg"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg></span>
+          <p>DREAM BIG TEE</p>
+        </div>
+        <!-- Replace above with: <img src="assets/images/merch/tshirt-black.jpg" alt="Dream Big T-Shirt"> -->
+        <div class="product-badge new-badge">New</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Apparel · T-Shirt</div>
+        <div class="product-name">Dream Big Tee</div>
+        <div class="product-desc">Premium cotton tee with the iconic #DreamBig graphic. Unisex fit, available in black.</div>
+        <div class="product-sizes">
+          <button class="size-btn selected" onclick="selectSize(this,'Dream Big Tee')">S</button>
+          <button class="size-btn" onclick="selectSize(this,'Dream Big Tee')">M</button>
+          <button class="size-btn" onclick="selectSize(this,'Dream Big Tee')">L</button>
+          <button class="size-btn" onclick="selectSize(this,'Dream Big Tee')">XL</button>
+          <button class="size-btn" onclick="selectSize(this,'Dream Big Tee')">XXL</button>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Price</small>KSh 1,800</div>
+          <button class="add-to-cart" onclick="addToCart({id:'tee-black',name:'Dream Big Tee',price:1800,cat:'Apparel',imgGrad:'linear-gradient(135deg,#0E2931,#2B7574)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOODIE -->
+    <div class="product-card rv d1" data-cat="apparel">
+      <div class="product-img" style="background:linear-gradient(155deg,#861211,#12484C)">
+        <div class="product-img-ph">
+          <span class="ir cr lg"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg></span>
+          <p>MIMSANII HOODIE</p>
+        </div>
+        <div class="product-badge">Limited</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Apparel · Hoodie</div>
+        <div class="product-name">Mimsanii Hoodie</div>
+        <div class="product-desc">Heavyweight pullover hoodie. Embroidered logo front. Limited run — once they're gone, they're gone.</div>
+        <div class="product-sizes">
+          <button class="size-btn selected" onclick="selectSize(this,'Mimsanii Hoodie')">S</button>
+          <button class="size-btn" onclick="selectSize(this,'Mimsanii Hoodie')">M</button>
+          <button class="size-btn" onclick="selectSize(this,'Mimsanii Hoodie')">L</button>
+          <button class="size-btn" onclick="selectSize(this,'Mimsanii Hoodie')">XL</button>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Price</small>KSh 3,500</div>
+          <button class="add-to-cart" onclick="addToCart({id:'hoodie-red',name:'Mimsanii Hoodie',price:3500,cat:'Apparel',imgGrad:'linear-gradient(135deg,#861211,#12484C)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAP -->
+    <div class="product-card rv d2" data-cat="accessories">
+      <div class="product-img" style="background:linear-gradient(155deg,#12484C,#0E2931)">
+        <div class="product-img-ph">
+          <span class="ir lg"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg></span>
+          <p>#DREAMBIG CAP</p>
+        </div>
+        <div class="product-badge new-badge">New</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Accessories · Cap</div>
+        <div class="product-name">#DreamBig Cap</div>
+        <div class="product-desc">Structured snapback with embroidered #DreamBig on the front panel. One size fits all.</div>
+        <div class="product-sizes" style="margin-bottom:14px">
+          <span style="font-size:.56rem;letter-spacing:2px;color:rgba(226,226,224,.28)">One Size</span>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Price</small>KSh 1,200</div>
+          <button class="add-to-cart" onclick="addToCart({id:'cap-teal',name:'#DreamBig Cap',price:1200,cat:'Accessories',size:'One Size',imgGrad:'linear-gradient(135deg,#12484C,#0E2931)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WRISTBAND -->
+    <div class="product-card rv d3" data-cat="accessories">
+      <div class="product-img" style="background:linear-gradient(155deg,#2B7574,#861211)">
+        <div class="product-img-ph">
+          <span class="ir lg"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+          <p>WRISTBAND SET</p>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Accessories · Wristband</div>
+        <div class="product-name">Wristband Set (×3)</div>
+        <div class="product-desc">Set of 3 silicone wristbands: black, teal and red. Engraved with #DreamBig and Micky Mimsanii.</div>
+        <div class="product-sizes" style="margin-bottom:14px">
+          <span style="font-size:.56rem;letter-spacing:2px;color:rgba(226,226,224,.28)">One Size</span>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Price</small>KSh 500</div>
+          <button class="add-to-cart" onclick="addToCart({id:'wristband-set',name:'Wristband Set (×3)',price:500,cat:'Accessories',size:'One Size',imgGrad:'linear-gradient(135deg,#2B7574,#861211)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STICKER PACK -->
+    <div class="product-card rv" data-cat="accessories">
+      <div class="product-img" style="background:linear-gradient(155deg,#0E2931,#861211)">
+        <div class="product-img-ph">
+          <span class="ir cr lg"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+          <p>STICKER PACK</p>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Accessories · Stickers</div>
+        <div class="product-name">Sticker Pack (×6)</div>
+        <div class="product-desc">Pack of 6 vinyl stickers. Waterproof and UV-resistant. Perfect for laptops, bottles and Bibles.</div>
+        <div class="product-sizes" style="margin-bottom:14px">
+          <span style="font-size:.56rem;letter-spacing:2px;color:rgba(226,226,224,.28)">One Size</span>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Price</small>KSh 350</div>
+          <button class="add-to-cart" onclick="addToCart({id:'sticker-pack',name:'Sticker Pack (×6)',price:350,cat:'Accessories',size:'One Size',imgGrad:'linear-gradient(135deg,#0E2931,#861211)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CD -->
+    <div class="product-card rv d1" data-cat="music">
+      <div class="product-img" style="background:linear-gradient(155deg,#12484C,#2B7574)">
+        <div class="product-img-ph">
+          <span class="ir lg"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span>
+          <p>DREAM BIG EP — CD</p>
+        </div>
+        <div class="product-badge new-badge">New</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Music · Physical CD</div>
+        <div class="product-name">Dream Big EP — CD</div>
+        <div class="product-desc">Physical CD of the Dream Big EP. Includes 6 tracks, lyric booklet and signed insert. Limited stock.</div>
+        <div class="product-sizes" style="margin-bottom:14px">
+          <span style="font-size:.56rem;letter-spacing:2px;color:rgba(226,226,224,.28)">Physical CD</span>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Price</small>KSh 800</div>
+          <button class="add-to-cart" onclick="addToCart({id:'cd-dreambig',name:'Dream Big EP — CD',price:800,cat:'Music',size:'CD',imgGrad:'linear-gradient(135deg,#12484C,#2B7574)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIGITAL DOWNLOAD -->
+    <div class="product-card rv d2" data-cat="music">
+      <div class="product-img" style="background:linear-gradient(155deg,#861211,#0E2931)">
+        <div class="product-img-ph">
+          <span class="ir cr lg"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span>
+          <p>DIGITAL DOWNLOAD</p>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Music · Digital</div>
+        <div class="product-name">Dream Big EP — Digital</div>
+        <div class="product-desc">Full digital download of the Dream Big EP in high quality MP3 & WAV. Instant delivery to your email.</div>
+        <div class="product-sizes" style="margin-bottom:14px">
+          <span style="font-size:.56rem;letter-spacing:2px;color:rgba(226,226,224,.28)">Instant Download</span>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Price</small>KSh 400</div>
+          <button class="add-to-cart" onclick="addToCart({id:'digital-ep',name:'Dream Big EP — Digital',price:400,cat:'Music',size:'Digital',imgGrad:'linear-gradient(135deg,#861211,#0E2931)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUNDLE -->
+    <div class="product-card rv d3" data-cat="apparel">
+      <div class="product-img" style="background:linear-gradient(155deg,#2B7574,#0E2931)">
+        <div class="product-img-ph">
+          <span class="ir lg"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg></span>
+          <p>FAN BUNDLE</p>
+        </div>
+        <div class="product-badge">Bundle</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Bundle · Best Value</div>
+        <div class="product-name">Fan Bundle</div>
+        <div class="product-desc">Tee + Cap + Wristband Set + Sticker Pack. Everything you need to represent. Save KSh 500.</div>
+        <div class="product-sizes">
+          <button class="size-btn selected" onclick="selectSize(this,'Fan Bundle')">S</button>
+          <button class="size-btn" onclick="selectSize(this,'Fan Bundle')">M</button>
+          <button class="size-btn" onclick="selectSize(this,'Fan Bundle')">L</button>
+          <button class="size-btn" onclick="selectSize(this,'Fan Bundle')">XL</button>
+        </div>
+        <div class="product-footer">
+          <div class="product-price"><small>Was 3,850</small>KSh 3,350</div>
+          <button class="add-to-cart" onclick="addToCart({id:'fan-bundle',name:'Fan Bundle',price:3350,cat:'Bundle',imgGrad:'linear-gradient(135deg,#2B7574,#0E2931)'},this)">
+            <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CART OVERLAY -->
+<div id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+  <div class="cd-head">
+    <div class="cd-title">Your <em>Cart</em></div>
+    <button class="cd-close" onclick="closeCart()">✕</button>
+  </div>
+
+  <!-- Cart items view -->
+  <div id="cartItemsView" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+    <div class="cd-items" id="cartItems">
+      <div class="cd-empty">
+        <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+    <div class="cd-foot">
+      <div class="cd-subtotal">
+        <span>Items</span>
+        <span id="cdSubtotal">KSh 0</span>
+      </div>
+      <div class="cd-total">
+        <span>Total</span>
+        <span id="cdTotal">KSh 0</span>
+      </div>
+      <button class="cd-checkout-btn" id="checkoutBtn" onclick="showCheckoutForm()" disabled>
+        <span class="btn-label">Proceed to Checkout</span>
+      </button>
+      <div class="cd-secure">
+        <svg viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+        Secured by Paystack
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout form view -->
+  <div id="checkoutForm">
+    <div class="cf-back" onclick="hideCheckoutForm()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Cart
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Full Name</label>
+      <input class="cf-input" id="cfName" type="text" placeholder="John Kamau" autocomplete="name">
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Email Address</label>
+      <input class="cf-input" id="cfEmail" type="email" placeholder="john@example.com" autocomplete="email">
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Phone Number</label>
+      <input class="cf-input" id="cfPhone" type="tel" placeholder="0712 345 678" autocomplete="tel">
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Delivery Address</label>
+      <textarea class="cf-input cf-textarea" id="cfAddress" placeholder="Street, area, city (e.g. Tom Mboya St, Nairobi CBD)"></textarea>
+    </div>
+    <div class="cd-foot" style="padding:16px 0 0;border:none;background:transparent">
+      <div class="cd-total" style="margin-bottom:16px">
+        <span>Total</span>
+        <span id="cfTotal">KSh 0</span>
+      </div>
+      <button class="cd-checkout-btn" id="payBtn" onclick="handleMerchPayment()">
+        <div class="spinner"></div>
+        <span class="btn-label">Pay with M-Pesa / Card</span>
+      </button>
+      <div class="cd-secure" style="margin-top:10px">
+        <svg viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+        Secured by Paystack · SSL Encrypted
+      </div>
+    </div>
+  </div>
+
+  <!-- Order success view -->
+  <div id="orderSuccess">
+    <div class="os-icon">
+      <svg viewBox="0 0 24 24"><use href="#i-check"/></svg>
+    </div>
+    <h3 class="os-title">Order <em>Confirmed!</em></h3>
+    <div class="os-ref" id="osRef"></div>
+    <p class="os-desc">Thank you for your order! Check your email for confirmation and delivery details. We'll deliver within 3–5 business days.</p>
+    <button class="btn-primary" style="font-size:.65rem" onclick="closeCart()">
+      Continue Shopping 🛍️
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="f-brand">Micky <em>Mimsanii</em></div>
+      <p class="f-tagline">Musician · Songwriter · Vocalist · Minister.<br>Dreaming big, one song at a time.</p>
+      <div class="f-socs">
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Facebook coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-fb"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Instagram coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ig"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('YouTube coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-yt"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('TikTok coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tiktok"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Spotify coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-spotify"/></svg></span>
+      </div>
+    </div>
+    <div class="f-col"><h5>Pages</h5><ul>
+      <li><a href="about.html">About &amp; Bio</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="events.html">Events &amp; Tickets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="merch.html">Merch Store</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Support</h5><ul>
+      <li><a href="sponsors.html">Sponsors &amp; Donate</a></li>
+      <li><a href="partner.html">Partner With Us</a></li>
+      <li><a href="ministry.html">Ministry</a></li>
+      <li><a href="blog.html">Blog &amp; News</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:mimsanii40@gmail.com">mimsanii40@gmail.com</a></li>
+      <li><a href="tel:+254115555072">+254 115 555 072</a></li>
+      <li><a href="#">Nairobi, Kenya</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Micky #mimsanii · All rights reserved.</span>
+    <span>Crafted with passion · by #mimsanii</span>
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="bn-inner">
+    <a href="index.html" class="bn-item" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>Home
+    </a>
+    <a href="music.html" class="bn-item" aria-label="Music">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music
+    </a>
+    <a href="events.html" class="bn-item" aria-label="Events">
+      <svg viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></svg>Events
+    </a>
+    <a href="gallery.html" class="bn-item" aria-label="Gallery">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Gallery
+    </a>
+    <button class="bn-item" aria-label="More" onclick="openMoreSheet()" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>More
+    </button>
+  </div>
+</nav>
+
+<!-- MORE SHEET -->
+<div id="bn-more-sheet" role="dialog" aria-modal="true">
+  <div class="bn-sheet-bg" onclick="closeMoreSheet()"></div>
+  <div class="bn-sheet-panel">
+    <div class="bn-sheet-handle"></div>
+    <div class="bn-sheet-grid">
+      <a href="merch.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg><span>Merch</span></a>
+      <a href="sponsors.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg><span>Donate</span></a>
+      <a href="ministry.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg><span>Ministry</span></a>
+      <a href="blog.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Blog</span></a>
+      <a href="about.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About</span></a>
+      <a href="partner.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Partner</span></a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════
+   CONFIG — Replace with your values
+══════════════════════════════════ */
+const SUPABASE_URL = 'https://osbuvwtetizjvjqwhktu.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_H8CRGGDknZS19sFTM1LbLA_2R_nORFk';
+const PAYSTACK_KEY = 'pk_test_REPLACE_WITH_YOUR_PAYSTACK_PUBLIC_KEY';
+
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* CURSOR */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a)})();
+
+/* STICKY NAV */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+/* MORE SHEET */
+function openMoreSheet(){document.getElementById('bn-more-sheet').classList.add('open');document.body.style.overflow='hidden'}
+function closeMoreSheet(){document.getElementById('bn-more-sheet').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMoreSheet()});
+let _sy=0;
+document.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_sy>60&&document.getElementById('bn-more-sheet').classList.contains('open'))closeMoreSheet()},{passive:true});
+
+/* TABLET ICON NAV */
+(function(){
+  const items=[
+    {href:'music.html',label:'Music',svg:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',cls:''},
+    {href:'events.html',label:'Events',svg:'<path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/>',cls:'tkt-icon'},
+    {href:'gallery.html',label:'Gallery',svg:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',cls:''},
+    {href:'merch.html',label:'Merch',svg:'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',cls:''},
+    {href:null,label:'More',svg:'<circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>',cls:'',more:true},
+  ];
+  const wrap=document.getElementById('navIcons');
+  items.forEach(({href,label,svg,cls,more})=>{
+    const el=more?document.createElement('button'):document.createElement('a');
+    if(!more)el.href=href;
+    else{el.style.cssText='background:none;border:none;font-family:inherit;cursor:pointer;';el.onclick=openMoreSheet;}
+    el.className='n-nav-icon '+(cls||'');
+    el.innerHTML=`<svg viewBox="0 0 24 24">${svg}</svg>${label}`;
+    wrap.appendChild(el);
+  });
+})();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+
+/* TOAST */
+let _tt;
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='';
+  if(type)t.classList.add(type);
+  t.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+/* ══════════════════════
+   PRODUCT FILTER
+══════════════════════ */
+function filterProducts(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.product-card').forEach(card=>{
+    card.style.display=(cat==='all'||card.dataset.cat===cat)?'':'none';
+  });
+}
+
+/* SIZE SELECTION */
+function selectSize(btn,productName){
+  const card=btn.closest('.product-card');
+  card.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function getSelectedSize(card){
+  const sel=card.querySelector('.size-btn.selected');
+  return sel?sel.textContent:'One Size';
+}
+
+/* ══════════════════════
+   CART STATE
+══════════════════════ */
+let cart=[]; // [{id,name,price,cat,size,qty,imgGrad}]
+
+function addToCart(product,btn){
+  const card=btn.closest('.product-card');
+  const size=getSelectedSize(card);
+  const key=product.id+'-'+size;
+  const existing=cart.find(i=>i.key===key);
+  if(existing){
+    existing.qty++;
+  } else {
+    cart.push({...product,size,key,qty:1});
+  }
+  renderCart();
+  openCart();
+  toast(`${product.name} added to cart`,'ok');
+  // animate button briefly
+  btn.textContent='✓';
+  setTimeout(()=>{btn.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="#i-bag"/></svg>Add';},1000);
+}
+
+function removeFromCart(key){
+  cart=cart.filter(i=>i.key!==key);
+  renderCart();
+}
+
+function changeCartQty(key,delta){
+  const item=cart.find(i=>i.key===key);
+  if(!item)return;
+  item.qty=Math.max(1,item.qty+delta);
+  renderCart();
+}
+
+function cartTotal(){
+  return cart.reduce((s,i)=>s+i.price*i.qty,0);
+}
+
+function renderCart(){
+  const container=document.getElementById('cartItems');
+  const badge=document.getElementById('cartBadge');
+  const fab=document.getElementById('cartFab');
+  const totalItems=cart.reduce((s,i)=>s+i.qty,0);
+  const total=cartTotal();
+
+  badge.textContent=totalItems;
+  fab.classList.toggle('visible',totalItems>0);
+  document.getElementById('checkoutBtn').disabled=totalItems===0;
+  document.getElementById('cdSubtotal').textContent=`KSh ${total.toLocaleString()}`;
+  document.getElementById('cdTotal').textContent=`KSh ${total.toLocaleString()}`;
+  document.getElementById('cfTotal').textContent=`KSh ${total.toLocaleString()}`;
+
+  if(cart.length===0){
+    container.innerHTML=`<div class="cd-empty"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><use href="#i-bag"/></svg><p>Your cart is empty</p></div>`;
+    return;
+  }
+
+  container.innerHTML=cart.map(item=>`
+    <div class="cart-item">
+      <div class="ci-img" style="background:${item.imgGrad||'var(--d2)'}"></div>
+      <div>
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-meta">${item.cat}${item.size&&item.size!=='undefined'?' · '+item.size:''}</div>
+        <div class="ci-qty">
+          <button class="ci-qty-btn" onclick="changeCartQty('${item.key}',-1)">−</button>
+          <div class="ci-qty-val">${item.qty}</div>
+          <button class="ci-qty-btn" onclick="changeCartQty('${item.key}',1)">+</button>
+        </div>
+        <span class="ci-remove" onclick="removeFromCart('${item.key}')">Remove</span>
+      </div>
+      <div class="ci-price">KSh ${(item.price*item.qty).toLocaleString()}</div>
+    </div>
+  `).join('');
+}
+
+/* ══════════════════════
+   CART DRAWER
+══════════════════════ */
+function openCart(){
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  // reset to cart view
+  hideCheckoutForm();
+  document.getElementById('orderSuccess').classList.remove('show');
+  document.getElementById('orderSuccess').style.display='none';
+  document.getElementById('cartItemsView').style.display='flex';
+}
+
+function showCheckoutForm(){
+  if(cart.length===0)return;
+  document.getElementById('cartItemsView').style.display='none';
+  document.getElementById('checkoutForm').style.display='block';
+}
+
+function hideCheckoutForm(){
+  document.getElementById('checkoutForm').style.display='none';
+  document.getElementById('cartItemsView').style.display='flex';
+}
+
+/* ══════════════════════
+   CHECKOUT VALIDATION
+══════════════════════ */
+function validateCheckout(){
+  const name=document.getElementById('cfName').value.trim();
+  const email=document.getElementById('cfEmail').value.trim();
+  const phone=document.getElementById('cfPhone').value.trim();
+  const addr=document.getElementById('cfAddress').value.trim();
+  let ok=true;
+  [['cfName',name],['cfEmail',email],['cfPhone',phone],['cfAddress',addr]].forEach(([id,val])=>{
+    const el=document.getElementById(id);
+    if(!val){el.classList.add('err');ok=false;}
+    else el.classList.remove('err');
+  });
+  if(email&&!email.includes('@')){document.getElementById('cfEmail').classList.add('err');ok=false;}
+  if(!ok)toast('Please fill in all delivery details','err');
+  return ok;
+}
+
+/* ══════════════════════
+   PAYMENT — Paystack → Supabase
+══════════════════════ */
+function handleMerchPayment(){
+  if(!validateCheckout())return;
+  if(cart.length===0)return;
+
+  const name=document.getElementById('cfName').value.trim();
+  const email=document.getElementById('cfEmail').value.trim();
+  const phone=document.getElementById('cfPhone').value.trim();
+  const address=document.getElementById('cfAddress').value.trim();
+  const total=cartTotal();
+  const ref='MM-SHOP-'+Date.now().toString(36).toUpperCase();
+
+  const btn=document.getElementById('payBtn');
+  btn.classList.add('loading');btn.disabled=true;
+
+  const handler=PaystackPop.setup({
+    key:   PAYSTACK_KEY,
+    email: email,
+    amount:total*100,
+    currency:'KES',
+    ref:   ref,
+    metadata:{
+      custom_fields:[
+        {display_name:'Buyer Name',   variable_name:'name',    value:name},
+        {display_name:'Phone',        variable_name:'phone',   value:phone},
+        {display_name:'Address',      variable_name:'address', value:address},
+        {display_name:'Items',        variable_name:'items',   value:cart.map(i=>`${i.name} ×${i.qty}`).join(', ')},
+        {display_name:'Order Total',  variable_name:'total',   value:'KSh '+total.toLocaleString()},
+      ]
+    },
+    callback:async function(response){
+      await saveOrderToSupabase({name,email,phone,address,items:JSON.stringify(cart),amount_paid:total,payment_ref:response.reference,payment_status:'paid'});
+      showOrderSuccess(response.reference);
+      cart=[];renderCart();
+    },
+    onClose:function(){
+      btn.classList.remove('loading');btn.disabled=false;
+      toast('Payment cancelled — your order was not placed','err');
+    }
+  });
+  handler.openIframe();
+}
+
+async function saveOrderToSupabase(order){
+  const {error}=await db.from('orders').insert([order]);
+  if(error) console.error('Supabase order save error:',error);
+}
+
+function showOrderSuccess(ref){
+  const btn=document.getElementById('payBtn');
+  btn.classList.remove('loading');btn.disabled=false;
+  document.getElementById('checkoutForm').style.display='none';
+  document.getElementById('cartItemsView').style.display='none';
+  const success=document.getElementById('orderSuccess');
+  success.style.display='flex';
+  success.classList.add('show');
+  document.getElementById('osRef').textContent=ref;
+}
+</script>
+</body>
+</html>

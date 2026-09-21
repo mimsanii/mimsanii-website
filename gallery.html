@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micky Mimsanii — Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --d1:#0E2931;--d2:#12484C;--t1:#2B7574;--cr:#861211;
+  --pe:#E2E2E0;--pe2:rgba(226,226,224,.07);
+  --font-d:'Cormorant Garamond',serif;--font-b:'Outfit',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--d1);color:var(--pe);overflow-x:hidden;cursor:none;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+ul{list-style:none}
+img{display:block;width:100%;object-fit:cover}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+/* CURSOR */
+#cur{width:8px;height:8px;background:var(--cr);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+#cur-r{width:30px;height:30px;border:1.5px solid rgba(43,117,116,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:all .12s ease}
+
+/* GLOW RING */
+.ir{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:all .35s}
+.ir svg{display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ir{border:1px solid rgba(43,117,116,.5);background:radial-gradient(circle at 38% 38%,rgba(43,117,116,.22) 0%,transparent 68%);box-shadow:0 0 12px rgba(43,117,116,.22),inset 0 0 8px rgba(43,117,116,.08)}
+.ir svg{stroke:var(--t1);stroke-width:1.5}
+.ir.cr{border-color:rgba(134,18,17,.55);background:radial-gradient(circle at 38% 38%,rgba(134,18,17,.2) 0%,transparent 68%);box-shadow:0 0 12px rgba(134,18,17,.2),inset 0 0 8px rgba(134,18,17,.08)}
+.ir.cr svg{stroke:#c0302f}
+.ir.pe{border-color:rgba(226,226,224,.18);background:radial-gradient(circle at 38% 38%,rgba(226,226,224,.06) 0%,transparent 68%);box-shadow:0 0 8px rgba(226,226,224,.06),inset 0 0 6px rgba(226,226,224,.03)}
+.ir.pe svg{stroke:rgba(226,226,224,.45)}
+.ir.sm{width:32px;height:32px}.ir.sm svg{width:14px;height:14px}
+.ir.md{width:46px;height:46px}.ir.md svg{width:21px;height:21px}
+.ir.lg{width:58px;height:58px}.ir.lg svg{width:27px;height:27px}
+.ir.xl{width:76px;height:76px}.ir.xl svg{width:34px;height:34px}
+a:hover .ir,.ring-hover:hover .ir{box-shadow:0 0 22px rgba(43,117,116,.5),inset 0 0 14px rgba(43,117,116,.18);border-color:rgba(43,117,116,.9)}
+a:hover .ir.cr,.ring-hover:hover .ir.cr{box-shadow:0 0 22px rgba(134,18,17,.45),inset 0 0 14px rgba(134,18,17,.18);border-color:rgba(134,18,17,.9)}
+
+/* NAV */
+nav#mainNav{position:fixed;top:0;width:100%;z-index:900;padding:24px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav#mainNav.stuck{background:rgba(14,41,49,.92);backdrop-filter:blur(20px);padding:15px 6%;border-bottom:1px solid var(--pe2)}
+.n-logo{display:flex;align-items:center;gap:14px}
+.n-mark{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t1);box-shadow:0 0 12px rgba(43,117,116,.25);background:var(--d2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.25rem;font-weight:600;overflow:hidden;transition:all .3s;flex-shrink:0}
+.n-logo:hover .n-mark{border-color:var(--cr);box-shadow:0 0 18px rgba(134,18,17,.3)}
+.n-text{font-family:var(--font-d);font-size:1.05rem;font-weight:600;letter-spacing:3px;line-height:1.1}
+.n-text small{display:block;font-size:.58rem;letter-spacing:5px;color:var(--t1);font-family:var(--font-b);font-weight:400}
+.n-links{display:flex;gap:28px}
+.n-links a{color:rgba(226,226,224,.48);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cr);transition:width .3s}
+.n-links a:hover,.n-links a.active{color:var(--pe)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-tkt{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:1px solid var(--cr);color:var(--pe);padding:8px 20px;transition:all .3s}
+.n-tkt:hover{background:var(--cr)}
+.n-nav-icons{display:none;gap:10px;align-items:center}
+.n-nav-icon{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(226,226,224,.45);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;padding:4px}
+.n-nav-icon:hover,.n-nav-icon:active{color:var(--t1)}
+.n-nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n-nav-icon.tkt-icon{color:rgba(134,18,17,.8)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--pe);transition:all .3s}
+#mob{display:none;position:fixed;inset:0;z-index:800;background:var(--d1);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob.open{display:flex}
+#mob a{font-family:var(--font-d);font-size:2.6rem;font-style:italic;color:var(--pe);transition:color .3s;letter-spacing:2px}
+#mob a:hover{color:var(--t1)}
+.mob-x{position:absolute;top:26px;right:6%;font-size:1.3rem;cursor:pointer;color:rgba(226,226,224,.4);background:none;border:none;font-family:var(--font-b)}
+
+/* BOTTOM NAV */
+#bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(6,13,17,.96);backdrop-filter:blur(18px);border-top:1px solid rgba(43,117,116,.25);height:62px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-inner{display:flex;height:62px;align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(226,226,224,.35);text-decoration:none;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;position:relative;background:none;border:none;font-family:var(--font-b)}
+.bn-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.active{color:var(--t1)}
+.bn-item.active::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cr)}
+#bn-more-sheet{display:none;position:fixed;inset:0;z-index:940}
+#bn-more-sheet.open{display:block}
+.bn-sheet-bg{position:absolute;inset:0;background:rgba(6,13,17,.7)}
+.bn-sheet-panel{position:absolute;bottom:62px;left:0;right:0;background:var(--d2);border-top:1px solid rgba(43,117,116,.3);border-radius:20px 20px 0 0;padding:18px 0 24px;animation:sheetUp .28s cubic-bezier(.25,.8,.25,1) both}
+@keyframes sheetUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.bn-sheet-handle{width:36px;height:3px;border-radius:2px;background:rgba(226,226,224,.2);margin:0 auto 18px}
+.bn-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(226,226,224,.05)}
+.bn-sheet-item{background:var(--d1);padding:20px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--pe);-webkit-tap-highlight-color:transparent;transition:background .3s}
+.bn-sheet-item:active{background:rgba(43,117,116,.15)}
+.bn-sheet-item svg{width:22px;height:22px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-sheet-item.cr-item svg{stroke:#c0302f}
+.bn-sheet-item span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.55)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cr);color:var(--pe);padding:13px 30px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));transition:all .35s;border:none}
+.btn-primary:hover{background:#a01615;letter-spacing:4px}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(226,226,224,.2);color:rgba(226,226,224,.65);padding:12px 28px;font-size:.7rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all .35s;background:none}
+.btn-outline:hover{border-color:var(--t1);color:var(--pe)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+.sl{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase;margin-bottom:18px}
+.sl::before{content:'';width:26px;height:1px;background:var(--cr)}
+.st{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.92;letter-spacing:-1px;margin-bottom:18px}
+.st em{font-style:italic;color:var(--t1)}
+
+#toast{position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--d2);border:1px solid rgba(43,117,116,.45);color:var(--pe);padding:13px 24px;font-size:.73rem;letter-spacing:2px;transform:translateY(70px);opacity:0;pointer-events:none;transition:all .4s}
+#toast.show{transform:none;opacity:1}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* ══════════════════
+   GALLERY HERO
+══════════════════ */
+#gal-hero{min-height:52vh;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding:100px 6% 64px}
+.gh-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 80% 30%,rgba(43,117,116,.3),transparent 60%),radial-gradient(ellipse 50% 60% at 15% 80%,rgba(134,18,17,.18),transparent 55%),linear-gradient(160deg,var(--d2) 0%,var(--d1) 100%)}
+.gh-video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none}
+.gh-video-tint{position:absolute;inset:0;z-index:1;display:none;background:linear-gradient(160deg,rgba(18,72,76,.72) 0%,rgba(14,41,49,.88) 100%),radial-gradient(ellipse 70% 80% at 80% 30%,rgba(43,117,116,.25),transparent 60%),radial-gradient(ellipse 50% 60% at 15% 80%,rgba(134,18,17,.15),transparent 55%)}
+.gh-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:clamp(8rem,22vw,20rem);font-weight:300;color:rgba(226,226,224,.03);right:-2%;top:50%;transform:translateY(-50%);letter-spacing:-8px;pointer-events:none;white-space:nowrap}
+.gh-content{position:relative;z-index:2}
+.gh-tag{display:flex;align-items:center;gap:14px;margin-bottom:20px;opacity:0;animation:rise .9s .1s both}
+.gh-tag-line{width:36px;height:1px;background:var(--cr)}
+.gh-tag-txt{font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase}
+.gh-title{font-family:var(--font-d);font-size:clamp(3rem,9vw,8rem);font-weight:300;line-height:.88;letter-spacing:-2px;margin-bottom:20px;opacity:0;animation:rise .9s .25s both}
+.gh-title em{font-style:italic;color:var(--t1)}
+.gh-desc{font-size:.86rem;color:rgba(226,226,224,.42);line-height:1.9;max-width:480px;opacity:0;animation:rise .9s .4s both}
+
+/* Big-screen video hero: on large viewports we swap the flat gradient for a
+   looping background video with a color-matched tint so the section keeps
+   its cinematic teal/crimson palette. Smaller screens keep the lightweight
+   gradient (video is hidden there — see the tablet/mobile media queries). */
+@media(min-width:1025px){
+  .gh-video-bg,.gh-video-tint{display:block}
+}
+
+/* ══════════════════
+   FILTER BAR
+══════════════════ */
+.filter-bar{background:var(--d2);border-top:1px solid var(--pe2);border-bottom:1px solid var(--pe2);padding:0 6%;display:flex;align-items:stretch;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:72px;z-index:80}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-btn{padding:18px 28px;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(226,226,224,.35);background:none;border:none;border-right:1px solid var(--pe2);cursor:pointer;white-space:nowrap;transition:all .3s;position:relative;flex-shrink:0}
+.filter-btn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--cr);transform:scaleX(0);transition:transform .3s}
+.filter-btn:hover{color:rgba(226,226,224,.7);background:rgba(43,117,116,.05)}
+.filter-btn.active{color:var(--pe)}
+.filter-btn.active::after{transform:scaleX(1)}
+.filter-count{display:inline-block;margin-left:6px;font-size:.48rem;letter-spacing:1px;color:rgba(226,226,224,.25);vertical-align:middle}
+.filter-btn.active .filter-count{color:var(--cr)}
+
+/* ══════════════════
+   MASONRY GALLERY
+══════════════════ */
+#gallery-section{padding:60px 6% 90px}
+.gallery-grid{columns:4;column-gap:6px}
+.gal-item{break-inside:avoid;margin-bottom:6px;position:relative;overflow:hidden;cursor:pointer;background:var(--d2)}
+.gal-item img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.gal-item:hover img{transform:scale(1.04)}
+.gal-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,41,49,.92) 0%,transparent 50%);opacity:0;transition:opacity .4s;display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
+.gal-item:hover .gal-item-overlay{opacity:1}
+.gal-item-cat{font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--t1);margin-bottom:4px}
+.gal-item-title{font-family:var(--font-d);font-size:1rem;font-style:italic;color:var(--pe)}
+/* video badge */
+.gal-item.is-video .vid-badge{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(134,18,17,.85);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:transform .3s}
+.gal-item.is-video:hover .vid-badge{transform:scale(1.15)}
+.gal-item.is-video .vid-badge svg{fill:#fff;width:14px;height:14px;margin-left:2px}
+/* placeholder gradient cards for slots without real photos */
+.gal-ph{width:100%;display:block}
+
+/* ══════════════════
+   LIGHTBOX
+══════════════════ */
+#lightbox{display:none;position:fixed;inset:0;z-index:9900;background:rgba(6,13,17,.96);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center}
+#lightbox.open{display:flex}
+.lb-close{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(226,226,224,.2);background:none;color:rgba(226,226,224,.6);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:2}
+.lb-close:hover{border-color:var(--cr);color:var(--pe)}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid rgba(226,226,224,.15);background:rgba(14,41,49,.6);color:rgba(226,226,224,.6);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:2}
+.lb-prev{left:24px}
+.lb-next{right:24px}
+.lb-prev:hover,.lb-next:hover{border-color:var(--t1);color:var(--pe);background:rgba(43,117,116,.2)}
+.lb-media{max-width:88vw;max-height:78vh;position:relative;display:flex;align-items:center;justify-content:center}
+.lb-media img{max-width:88vw;max-height:78vh;object-fit:contain;display:block}
+.lb-media iframe{width:min(800px,88vw);aspect-ratio:16/9;border:none}
+.lb-info{margin-top:18px;text-align:center}
+.lb-cat{font-size:.52rem;letter-spacing:4px;color:var(--t1);text-transform:uppercase;margin-bottom:6px}
+.lb-title{font-family:var(--font-d);font-size:1.3rem;font-style:italic;color:var(--pe)}
+.lb-counter{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:.55rem;letter-spacing:3px;color:rgba(226,226,224,.25);text-transform:uppercase}
+
+/* ══════════════════
+   VIDEO SECTION
+══════════════════ */
+#videos{padding:90px 6%;background:var(--d2)}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pe2);margin-top:48px}
+.vid-card{background:var(--d1);position:relative;overflow:hidden;cursor:pointer;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;transition:background .4s}
+.vid-card:hover{background:rgba(18,72,76,.2)}
+.vid-card-bg{position:absolute;inset:0;background:linear-gradient(155deg,var(--d2),var(--t1));opacity:.6}
+.vid-card.cr-vid .vid-card-bg{background:linear-gradient(155deg,rgba(134,18,17,.4),var(--d2))}
+.vid-thumb{position:absolute;inset:0;object-fit:cover;opacity:.25;transition:opacity .4s}
+.vid-card:hover .vid-thumb{opacity:.38}
+.vid-play{position:relative;z-index:2;width:56px;height:56px;border-radius:50%;border:2px solid rgba(226,226,224,.3);display:flex;align-items:center;justify-content:center;background:rgba(14,41,49,.5);transition:all .4s;backdrop-filter:blur(4px)}
+.vid-card:hover .vid-play{border-color:var(--cr);background:rgba(134,18,17,.3);transform:scale(1.08)}
+.vid-play svg{fill:#fff;width:18px;height:18px;margin-left:3px}
+.vid-info{position:absolute;bottom:0;left:0;right:0;padding:16px 18px;background:linear-gradient(to top,rgba(14,41,49,.9),transparent);z-index:2}
+.vid-cat{font-size:.48rem;letter-spacing:3px;color:var(--t1);text-transform:uppercase;margin-bottom:4px}
+.vid-title{font-family:var(--font-d);font-size:1rem;font-style:italic;color:var(--pe)}
+
+/* ══════════════════
+   FOOTER
+══════════════════ */
+footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+.f-brand{font-family:var(--font-d);font-size:2rem;font-style:italic;font-weight:300;margin-bottom:12px}
+.f-brand em{color:var(--t1)}
+.f-tagline{font-size:.78rem;color:rgba(226,226,224,.28);line-height:1.9;max-width:280px}
+.f-socs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.f-col h5{font-size:.6rem;letter-spacing:5px;color:rgba(226,226,224,.22);text-transform:uppercase;margin-bottom:22px}
+.f-col ul{display:flex;flex-direction:column;gap:11px}
+.f-col ul li a{color:rgba(226,226,224,.38);font-size:.8rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--t1)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid var(--pe2);font-size:.63rem;letter-spacing:2px;color:rgba(226,226,224,.18);flex-wrap:wrap;gap:10px}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(min-width:481px) and (max-width:1024px){
+  #cur,#cur-r{display:none}
+  body{cursor:auto}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:18px 5%}
+  .gallery-grid{columns:3}
+  .video-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .gh-video-bg,.gh-video-tint{display:none!important}
+}
+@media(max-width:480px){
+  body{font-size:14px;padding-bottom:62px;cursor:auto}
+  #cur,#cur-r{display:none}
+  #bottom-nav{display:block}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:13px 5%}
+  nav#mainNav.stuck{padding:9px 5%}
+  .n-mark{width:34px;height:34px;font-size:.95rem}
+  .n-text{font-size:.82rem;letter-spacing:2px}
+  .n-text small{font-size:.46rem;letter-spacing:3px}
+  #gal-hero{padding:90px 5% 48px;min-height:44vh}
+  .gh-video-bg,.gh-video-tint{display:none!important}
+  .gh-title{font-size:clamp(2.8rem,13vw,4.5rem)}
+  .gh-desc{display:none}
+  .filter-bar{top:58px;padding:0 5%}
+  .filter-btn{padding:14px 16px;font-size:.54rem}
+  #gallery-section{padding:36px 5% 60px}
+  .gallery-grid{columns:2;column-gap:4px}
+  .gal-item{margin-bottom:4px}
+  #videos{padding:52px 5%}
+  .video-grid{grid-template-columns:1fr}
+  footer{padding:44px 5% 24px}
+  .foot-grid{grid-template-columns:1fr;gap:22px}
+  .f-bottom{font-size:.52rem;flex-direction:column;gap:4px}
+  #toast{bottom:70px;right:12px;left:12px;font-size:.62rem;padding:9px 14px}
+  .lb-prev{left:8px}
+  .lb-next{right:8px}
+  .lb-media img,.lb-media iframe{max-width:96vw}
+}
+@media(max-width:767px) and (orientation:landscape){
+  #bottom-nav{display:block}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  body{padding-bottom:62px}
+  .gallery-grid{columns:3}
+  .gh-video-bg,.gh-video-tint{display:none!important}
+}
+@media(hover:none){body{cursor:auto}#cur,#cur-r{display:none!important}
+  .gal-item-overlay{opacity:1}
+  .gal-item img{transform:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15ms!important}
+  .rv{opacity:1!important;transform:none!important}
+  .gh-video-bg{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div><div id="toast"></div>
+
+<!-- ICON DEFS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-ticket"  viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></symbol>
+  <symbol id="i-camera"  viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-music"   viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-mic"     viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></symbol>
+  <symbol id="i-heart"   viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-cross"   viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/></symbol>
+  <symbol id="i-bag"     viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-arrow"   viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-fb"      viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig"      viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-yt"      viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></symbol>
+  <symbol id="i-tiktok"  viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527M9 15c1.5-1 3.5-.5 4.5.5M7 9c3-1.5 6-1 8.5 1"/></symbol>
+</svg>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕ close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="music.html" onclick="closeMob()">Music</a>
+  <a href="events.html" onclick="closeMob()">Events</a>
+  <a href="gallery.html" onclick="closeMob()">Gallery</a>
+  <a href="merch.html" onclick="closeMob()">Merch</a>
+  <a href="sponsors.html" onclick="closeMob()">Sponsors</a>
+  <a href="ministry.html" onclick="closeMob()">Ministry</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="partner.html" onclick="closeMob()">Partner</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="n-logo">
+    <div class="n-mark"><img src="assets/images/logo2.jpg" alt="Micky Mimsanii" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+    <div class="n-text">MICKY MIMSANII<small>#dreambig</small></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="merch.html">Merch</a></li>
+    <li><a href="sponsors.html">Sponsors</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="partner.html">Partner</a></li>
+  </ul>
+  <div class="n-nav-icons" id="navIcons"></div>
+  <a href="events.html" class="n-tkt">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Get Tickets
+  </a>
+  <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="gal-hero">
+  <div class="gh-bg"></div>
+  <video class="gh-video-bg" autoplay muted loop playsinline preload="none" poster="assets/images/gallery-hero-poster.jpg">
+    <source src="assets/images/v2.mp4" type="video/mp4">
+  </video>
+  <div class="gh-video-tint"></div>
+  <div class="gh-ghost">MOMENTS</div>
+  <div class="gh-content">
+    <div class="gh-tag"><div class="gh-tag-line"></div><span class="gh-tag-txt">Photos · Videos · Memories</span></div>
+    <h1 class="gh-title">The <em>Gallery</em></h1>
+    <p class="gh-desc">Every image tells a story — from the stage to the studio, from worship nights to behind-the-scenes moments. This is the world of Micky Mimsanii.</p>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterGallery('all',this)">All <span class="filter-count" id="cnt-all">18</span></button>
+  <button class="filter-btn" onclick="filterGallery('performance',this)">Performance <span class="filter-count" id="cnt-performance">4</span></button>
+  <button class="filter-btn" onclick="filterGallery('studio',this)">Studio <span class="filter-count" id="cnt-studio">4</span></button>
+  <button class="filter-btn" onclick="filterGallery('worship',this)">Worship <span class="filter-count" id="cnt-worship">4</span></button>
+  <button class="filter-btn" onclick="filterGallery('behind-the-scenes',this)">Behind the Scenes <span class="filter-count" id="cnt-behind-the-scenes">3</span></button>
+  <button class="filter-btn" onclick="filterGallery('portrait',this)">Portrait <span class="filter-count" id="cnt-portrait">3</span></button>
+</div>
+
+<!-- ══════════ MASONRY GRID ══════════ -->
+<section id="gallery-section">
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gal-item rv d1" data-cat="studio" data-index="1" onclick="openLightbox(1)">
+    <img src="assets/images/s1.webp" alt="Recording Session" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Studio</div> 
+        <div class="gal-item-title">Recording Session</div>
+    </div>
+</div>
+
+
+    <div class="gal-item rv d1" data-cat="worship" data-index="2" onclick="openLightbox(2)">
+    <img src="assets/images/w1.webp" alt="Worship Experience" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Worship</div> 
+        <div class="gal-item-title">Worship Experience</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="portrait" data-index="3" onclick="openLightbox(3)">
+    <img src="assets/images/pp1.webp" alt="Editorial" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Portrait</div> 
+        <div class="gal-item-title">Editorial</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="behind-the-scenes" data-index="4" onclick="openLightbox(4)">
+    <img src="assets/images/B1.webp" alt="Siwezi-Stagga" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Behind the Scenes</div> 
+        <div class="gal-item-title">Siwezi-Stagga</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="performance" data-index="5" onclick="openLightbox(5)">
+    <img src="assets/images/p1.webp" alt="Evening Performance" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Performance</div> 
+        <div class="gal-item-title">Evening Performance</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="worship" data-index="6" onclick="openLightbox(6)">
+    <img src="assets/images/w2.webp" alt="Leading Worship" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Worship</div> 
+        <div class="gal-item-title">Leading Worship</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="behind-the-scenes" data-index="7" onclick="openLightbox(7)">
+    <img src="assets/images/B2.webp" alt="Sound Check" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Behind the Scenes</div> 
+        <div class="gal-item-title">Sound Check</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="worship" data-index="8" onclick="openLightbox(8)">
+    <img src="assets/images/w3.webp" alt="Worship Set" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Worship</div> 
+        <div class="gal-item-title">Worship Set</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="portrait" data-index="9" onclick="openLightbox(9)">
+    <img src="assets/images/pp2.webp" alt="Editorial" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Portrait</div> 
+        <div class="gal-item-title">Editorial</div>
+    </div>
+</div>
+
+    <div class="gal-item rv d1" data-cat="studio" data-index="10" onclick="openLightbox(10)">
+    <img src="assets/images/s2.webp" alt="Podcast Recording" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Studio</div> 
+        <div class="gal-item-title">Podcast Recording</div>
+    </div>
+</div>
+
+
+    <div class="gal-item rv d1" data-cat="worship" data-index="11" onclick="openLightbox(11)">
+    <img src="assets/images/w4.webp" alt="Worship Set" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Worship</div> 
+        <div class="gal-item-title">Worship Set</div>
+    </div>
+</div>
+
+
+    <div class="gal-item rv d1" data-cat="behind-the-scenes" data-index="12" onclick="openLightbox(12)">
+    <img src="assets/images/B3.webp" alt="Prep" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Behind the Scenes</div> 
+        <div class="gal-item-title">prep</div>
+    </div>
+</div>
+
+
+    <div class="gal-item rv d1" data-cat="performance" data-index="13" onclick="openLightbox(13)">
+    <img src="assets/images/p2.webp" alt="The Awaken" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Performance</div> 
+        <div class="gal-item-title">The Awaken</div>
+    </div>
+</div>
+
+
+    <div class="gal-item rv d1" data-cat="portrait" data-index="14" onclick="openLightbox(14)">
+    <img src="assets/images/pp3.webp" alt="Fearless Gala" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Portrait</div> 
+        <div class="gal-item-title">Fearless Gala</div>
+    </div>
+</div>
+
+  
+    <div class="gal-item rv d1" data-cat="studio" data-index="15" onclick="openLightbox(15)">
+    <img src="assets/images/s3.webp" alt="Recording Session" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Studio</div> 
+        <div class="gal-item-title">Recording Session</div>
+    </div>
+</div>
+
+    
+    <div class="gal-item rv d1" data-cat="performance" data-index="16" onclick="openLightbox(16)">
+    <img src="assets/images/p3.webp" alt="The Rough" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Performance</div> 
+        <div class="gal-item-title">The Rough</div>
+    </div>
+</div>
+ 
+
+    <div class="gal-item rv d1" data-cat="studio" data-index="17" onclick="openLightbox(17)">
+    <img src="assets/images/s4.webp" alt="Recording Session" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Studio</div> 
+        <div class="gal-item-title">Recording Session</div>
+    </div>
+</div>
+
+
+    <div class="gal-item rv d1" data-cat="performance" data-index="18" onclick="openLightbox(18)">
+    <img src="assets/images/p4.webp" alt="The Awaken" class="gal-ph">
+    <div class="gal-item-overlay">
+        <div class="gal-item-cat">Performance</div> 
+        <div class="gal-item-title">The Awaken</div>
+    </div>
+</div>
+
+
+
+  <div style="text-align:center;margin-top:48px" id="loadMoreWrap">
+    <button class="btn-outline" onclick="toast('All photos loaded — more coming soon!')">
+      <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-camera"/></svg></span>
+      Load More
+    </button>
+  </div>
+</section>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <button class="lb-prev" onclick="navLightbox(-1)" aria-label="Previous">‹</button>
+  <button class="lb-next" onclick="navLightbox(1)" aria-label="Next">›</button>
+  <div class="lb-media" id="lbMedia"></div>
+  <div class="lb-info">
+    <div class="lb-cat" id="lbCat"></div>
+    <div class="lb-title" id="lbTitle"></div>
+  </div>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<!-- ══════════ VIDEOS ══════════ -->
+<section id="videos">
+  <div class="sl rv">Video</div>
+  <h2 class="st rv">Watch <em>Micky Live</em></h2>
+
+  <div class="video-grid">
+
+    <div class="vid-card rv" onclick="openVideoLightbox('https://www.youtube.com/embed/VIDEO_ID_1','Performance','Dream Big — Live Concert')">
+      <div class="vid-card-bg"></div>
+      <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+      <div class="vid-info">
+        <div class="vid-cat">Performance</div>
+        <div class="vid-title">Dream Big — Live Concert</div>
+      </div>
+    </div>
+
+    <div class="vid-card cr-vid rv d1" onclick="openVideoLightbox('https://www.youtube.com/embed/VIDEO_ID_2','Worship','Hakuna Kama Wewe — Worship Night')">
+      <div class="vid-card-bg"></div>
+      <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+      <div class="vid-info">
+        <div class="vid-cat">Worship</div>
+        <div class="vid-title">Hakuna Kama Wewe — Worship Night</div>
+      </div>
+    </div>
+
+    <div class="vid-card rv d2" onclick="openVideoLightbox('https://www.youtube.com/embed/VIDEO_ID_3','Studio','Behind the Song — Milele')">
+      <div class="vid-card-bg"></div>
+      <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+      <div class="vid-info">
+        <div class="vid-cat">Studio</div>
+        <div class="vid-title">Behind the Song — Milele</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="f-brand">Micky <em>Mimsanii</em></div>
+      <p class="f-tagline">Musician · Songwriter · Vocalist · Minister.<br>Dreaming big, one song at a time.</p>
+      <div class="f-socs">
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Facebook coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-fb"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Instagram coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ig"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('YouTube coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-yt"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('TikTok coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tiktok"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Spotify coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-spotify"/></svg></span>
+      </div>
+    </div>
+    <div class="f-col"><h5>Pages</h5><ul>
+      <li><a href="about.html">About &amp; Bio</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="events.html">Events &amp; Tickets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="merch.html">Merch Store</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Support</h5><ul>
+      <li><a href="sponsors.html">Sponsors &amp; Donate</a></li>
+      <li><a href="partner.html">Partner With Us</a></li>
+      <li><a href="ministry.html">Ministry</a></li>
+      <li><a href="blog.html">Blog &amp; News</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:mimsanii40@gmail.com">mimsanii40@gmail.com</a></li>
+      <li><a href="tel:+254115555072">+254 115 555 072</a></li>
+      <li><a href="#">Nairobi, Kenya</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Micky #mimsanii · All rights reserved.</span>
+    <span>Crafted with passion · by #mimsanii</span>
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="bn-inner">
+    <a href="index.html" class="bn-item" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+      Home
+    </a>
+    <a href="music.html" class="bn-item" aria-label="Music">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      Music
+    </a>
+    <a href="events.html" class="bn-item" aria-label="Events">
+      <svg viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></svg>
+      Events
+    </a>
+    <a href="gallery.html" class="bn-item active" aria-label="Gallery">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      Gallery
+    </a>
+    <button class="bn-item" aria-label="More" onclick="openMoreSheet()" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>
+      More
+    </button>
+  </div>
+</nav>
+
+<!-- MORE SHEET -->
+<div id="bn-more-sheet" role="dialog" aria-modal="true">
+  <div class="bn-sheet-bg" onclick="closeMoreSheet()"></div>
+  <div class="bn-sheet-panel">
+    <div class="bn-sheet-handle"></div>
+    <div class="bn-sheet-grid">
+      <a href="merch.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg><span>Merch</span>
+      </a>
+      <a href="sponsors.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><use href="#i-heart"/></svg><span>Donate</span>
+      </a>
+      <a href="ministry.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><use href="#i-cross"/></svg><span>Ministry</span>
+      </a>
+      <a href="blog.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Blog</span>
+      </a>
+      <a href="about.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About</span>
+      </a>
+      <a href="partner.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Partner</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a)})();
+
+/* STICKY NAV */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+/* MORE SHEET */
+function openMoreSheet(){document.getElementById('bn-more-sheet').classList.add('open');document.body.style.overflow='hidden'}
+function closeMoreSheet(){document.getElementById('bn-more-sheet').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeLightbox();closeMoreSheet();}
+  if(e.key==='ArrowLeft')navLightbox(-1);
+  if(e.key==='ArrowRight')navLightbox(1);
+});
+let _sy=0;
+document.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_sy>60&&document.getElementById('bn-more-sheet').classList.contains('open'))closeMoreSheet()},{passive:true});
+
+/* TABLET ICON NAV */
+(function(){
+  const items=[
+    {href:'music.html',label:'Music',svg:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',cls:''},
+    {href:'events.html',label:'Events',svg:'<path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/>',cls:'tkt-icon'},
+    {href:'gallery.html',label:'Gallery',svg:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',cls:''},
+    {href:'merch.html',label:'Merch',svg:'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',cls:''},
+    {href:null,label:'More',svg:'<circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>',cls:'',more:true},
+  ];
+  const wrap=document.getElementById('navIcons');
+  items.forEach(({href,label,svg,cls,more})=>{
+    const el=more?document.createElement('button'):document.createElement('a');
+    if(!more)el.href=href;
+    else{el.style.cssText='background:none;border:none;font-family:inherit;cursor:pointer;';el.onclick=openMoreSheet;}
+    el.className='n-nav-icon '+(cls||'');
+    el.innerHTML=`<svg viewBox="0 0 24 24">${svg}</svg>${label}`;
+    wrap.appendChild(el);
+  });
+})();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* TOAST */
+let _tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
+
+/* ── FILTER ── */
+function filterGallery(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.gal-item').forEach(item=>{
+    const show = cat==='all' || item.dataset.cat===cat;
+    item.style.display = show ? '' : 'none';
+  });
+  // update visible indices for lightbox
+  buildVisibleItems();
+}
+
+/* ── LIGHTBOX ── */
+// Build data from DOM
+const allItems = Array.from(document.querySelectorAll('.gal-item'));
+const itemData = allItems.map(el=>{
+  const ov = el.querySelector('.gal-item-overlay');
+  return {
+    cat: ov.querySelector('.gal-item-cat').textContent,
+    title: ov.querySelector('.gal-item-title').textContent,
+    // src: replace with real image src when you have photos
+    src: null
+  };
+});
+
+let visibleItems = [...allItems];
+let currentLbIndex = 0;
+
+function buildVisibleItems(){
+  visibleItems = allItems.filter(el=>el.style.display!=='none');
+}
+
+function openLightbox(globalIndex){
+  buildVisibleItems();
+  // find position in visibleItems
+  const el = allItems[globalIndex];
+  currentLbIndex = visibleItems.indexOf(el);
+  if(currentLbIndex<0) currentLbIndex=0;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function renderLightbox(){
+  const el = visibleItems[currentLbIndex];
+  const globalIndex = allItems.indexOf(el);
+  const data = itemData[globalIndex];
+  const imgEl = el.querySelector('img');
+  const med = document.getElementById('lbMedia');
+
+  if(imgEl){
+    med.innerHTML=`<img src="${imgEl.src}" alt="${data.title}">`;
+  } else {
+    // placeholder when no real image yet
+    const svgEl = el.querySelector('svg');
+    med.innerHTML=`<div style="width:min(520px,88vw);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--d2);border:1px solid var(--pe2);color:rgba(226,226,224,.2);font-size:.65rem;letter-spacing:3px;text-align:center;padding:32px"><span style="font-size:2rem">📷</span><p>Add your photo to<br><code style="font-size:.7em">assets/images/gallery/</code><br>and replace the SVG placeholder</p></div>`;
+  }
+
+  document.getElementById('lbCat').textContent = data.cat;
+  document.getElementById('lbTitle').textContent = data.title;
+  document.getElementById('lbCounter').textContent = `${currentLbIndex+1} / ${visibleItems.length}`;
+}
+
+function navLightbox(dir){
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  currentLbIndex = (currentLbIndex + dir + visibleItems.length) % visibleItems.length;
+  renderLightbox();
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lbMedia').innerHTML='';
+  document.body.style.overflow='';
+}
+
+/* VIDEO LIGHTBOX */
+function openVideoLightbox(src, cat, title){
+  // show toast directing to real YouTube URL
+  if(src.includes('VIDEO_ID')){
+    toast('Replace VIDEO_ID in the HTML with your real YouTube video ID');
+    return;
+  }
+  const med = document.getElementById('lbMedia');
+  med.innerHTML=`<iframe src="${src}?autoplay=1&rel=0" allow="autoplay;encrypted-media" allowfullscreen></iframe>`;
+  document.getElementById('lbCat').textContent = cat;
+  document.getElementById('lbTitle').textContent = title;
+  document.getElementById('lbCounter').textContent = '';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+/* SWIPE TO NAVIGATE LIGHTBOX */
+let lbTouchStartX=0;
+document.getElementById('lightbox').addEventListener('touchstart',e=>{lbTouchStartX=e.touches[0].clientX},{passive:true});
+document.getElementById('lightbox').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-lbTouchStartX;
+  if(Math.abs(dx)>50) navLightbox(dx<0?1:-1);
+},{passive:true});
+
+buildVisibleItems();
+</script>
+</body>
+</html>

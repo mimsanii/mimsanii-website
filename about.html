@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micky Mimsanii — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --d1:#0E2931;--d2:#12484C;--t1:#2B7574;--cr:#861211;
+  --pe:#E2E2E0;--pe2:rgba(226,226,224,.07);
+  --font-d:'Cormorant Garamond',serif;--font-b:'Outfit',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--d1);color:var(--pe);overflow-x:hidden;cursor:none;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+ul{list-style:none}
+img{display:block;width:100%;object-fit:cover}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+/* CURSOR */
+#cur{width:8px;height:8px;background:var(--cr);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+#cur-r{width:30px;height:30px;border:1.5px solid rgba(43,117,116,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:all .12s ease}
+
+/* GLOW RING */
+.ir{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:all .35s}
+.ir svg{display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ir{border:1px solid rgba(43,117,116,.5);background:radial-gradient(circle at 38% 38%,rgba(43,117,116,.22) 0%,transparent 68%);box-shadow:0 0 12px rgba(43,117,116,.22),inset 0 0 8px rgba(43,117,116,.08)}
+.ir svg{stroke:var(--t1);stroke-width:1.5}
+.ir.cr{border-color:rgba(134,18,17,.55);background:radial-gradient(circle at 38% 38%,rgba(134,18,17,.2) 0%,transparent 68%);box-shadow:0 0 12px rgba(134,18,17,.2),inset 0 0 8px rgba(134,18,17,.08)}
+.ir.cr svg{stroke:#c0302f}
+.ir.pe{border-color:rgba(226,226,224,.18);background:radial-gradient(circle at 38% 38%,rgba(226,226,224,.06) 0%,transparent 68%);box-shadow:0 0 8px rgba(226,226,224,.06),inset 0 0 6px rgba(226,226,224,.03)}
+.ir.pe svg{stroke:rgba(226,226,224,.45)}
+.ir.sm{width:32px;height:32px}.ir.sm svg{width:14px;height:14px}
+.ir.md{width:46px;height:46px}.ir.md svg{width:21px;height:21px}
+.ir.lg{width:58px;height:58px}.ir.lg svg{width:27px;height:27px}
+.ir.xl{width:76px;height:76px}.ir.xl svg{width:34px;height:34px}
+a:hover .ir,.ring-hover:hover .ir{box-shadow:0 0 22px rgba(43,117,116,.5),inset 0 0 14px rgba(43,117,116,.18);border-color:rgba(43,117,116,.9)}
+a:hover .ir.cr,.ring-hover:hover .ir.cr{box-shadow:0 0 22px rgba(134,18,17,.45),inset 0 0 14px rgba(134,18,17,.18);border-color:rgba(134,18,17,.9)}
+a:hover .ir.pe,.ring-hover:hover .ir.pe{box-shadow:0 0 14px rgba(226,226,224,.15),inset 0 0 10px rgba(226,226,224,.08);border-color:rgba(226,226,224,.4)}
+
+/* NAV */
+nav#mainNav{position:fixed;top:0;width:100%;z-index:900;padding:24px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav#mainNav.stuck{background:rgba(14,41,49,.92);backdrop-filter:blur(20px);padding:15px 6%;border-bottom:1px solid var(--pe2)}
+.n-logo{display:flex;align-items:center;gap:14px}
+.n-mark{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t1);box-shadow:0 0 12px rgba(43,117,116,.25);background:var(--d2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.25rem;font-weight:600;overflow:hidden;transition:all .3s;flex-shrink:0}
+.n-logo:hover .n-mark{border-color:var(--cr);box-shadow:0 0 18px rgba(134,18,17,.3)}
+.n-text{font-family:var(--font-d);font-size:1.05rem;font-weight:600;letter-spacing:3px;line-height:1.1}
+.n-text small{display:block;font-size:.58rem;letter-spacing:5px;color:var(--t1);font-family:var(--font-b);font-weight:400}
+.n-links{display:flex;gap:28px}
+.n-links a{color:rgba(226,226,224,.48);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cr);transition:width .3s}
+.n-links a:hover,.n-links a.active{color:var(--pe)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-tkt{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:1px solid var(--cr);color:var(--pe);padding:8px 20px;transition:all .3s}
+.n-tkt:hover{background:var(--cr)}
+.n-nav-icons{display:none;gap:10px;align-items:center}
+.n-nav-icon{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(226,226,224,.45);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;padding:4px}
+.n-nav-icon:hover,.n-nav-icon:active{color:var(--t1)}
+.n-nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n-nav-icon.tkt-icon{color:rgba(134,18,17,.8)}
+.n-nav-icon.tkt-icon:hover{color:var(--cr)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--pe);transition:all .3s}
+#mob{display:none;position:fixed;inset:0;z-index:800;background:var(--d1);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob.open{display:flex}
+#mob a{font-family:var(--font-d);font-size:2.6rem;font-style:italic;color:var(--pe);transition:color .3s;letter-spacing:2px}
+#mob a:hover{color:var(--t1)}
+.mob-x{position:absolute;top:26px;right:6%;font-size:1.3rem;cursor:pointer;color:rgba(226,226,224,.4);background:none;border:none;font-family:var(--font-b)}
+
+/* BOTTOM NAV */
+#bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(6,13,17,.96);backdrop-filter:blur(18px);border-top:1px solid rgba(43,117,116,.25);height:62px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-inner{display:flex;height:62px;align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(226,226,224,.35);text-decoration:none;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;position:relative;background:none;border:none;font-family:var(--font-b)}
+.bn-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.active{color:var(--t1)}
+.bn-item.active::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cr)}
+#bn-more-sheet{display:none;position:fixed;inset:0;z-index:940}
+#bn-more-sheet.open{display:block}
+.bn-sheet-bg{position:absolute;inset:0;background:rgba(6,13,17,.7)}
+.bn-sheet-panel{position:absolute;bottom:62px;left:0;right:0;background:var(--d2);border-top:1px solid rgba(43,117,116,.3);border-radius:20px 20px 0 0;padding:18px 0 24px;animation:sheetUp .28s cubic-bezier(.25,.8,.25,1) both}
+@keyframes sheetUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.bn-sheet-handle{width:36px;height:3px;border-radius:2px;background:rgba(226,226,224,.2);margin:0 auto 18px}
+.bn-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(226,226,224,.05)}
+.bn-sheet-item{background:var(--d1);padding:20px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--pe);-webkit-tap-highlight-color:transparent;transition:background .3s}
+.bn-sheet-item:active{background:rgba(43,117,116,.15)}
+.bn-sheet-item svg{width:22px;height:22px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-sheet-item.cr-item svg{stroke:#c0302f}
+.bn-sheet-item span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.55)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cr);color:var(--pe);padding:13px 30px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));transition:all .35s;border:none}
+.btn-primary:hover{background:#a01615;letter-spacing:4px}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(226,226,224,.2);color:rgba(226,226,224,.65);padding:12px 28px;font-size:.7rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all .35s;background:none}
+.btn-outline:hover{border-color:var(--t1);color:var(--pe)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+.sl{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase;margin-bottom:18px}
+.sl::before{content:'';width:26px;height:1px;background:var(--cr)}
+.st{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.92;letter-spacing:-1px;margin-bottom:18px}
+.st em{font-style:italic;color:var(--t1)}
+.div-cr{width:50px;height:1px;background:linear-gradient(to right,var(--cr),transparent);margin:28px 0}
+
+#toast{position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--d2);border:1px solid rgba(43,117,116,.45);color:var(--pe);padding:13px 24px;font-size:.73rem;letter-spacing:2px;transform:translateY(70px);opacity:0;pointer-events:none;transition:all .4s}
+#toast.show{transform:none;opacity:1}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════
+   ABOUT HERO
+══════════════════════ */
+#about-hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.ah-left{position:relative;overflow:hidden;background:var(--d2)}
+.ah-photo{position:absolute;inset:0}
+.ah-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.ah-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,var(--d1) 100%),linear-gradient(to top,rgba(14,41,49,.6) 0%,transparent 40%)}
+.ah-corner{position:absolute;width:44px;height:44px;border-color:var(--cr);border-style:solid}
+.ah-corner.tl{top:16px;left:16px;border-width:2px 0 0 2px}
+.ah-corner.br{bottom:16px;right:16px;border-width:0 2px 2px 0}
+.ah-stripe{position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--cr),var(--t1))}
+.ah-right{display:flex;flex-direction:column;justify-content:center;padding:120px 6% 80px 7%;position:relative;z-index:2}
+.ah-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 40%,rgba(43,117,116,.12),transparent 65%)}
+.ah-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:clamp(6rem,14vw,12rem);font-weight:300;color:rgba(226,226,224,.03);right:-20px;top:50%;transform:translateY(-50%);white-space:nowrap;pointer-events:none;letter-spacing:-4px}
+.ah-tag{display:flex;align-items:center;gap:14px;margin-bottom:22px;opacity:0;animation:rise .9s .1s both}
+.ah-tag-line{width:36px;height:1px;background:var(--cr)}
+.ah-tag-txt{font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase}
+.ah-name{font-family:var(--font-d);font-size:clamp(3rem,7vw,7rem);font-weight:300;line-height:.88;letter-spacing:-2px;margin-bottom:8px;opacity:0;animation:rise .9s .25s both}
+.ah-name em{font-style:italic;color:var(--t1);display:block}
+.ah-role{font-size:.65rem;letter-spacing:5px;color:rgba(226,226,224,.3);text-transform:uppercase;margin-bottom:32px;opacity:0;animation:rise .9s .35s both}
+.ah-bio{font-size:.9rem;color:rgba(226,226,224,.5);line-height:2;max-width:440px;margin-bottom:40px;opacity:0;animation:rise .9s .45s both}
+.ah-bio strong{color:var(--pe);font-weight:500}
+.ah-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:rise .9s .6s both}
+
+/* STATS STRIP */
+.stats-strip{background:var(--d2);border-top:1px solid var(--pe2);border-bottom:1px solid var(--pe2);display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat-item{padding:32px 24px;text-align:center;border-right:1px solid var(--pe2);position:relative;overflow:hidden;transition:background .4s}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:rgba(43,117,116,.08)}
+.stat-num{font-family:var(--font-d);font-size:3.2rem;font-weight:300;color:var(--t1);line-height:1;margin-bottom:6px}
+.stat-item:nth-child(2n) .stat-num{color:var(--cr)}
+.stat-label{font-size:.56rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase}
+
+/* ══════════════════════
+   BIO SECTION
+══════════════════════ */
+#bio{padding:90px 6%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.bio-left .sl{margin-bottom:22px}
+.bio-p{font-size:.9rem;color:rgba(226,226,224,.5);line-height:2.1;margin-bottom:22px}
+.bio-p strong{color:var(--pe);font-weight:500}
+.bio-quote{border-left:2px solid var(--cr);padding:18px 24px;margin:32px 0;background:rgba(134,18,17,.05)}
+.bio-quote p{font-family:var(--font-d);font-size:1.4rem;font-style:italic;font-weight:300;color:rgba(226,226,224,.7);line-height:1.5}
+.bio-quote cite{display:block;margin-top:10px;font-size:.58rem;letter-spacing:3px;color:rgba(226,226,224,.25);text-transform:uppercase;font-style:normal}
+.bio-right{position:sticky;top:120px}
+
+/* PILLARS */
+.pillar-grid{display:flex;flex-direction:column;gap:1px;background:var(--pe2)}
+.pillar{background:var(--d2);padding:28px 26px;display:flex;gap:18px;align-items:flex-start;transition:background .4s;position:relative;overflow:hidden}
+.pillar::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--t1);transform:scaleY(0);transition:transform .4s;transform-origin:bottom}
+.pillar:hover{background:rgba(18,72,76,.2)}
+.pillar:hover::before{transform:scaleY(1)}
+.pillar.cr-pillar::before{background:var(--cr)}
+.pillar-icon{flex-shrink:0;margin-top:2px}
+.pillar-title{font-family:var(--font-d);font-size:1.2rem;font-weight:400;margin-bottom:6px}
+.pillar-desc{font-size:.76rem;color:rgba(226,226,224,.4);line-height:1.8}
+
+/* ══════════════════════
+   JOURNEY TIMELINE
+══════════════════════ */
+#journey{padding:90px 6%;background:var(--d2)}
+.timeline{position:relative;margin-top:52px;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--cr),var(--t1),transparent)}
+.tl-item{position:relative;padding:0 0 44px 32px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-32px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid var(--t1);background:var(--d2);transform:translateX(-50%)}
+.tl-item:first-child .tl-dot{border-color:var(--cr);background:var(--cr)}
+.tl-year{font-size:.56rem;letter-spacing:4px;color:var(--cr);text-transform:uppercase;margin-bottom:6px}
+.tl-title{font-family:var(--font-d);font-size:1.35rem;font-weight:400;margin-bottom:6px}
+.tl-desc{font-size:.78rem;color:rgba(226,226,224,.4);line-height:1.85}
+
+/* ══════════════════════
+   ACHIEVEMENTS
+══════════════════════ */
+#achievements{padding:90px 6%}
+.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pe2);margin-top:52px}
+.ach-card{background:var(--d1);padding:36px 28px;position:relative;overflow:hidden;transition:background .4s}
+.ach-card:hover{background:rgba(18,72,76,.18)}
+.ach-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--t1),transparent)}
+.ach-card.cr-card::after{background:linear-gradient(to right,var(--cr),transparent)}
+.ach-icon{margin-bottom:18px}
+.ach-num{font-family:var(--font-d);font-size:3.5rem;font-weight:300;color:var(--t1);line-height:1;margin-bottom:6px}
+.ach-card.cr-card .ach-num{color:var(--cr)}
+.ach-title{font-family:var(--font-d);font-size:1.1rem;font-weight:400;margin-bottom:8px}
+.ach-desc{font-size:.72rem;color:rgba(226,226,224,.35);line-height:1.8}
+.ach-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:5rem;font-weight:300;color:rgba(226,226,224,.03);right:-8px;bottom:-8px;line-height:1;pointer-events:none}
+
+/* ══════════════════════
+   PRESS KIT
+══════════════════════ */
+#press{padding:90px 6%;background:var(--d2)}
+.press-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pe2);margin-top:52px}
+.press-card{background:var(--d1);padding:36px 32px;transition:background .4s;position:relative;overflow:hidden}
+.press-card:hover{background:rgba(18,72,76,.15)}
+.press-card-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.press-card-title{font-family:var(--font-d);font-size:1.3rem;font-weight:400}
+.press-card-desc{font-size:.76rem;color:rgba(226,226,224,.38);line-height:1.85;margin-bottom:24px}
+.press-tag{display:inline-block;font-size:.5rem;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(43,117,116,.35);color:var(--t1);margin-bottom:8px}
+.press-specs{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.press-spec-row{display:flex;justify-content:space-between;font-size:.7rem;padding:8px 0;border-bottom:1px solid var(--pe2)}
+.press-spec-row span:first-child{color:rgba(226,226,224,.3);letter-spacing:1px}
+.press-spec-row span:last-child{color:rgba(226,226,224,.7)}
+.press-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:6rem;font-weight:300;color:rgba(226,226,224,.03);right:-10px;bottom:-10px;line-height:1;pointer-events:none}
+
+/* CONTACT CTA */
+#about-cta{padding:90px 6%;text-align:center;position:relative;overflow:hidden}
+#about-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 50% 50%,rgba(43,117,116,.1),transparent 70%)}
+.acta-inner{position:relative;z-index:1;max-width:520px;margin:0 auto}
+.acta-title{font-family:var(--font-d);font-size:clamp(2rem,5vw,3.8rem);font-weight:300;line-height:.9;margin-bottom:14px}
+.acta-title em{font-style:italic;color:var(--t1)}
+.acta-desc{font-size:.83rem;color:rgba(226,226,224,.38);line-height:1.9;margin-bottom:36px}
+.acta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+.f-brand{font-family:var(--font-d);font-size:2rem;font-style:italic;font-weight:300;margin-bottom:12px}
+.f-brand em{color:var(--t1)}
+.f-tagline{font-size:.78rem;color:rgba(226,226,224,.28);line-height:1.9;max-width:280px}
+.f-socs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.f-col h5{font-size:.6rem;letter-spacing:5px;color:rgba(226,226,224,.22);text-transform:uppercase;margin-bottom:22px}
+.f-col ul{display:flex;flex-direction:column;gap:11px}
+.f-col ul li a{color:rgba(226,226,224,.38);font-size:.8rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--t1)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid var(--pe2);font-size:.63rem;letter-spacing:2px;color:rgba(226,226,224,.18);flex-wrap:wrap;gap:10px}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(min-width:481px) and (max-width:1024px){
+  #cur,#cur-r{display:none}
+  body{cursor:auto}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:18px 5%}
+  #about-hero{grid-template-columns:1fr 1fr}
+  #bio{grid-template-columns:1fr;gap:40px}
+  .bio-right{position:static}
+  .ach-grid{grid-template-columns:repeat(2,1fr)}
+  .press-grid{grid-template-columns:1fr}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .stats-strip .stat-item:nth-child(2){border-right:none}
+  .stats-strip .stat-item:nth-child(3){border-top:1px solid var(--pe2)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:480px){
+  body{font-size:14px;padding-bottom:62px;cursor:auto}
+  #cur,#cur-r{display:none}
+  #bottom-nav{display:block}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:13px 5%}
+  nav#mainNav.stuck{padding:9px 5%}
+  .n-mark{width:34px;height:34px;font-size:.95rem}
+  .n-text{font-size:.82rem;letter-spacing:2px}
+  .n-text small{font-size:.46rem;letter-spacing:3px}
+
+  #about-hero{grid-template-columns:1fr;min-height:auto}
+  .ah-left{height:55vw;min-height:220px}
+  .ah-right{padding:32px 5% 48px}
+  .ah-name{font-size:clamp(2.6rem,12vw,4rem)}
+  .ah-bio{font-size:.82rem}
+
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .stat-item:nth-child(2){border-right:none}
+  .stat-item:nth-child(3){border-top:1px solid var(--pe2)}
+  .stat-num{font-size:2.4rem}
+
+  #bio{padding:52px 5%;grid-template-columns:1fr;gap:32px}
+  .bio-right{position:static}
+
+  #journey{padding:52px 5%}
+  .timeline{padding-left:24px}
+  .tl-item{padding-left:24px}
+  .tl-dot{left:-24px}
+
+  #achievements{padding:52px 5%}
+  .ach-grid{grid-template-columns:1fr}
+
+  #press{padding:52px 5%}
+  .press-grid{grid-template-columns:1fr}
+
+  #about-cta{padding:52px 5%}
+  .acta-btns{flex-direction:column;align-items:center}
+
+  footer{padding:44px 5% 24px}
+  .foot-grid{grid-template-columns:1fr;gap:22px}
+  .f-bottom{font-size:.52rem;flex-direction:column;gap:4px}
+  #toast{bottom:70px;right:12px;left:12px;font-size:.62rem;padding:9px 14px}
+}
+@media(max-width:767px) and (orientation:landscape){
+  #bottom-nav{display:block}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  body{padding-bottom:62px}
+}
+@media(hover:none){body{cursor:auto}#cur,#cur-r{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15ms!important}
+  .rv,.rvl,.rvr{opacity:1!important;transform:none!important}
+  .ah-tag,.ah-name,.ah-role,.ah-bio,.ah-btns{opacity:1!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div><div id="toast"></div>
+
+<!-- ICON DEFS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-mic"     viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></symbol>
+  <symbol id="i-ticket"  viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></symbol>
+  <symbol id="i-music"   viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-arrow"   viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-cross"   viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/></symbol>
+  <symbol id="i-heart"   viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-star"    viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="i-mail"    viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="i-doc"     viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+  <symbol id="i-img"     viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+  <symbol id="i-award"   viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></symbol>
+  <symbol id="i-bag"     viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-fb"      viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig"      viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-yt"      viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></symbol>
+  <symbol id="i-tiktok"  viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527M9 15c1.5-1 3.5-.5 4.5.5M7 9c3-1.5 6-1 8.5 1"/></symbol>
+</svg>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕ close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="music.html" onclick="closeMob()">Music</a>
+  <a href="events.html" onclick="closeMob()">Events</a>
+  <a href="gallery.html" onclick="closeMob()">Gallery</a>
+  <a href="merch.html" onclick="closeMob()">Merch</a>
+  <a href="sponsors.html" onclick="closeMob()">Sponsors</a>
+  <a href="ministry.html" onclick="closeMob()">Ministry</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="partner.html" onclick="closeMob()">Partner</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="n-logo">
+    <div class="n-mark"><img src="assets/images/logo.webp" alt="Micky Mimsanii" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+    <div class="n-text">MICKY MIMSANII<small>#dreambig</small></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="merch.html">Merch</a></li>
+    <li><a href="sponsors.html">Sponsors</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="partner.html">Partner</a></li>
+  </ul>
+  <div class="n-nav-icons" id="navIcons"></div>
+  <a href="events.html" class="n-tkt">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Get Tickets
+  </a>
+  <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="about-hero">
+  <!-- Left: Artist Photo -->
+  <div class="ah-left">
+    <div class="ah-photo">
+      <img src="assets/images/ab.webp" alt="Micky Mimsanii">
+    </div>
+    <div class="ah-stripe"></div>
+    <div class="ah-corner tl"></div>
+    <div class="ah-corner br"></div>
+  </div>
+
+  <!-- Right: Intro -->
+  <div class="ah-right">
+    <div class="ah-bg"></div>
+    <div class="ah-ghost">MICKY</div>
+    <div class="ah-tag"><div class="ah-tag-line"></div><span class="ah-tag-txt">The Artist · The Minister</span></div>
+    <h1 class="ah-name">Micky<br><em>Mimsanii</em></h1>
+    <p class="ah-role">Musician · Songwriter · Vocalist · Minister</p>
+    <p class="ah-bio">
+ <strong>Micky #mimsanii</strong> is a Nairobi-based gospel artist and worship minister whose music bridges the gap between authentic faith and powerful artistry. Rooted in a deep personal testimony, his sound carries the weight of real experience — every lyric a confession, every melody an act of worship.
+<br><br>
+Through every song and every moment of ministry, it is all for the glory and honor of God. With a growing community of <strong>5,000+ listeners</strong> across Kenya and beyond, the mission remains the same — to serve, to worship, and to draw hearts closer to Him.
+  
+    </p>
+    <div class="ah-btns">
+      <a href="music.html" class="btn-primary">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span>
+        Listen Now
+      </a>
+      <a href="#press" class="btn-outline">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-doc"/></svg></span>
+        Press Kit
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item rv">
+    <div class="stat-num">50+</div>
+    <div class="stat-label">Live Performances</div>
+  </div>
+  <div class="stat-item rv d1">
+    <div class="stat-num">12+</div>
+    <div class="stat-label">Original Releases</div>
+  </div>
+  <div class="stat-item rv d2">
+    <div class="stat-num">5K+</div>
+    <div class="stat-label">Fans & Followers</div>
+  </div>
+  <div class="stat-item rv d3">
+    <div class="stat-num">08</div>
+    <div class="stat-label">Years Creating</div>
+  </div>
+</div>
+
+<!-- ══════════ BIO + PILLARS ══════════ -->
+<section id="bio">
+  <div class="bio-left rvl">
+    <div class="sl">His Story</div>
+    <h2 class="st">The <em>Journey</em></h2>
+    <div class="div-cr"></div>
+    <p class="bio-p">
+  Born and raised in Nairobi, <strong>Micky Mimsanii</strong> discovered his gift for music at an early age — singing in church, school talent shows and local worship teams, before being led into his own path as a servant through music. His sound flows through gospel, contemporary worship and Afro-pop, all used as vessels to glorify God across cultures and generations.
+</p>
+
+<p class="bio-p">
+  His <strong>journey of faith</strong> is a testimony of God’s grace through every season. In moments of doubt, loss and breakthrough, it has been God who has sustained and shaped every song. What is created is not for performance, but as a testimony — music birthed in prayer, surrender and real encounters with Him.
+</p>
+
+<div class="bio-quote">
+  <p>"Every song I write is a conversation with God — I’m just a vessel chosen to share what He places in my heart."</p>
+  <cite>— Micky Mimsanii</cite>
+</div>
+
+<p class="bio-p">
+  As a <strong>servant in ministry</strong>, Micky does not see himself as the center, but as a vessel. The assignment remains clear — to serve, to lead others into worship, and to point every heart back to God. Every platform, every moment, and every sound belongs to Him alone.
+</p>
+  </div>
+
+  <div class="bio-right rvr">
+    <div class="sl" style="margin-bottom:22px">What Drives Him</div>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></span></div>
+        <div>
+          <div class="pillar-title">Musical Background</div>
+          <div class="pillar-desc">Trained in gospel, worship and Afro-pop — a versatile artist who blends African rhythms with heartfelt praise.</div>
+        </div>
+      </div>
+      <div class="pillar cr-pillar">
+        <div class="pillar-icon"><span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg></span></div>
+        <div>
+          <div class="pillar-title">Ministry & Faith</div>
+          <div class="pillar-desc">Every performance is an act of ministry. Micky's stage is an altar — a space where faith meets music.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span></div>
+        <div>
+          <div class="pillar-title">Personal Testimony</div>
+          <div class="pillar-desc">A story of faith through fire — his music carries the authenticity of someone who has lived every word he sings.</div>
+        </div>
+      </div>
+      <div class="pillar cr-pillar">
+        <div class="pillar-icon"><span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-star"/></svg></span></div>
+        <div>
+          <div class="pillar-title">Awards & Recognition</div>
+          <div class="pillar-desc">Recognised across Nairobi's gospel scene for artistic excellence and impact both on stage and in the community.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ JOURNEY TIMELINE ══════════ -->
+<section id="journey">
+  <div class="sl rv">Milestones</div>
+  <h2 class="st rv">The <em>Timeline</em></h2>
+
+  <div class="timeline">
+    <div class="tl-item rv">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025</div>
+      <div class="tl-title">The Awaken — Destiny Chapel Nairobi</div>
+      <div class="tl-desc">His biggest headline show yet — a full concert at destiny chapel, bringing together fans, worshippers and the wider gospel community.</div>
+    </div>
+    <div class="tl-item rv d1">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-title">Released "Nditni" & "Yeshua"</div>
+      <div class="tl-desc">Two major singles that cemented his place in Kenya's gospel scene — racking up thousands of streams and airplay on Christian radio stations.</div>
+    </div>
+    <div class="tl-item rv d2">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2023</div>
+      <div class="tl-title">50th Live Performance Milestone</div>
+      <div class="tl-desc">From intimate church services to large-scale worship events across Nairobi, Mombasa and beyond.</div>
+    </div>
+    <div class="tl-item rv d3">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022</div>
+      <div class="tl-title">Recorded his First Studio Singles & video shoot</div>
+      <div class="tl-desc">Entered the professional recording space with his first set of studio singles, earning recognition and bookings across Kenya's vibrant gospel circuit.</div>
+    </div>
+    <div class="tl-item rv">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2016</div>
+      <div class="tl-title">The Beginning — #DreamBig</div>
+      <div class="tl-desc">Started his musical journey with a simple conviction: that God had placed a song in his heart meant for the world. The #DreamBig vision was born.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ACHIEVEMENTS ══════════ -->
+<section id="achievements">
+  <div class="sl rv">Recognition</div>
+  <h2 class="st rv">Awards & <em>Achievements</em></h2>
+
+  <div class="ach-grid">
+    <div class="ach-card rv">
+      <div class="ach-ghost">★</div>
+      <div class="ach-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-award"/></svg></span></div>
+      <div class="ach-num">3×</div>
+      <div class="ach-title">The Rough Competition</div>
+      <div class="ach-desc">Honored to be selected as a finalist in The Rough Competition — a journey that continues to shape the calling and growth in music ministry.</div>
+    </div>
+    <div class="ach-card cr-card rv d1">
+      <div class="ach-ghost">♪</div>
+      <div class="ach-icon"><span class="ir cr md"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span></div>
+      <div class="ach-num">Growing</div>
+      <div class="ach-title">Audience Reach</div>
+      <div class="ach-desc">A steadily growing audience across different platforms — trusting God to reach every heart He intends through the music.</div>
+    </div>
+    <div class="ach-card rv d2">
+      <div class="ach-ghost">✦</div>
+      <div class="ach-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></span></div>
+      <div class="ach-num">By Grace</div>
+      <div class="ach-title">Ministry Opportunities</div>
+      <div class="ach-desc">Opportunities to minister in churches, gatherings and worship spaces — each one a moment to serve and point people back to God.</div>
+    </div>
+  </div>
+</section>
+<!-- ══════════ PRESS KIT ══════════ -->
+<section id="press">
+  <div class="sl rv">For Media</div>
+  <h2 class="st rv">Press <em>Kit</em></h2>
+
+  <div class="press-grid">
+    <!-- Artist Bio -->
+    <div class="press-card rv">
+      <div class="press-ghost">Bio</div>
+      <div class="press-card-head">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-doc"/></svg></span>
+        <div class="press-card-title">Artist Biography</div>
+      </div>
+      <span class="press-tag">Official Bio</span>
+      <p class="press-card-desc">Short and long-form artist biography suitable for event programmes, media features, radio introductions and press releases.</p>
+      <div class="press-specs">
+        <div class="press-spec-row"><span>Short Bio</span><span>2 sentences</span></div>
+        <div class="press-spec-row"><span>Long Bio</span><span>2 paragraphs</span></div>
+        <div class="press-spec-row"><span>Language</span><span>English / Swahili</span></div>
+      </div>
+      <button class="btn-outline" onclick="toast('Bio text — contact mimsanii40@gmail.com for formatted copy')">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-arrow"/></svg></span>
+        Request Bio
+      </button>
+    </div>
+
+    <!-- Press Photos -->
+    <div class="press-card rv d1">
+      <div class="press-ghost">📸</div>
+      <div class="press-card-head">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-img"/></svg></span>
+        <div class="press-card-title">Press Photos</div>
+      </div>
+      <span class="press-tag">Hi-Res Images</span>
+      <p class="press-card-desc">High-resolution artist photos cleared for editorial, promotional and media use. Available in portrait and landscape orientations.</p>
+      <div class="press-specs">
+        <div class="press-spec-row"><span>Resolution</span><span>300dpi / Hi-Res</span></div>
+        <div class="press-spec-row"><span>Format</span><span>JPG / PNG</span></div>
+        <div class="press-spec-row"><span>Usage</span><span>Editorial & Promo</span></div>
+      </div>
+      <button class="btn-outline" onclick="toast('Contact mimsanii40@gmail.com to request press photos')">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-arrow"/></svg></span>
+        Request Photos
+      </button>
+    </div>
+
+    <!-- Booking Info -->
+    <div class="press-card rv d2">
+      <div class="press-ghost">🎤</div>
+      <div class="press-card-head">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></span>
+        <div class="press-card-title">Booking Information</div>
+      </div>
+      <span class="press-tag">Live & Ministry</span>
+      <p class="press-card-desc">Technical rider, stage requirements and booking details for live concerts, worship events, church invitations and media appearances.</p>
+      <div class="press-specs">
+        <div class="press-spec-row"><span>Events</span><span>Concerts · Worship · Crusades</span></div>
+        <div class="press-spec-row"><span>Region</span><span>Kenya · East Africa</span></div>
+        <div class="press-spec-row"><span>Contact</span><span>+254 115 555 072</span></div>
+      </div>
+      <a href="mailto:mimsanii40@gmail.com?subject=Booking Enquiry — Micky Mimsanii" class="btn-primary" style="font-size:.62rem;padding:10px 20px">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+        Send Booking Enquiry
+      </a>
+    </div>
+
+    <!-- Social & Streaming -->
+    <div class="press-card rv d3">
+      <div class="press-ghost">♫</div>
+      <div class="press-card-head">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span>
+        <div class="press-card-title">Links & Platforms</div>
+      </div>
+      <span class="press-tag">Media Links</span>
+      <p class="press-card-desc">Official streaming, social media and contact links for editorial features, interviews and online coverage.</p>
+      <div class="press-specs">
+        <div class="press-spec-row"><span>Spotify</span><span>open.spotify.com</span></div>
+        <div class="press-spec-row"><span>YouTube</span><span>youtube.com/@mimsanii</span></div>
+        <div class="press-spec-row"><span>Instagram</span><span>@mimsanii</span></div>
+        <div class="press-spec-row"><span>Email</span><span>mimsanii40@gmail.com</span></div>
+      </div>
+      <a href="mailto:mimsanii40@gmail.com?subject=Media Enquiry — Micky Mimsanii" class="btn-outline">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+        Media Enquiry
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section id="about-cta">
+  <div class="acta-inner rv">
+    <div class="sl" style="justify-content:center;margin-bottom:24px">Work Together</div>
+    <h2 class="acta-title">Let's Create<br><em>Something Great</em></h2>
+    <p class="acta-desc">Whether you want to book Micky for an event, collaborate on a project, or simply connect — the door is always open.</p>
+    <div class="acta-btns">
+      <a href="mailto:mimsanii40@gmail.com" class="btn-primary">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+        Get In Touch
+      </a>
+      <a href="events.html" class="btn-outline">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+        See Upcoming Events
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="f-brand">Micky <em>Mimsanii</em></div>
+      <p class="f-tagline">Musician · Songwriter · Vocalist · Minister.<br>Dreaming big, one song at a time.</p>
+      <div class="f-socs">
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Facebook coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-fb"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Instagram coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ig"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('YouTube coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-yt"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('TikTok coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tiktok"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Spotify coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-spotify"/></svg></span>
+      </div>
+    </div>
+    <div class="f-col"><h5>Pages</h5><ul>
+      <li><a href="about.html">About &amp; Bio</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="events.html">Events &amp; Tickets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="merch.html">Merch Store</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Support</h5><ul>
+      <li><a href="sponsors.html">Sponsors &amp; Donate</a></li>
+      <li><a href="partner.html">Partner With Us</a></li>
+      <li><a href="ministry.html">Ministry</a></li>
+      <li><a href="blog.html">Blog &amp; News</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:mimsanii40@gmail.com">mimsanii40@gmail.com</a></li>
+      <li><a href="tel:+254115555072">+254 115 555 072</a></li>
+      <li><a href="#">Nairobi, Kenya</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Micky #mimsanii · All rights reserved.</span>
+    <span>Crafted with passion · by #mimsanii</span>
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="bn-inner">
+    <a href="index.html" class="bn-item" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+      Home
+    </a>
+    <a href="music.html" class="bn-item" aria-label="Music">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      Music
+    </a>
+    <a href="events.html" class="bn-item" aria-label="Events">
+      <svg viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></svg>
+      Events
+    </a>
+    <a href="gallery.html" class="bn-item" aria-label="Gallery">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      Gallery
+    </a>
+    <button class="bn-item" aria-label="More" onclick="openMoreSheet()" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>
+      More
+    </button>
+  </div>
+</nav>
+
+<!-- MORE SHEET -->
+<div id="bn-more-sheet" role="dialog" aria-modal="true">
+  <div class="bn-sheet-bg" onclick="closeMoreSheet()"></div>
+  <div class="bn-sheet-panel">
+    <div class="bn-sheet-handle"></div>
+    <div class="bn-sheet-grid">
+      <a href="merch.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg><span>Merch</span>
+      </a>
+      <a href="sponsors.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><use href="#i-heart"/></svg><span>Donate</span>
+      </a>
+      <a href="ministry.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><use href="#i-cross"/></svg><span>Ministry</span>
+      </a>
+      <a href="blog.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Blog</span>
+      </a>
+      <a href="about.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About</span>
+      </a>
+      <a href="partner.html" class="bn-sheet-item" onclick="closeMoreSheet()">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Partner</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a)})();
+
+/* STICKY NAV */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+/* MORE SHEET */
+function openMoreSheet(){document.getElementById('bn-more-sheet').classList.add('open');document.body.style.overflow='hidden'}
+function closeMoreSheet(){document.getElementById('bn-more-sheet').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMoreSheet()});
+let _sy=0;
+document.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_sy>60&&document.getElementById('bn-more-sheet').classList.contains('open'))closeMoreSheet()},{passive:true});
+
+/* TABLET ICON NAV */
+(function(){
+  const items=[
+    {href:'music.html',label:'Music',svg:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',cls:''},
+    {href:'events.html',label:'Events',svg:'<path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/>',cls:'tkt-icon'},
+    {href:'gallery.html',label:'Gallery',svg:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',cls:''},
+    {href:'merch.html',label:'Merch',svg:'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',cls:''},
+    {href:null,label:'More',svg:'<circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>',cls:'',more:true},
+  ];
+  const wrap=document.getElementById('navIcons');
+  items.forEach(({href,label,svg,cls,more})=>{
+    const el=more?document.createElement('button'):document.createElement('a');
+    if(!more)el.href=href;
+    else{el.style.cssText='background:none;border:none;font-family:inherit;cursor:pointer;';el.onclick=openMoreSheet;}
+    el.className='n-nav-icon '+(cls||'');
+    el.innerHTML=`<svg viewBox="0 0 24 24">${svg}</svg>${label}`;
+    wrap.appendChild(el);
+  });
+})();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.1});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+
+/* TOAST */
+let _tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
+</script>
+</body>
+</html>

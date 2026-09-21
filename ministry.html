@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micky Mimsanii — Ministry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --d1:#0E2931;--d2:#12484C;--t1:#2B7574;--cr:#861211;
+  --pe:#E2E2E0;--pe2:rgba(226,226,224,.07);
+  --font-d:'Cormorant Garamond',serif;--font-b:'Outfit',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--d1);color:var(--pe);overflow-x:hidden;cursor:none;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+ul{list-style:none}
+img{display:block;width:100%;object-fit:cover}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+/* CURSOR */
+#cur{width:8px;height:8px;background:var(--cr);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+#cur-r{width:30px;height:30px;border:1.5px solid rgba(43,117,116,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:all .12s ease}
+
+/* GLOW RING */
+.ir{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:all .35s}
+.ir svg{display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ir{border:1px solid rgba(43,117,116,.5);background:radial-gradient(circle at 38% 38%,rgba(43,117,116,.22) 0%,transparent 68%);box-shadow:0 0 12px rgba(43,117,116,.22),inset 0 0 8px rgba(43,117,116,.08)}
+.ir svg{stroke:var(--t1);stroke-width:1.5}
+.ir.cr{border-color:rgba(134,18,17,.55);background:radial-gradient(circle at 38% 38%,rgba(134,18,17,.2) 0%,transparent 68%);box-shadow:0 0 12px rgba(134,18,17,.2),inset 0 0 8px rgba(134,18,17,.08)}
+.ir.cr svg{stroke:#c0302f}
+.ir.pe{border-color:rgba(226,226,224,.18);background:radial-gradient(circle at 38% 38%,rgba(226,226,224,.06) 0%,transparent 68%);box-shadow:0 0 8px rgba(226,226,224,.06),inset 0 0 6px rgba(226,226,224,.03)}
+.ir.pe svg{stroke:rgba(226,226,224,.45)}
+.ir.sm{width:32px;height:32px}.ir.sm svg{width:14px;height:14px}
+.ir.md{width:46px;height:46px}.ir.md svg{width:21px;height:21px}
+.ir.lg{width:58px;height:58px}.ir.lg svg{width:27px;height:27px}
+.ir.xl{width:76px;height:76px}.ir.xl svg{width:34px;height:34px}
+a:hover .ir,.ring-hover:hover .ir{box-shadow:0 0 22px rgba(43,117,116,.5),inset 0 0 14px rgba(43,117,116,.18);border-color:rgba(43,117,116,.9)}
+a:hover .ir.cr,.ring-hover:hover .ir.cr{box-shadow:0 0 22px rgba(134,18,17,.45),inset 0 0 14px rgba(134,18,17,.18);border-color:rgba(134,18,17,.9)}
+
+/* NAV */
+nav#mainNav{position:fixed;top:0;width:100%;z-index:900;padding:24px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav#mainNav.stuck{background:rgba(14,41,49,.92);backdrop-filter:blur(20px);padding:15px 6%;border-bottom:1px solid var(--pe2)}
+.n-logo{display:flex;align-items:center;gap:14px}
+.n-mark{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t1);box-shadow:0 0 12px rgba(43,117,116,.25);background:var(--d2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.25rem;font-weight:600;overflow:hidden;transition:all .3s;flex-shrink:0}
+.n-logo:hover .n-mark{border-color:var(--cr);box-shadow:0 0 18px rgba(134,18,17,.3)}
+.n-text{font-family:var(--font-d);font-size:1.05rem;font-weight:600;letter-spacing:3px;line-height:1.1}
+.n-text small{display:block;font-size:.58rem;letter-spacing:5px;color:var(--t1);font-family:var(--font-b);font-weight:400}
+.n-links{display:flex;gap:28px}
+.n-links a{color:rgba(226,226,224,.48);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cr);transition:width .3s}
+.n-links a:hover,.n-links a.active{color:var(--pe)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-tkt{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:1px solid var(--cr);color:var(--pe);padding:8px 20px;transition:all .3s}
+.n-tkt:hover{background:var(--cr)}
+.n-nav-icons{display:none;gap:10px;align-items:center}
+.n-nav-icon{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(226,226,224,.45);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;padding:4px}
+.n-nav-icon:hover,.n-nav-icon:active{color:var(--t1)}
+.n-nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n-nav-icon.tkt-icon{color:rgba(134,18,17,.8)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--pe);transition:all .3s}
+#mob{display:none;position:fixed;inset:0;z-index:800;background:var(--d1);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob.open{display:flex}
+#mob a{font-family:var(--font-d);font-size:2.6rem;font-style:italic;color:var(--pe);transition:color .3s;letter-spacing:2px}
+#mob a:hover{color:var(--t1)}
+.mob-x{position:absolute;top:26px;right:6%;font-size:1.3rem;cursor:pointer;color:rgba(226,226,224,.4);background:none;border:none;font-family:var(--font-b)}
+
+/* BOTTOM NAV */
+#bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(6,13,17,.96);backdrop-filter:blur(18px);border-top:1px solid rgba(43,117,116,.25);height:62px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-inner{display:flex;height:62px;align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(226,226,224,.35);text-decoration:none;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;position:relative;background:none;border:none;font-family:var(--font-b)}
+.bn-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.active{color:var(--t1)}
+.bn-item.active::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cr)}
+#bn-more-sheet{display:none;position:fixed;inset:0;z-index:940}
+#bn-more-sheet.open{display:block}
+.bn-sheet-bg{position:absolute;inset:0;background:rgba(6,13,17,.7)}
+.bn-sheet-panel{position:absolute;bottom:62px;left:0;right:0;background:var(--d2);border-top:1px solid rgba(43,117,116,.3);border-radius:20px 20px 0 0;padding:18px 0 24px;animation:sheetUp .28s cubic-bezier(.25,.8,.25,1) both}
+@keyframes sheetUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.bn-sheet-handle{width:36px;height:3px;border-radius:2px;background:rgba(226,226,224,.2);margin:0 auto 18px}
+.bn-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(226,226,224,.05)}
+.bn-sheet-item{background:var(--d1);padding:20px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--pe);-webkit-tap-highlight-color:transparent;transition:background .3s}
+.bn-sheet-item:active{background:rgba(43,117,116,.15)}
+.bn-sheet-item svg{width:22px;height:22px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-sheet-item.cr-item svg{stroke:#c0302f}
+.bn-sheet-item span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.55)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cr);color:var(--pe);padding:13px 30px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));transition:all .35s;border:none}
+.btn-primary:hover{background:#a01615;letter-spacing:4px}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(226,226,224,.2);color:rgba(226,226,224,.65);padding:12px 28px;font-size:.7rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all .35s;background:none}
+.btn-outline:hover{border-color:var(--t1);color:var(--pe)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+.sl{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase;margin-bottom:18px}
+.sl::before{content:'';width:26px;height:1px;background:var(--cr)}
+.st{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.92;letter-spacing:-1px;margin-bottom:18px}
+.st em{font-style:italic;color:var(--t1)}
+.div-cr{width:50px;height:1px;background:linear-gradient(to right,var(--cr),transparent);margin:28px 0}
+
+#toast{position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--d2);border:1px solid rgba(43,117,116,.45);color:var(--pe);padding:13px 24px;font-size:.73rem;letter-spacing:2px;transform:translateY(70px);opacity:0;pointer-events:none;transition:all .4s}
+#toast.show{transform:none;opacity:1}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════════
+   MINISTRY HERO
+══════════════════════════ */
+#min-hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.mnh-left{position:relative;overflow:hidden}
+.mnh-photo{position:absolute;inset:0;background:linear-gradient(155deg,rgba(134,18,17,.6),var(--d1) 70%)}
+.mnh-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;mix-blend-mode:luminosity;opacity:.35}
+.mnh-cross{position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);z-index:2;opacity:.06}
+.mnh-cross svg{width:min(220px,35vw);height:min(220px,35vw);fill:none;stroke:var(--pe);stroke-width:.5}
+.mnh-stripe{position:absolute;top:0;right:0;bottom:0;width:5px;background:linear-gradient(to bottom,var(--cr),var(--t1))}
+.mnh-right{display:flex;flex-direction:column;justify-content:center;padding:120px 6% 80px 7%;position:relative;z-index:2}
+.mnh-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 40%,rgba(43,117,116,.1),transparent 65%)}
+.mnh-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:clamp(5rem,13vw,11rem);font-weight:300;color:rgba(226,226,224,.03);right:-10px;top:50%;transform:translateY(-50%);white-space:nowrap;pointer-events:none;letter-spacing:-4px}
+.mnh-tag{display:flex;align-items:center;gap:14px;margin-bottom:22px;opacity:0;animation:rise .9s .1s both}
+.mnh-tag-line{width:36px;height:1px;background:var(--cr)}
+.mnh-tag-txt{font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase}
+.mnh-title{font-family:var(--font-d);font-size:clamp(3rem,7vw,7rem);font-weight:300;line-height:.88;letter-spacing:-2px;margin-bottom:10px;opacity:0;animation:rise .9s .25s both}
+.mnh-title em{font-style:italic;color:var(--t1);display:block}
+.mnh-subtitle{font-size:.65rem;letter-spacing:5px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:32px;opacity:0;animation:rise .9s .35s both}
+.mnh-verse{border-left:2px solid var(--cr);padding:16px 22px;margin-bottom:36px;opacity:0;animation:rise .9s .45s both}
+.mnh-verse p{font-family:var(--font-d);font-size:1.25rem;font-style:italic;font-weight:300;color:rgba(226,226,224,.7);line-height:1.6;margin-bottom:8px}
+.mnh-verse cite{font-size:.56rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;font-style:normal}
+.mnh-desc{font-size:.88rem;color:rgba(226,226,224,.45);line-height:2;max-width:440px;margin-bottom:40px;opacity:0;animation:rise .9s .55s both}
+.mnh-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:rise .9s .7s both}
+
+/* ══════════════════════════
+   MINISTRY PILLARS
+══════════════════════════ */
+#pillars{padding:90px 6%;background:var(--d2)}
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--pe2);margin-top:52px}
+.pillar-card{background:var(--d1);padding:36px 28px;position:relative;overflow:hidden;transition:background .4s}
+.pillar-card:hover{background:rgba(18,72,76,.18)}
+.pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--t1);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.pillar-card:hover::before{transform:scaleX(1)}
+.pillar-card.cr-pillar::before{background:var(--cr)}
+.pillar-icon{margin-bottom:20px}
+.pillar-title{font-family:var(--font-d);font-size:1.3rem;font-weight:400;margin-bottom:10px;line-height:1}
+.pillar-desc{font-size:.74rem;color:rgba(226,226,224,.38);line-height:1.85}
+.pillar-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:5rem;font-weight:300;color:rgba(226,226,224,.03);right:-8px;bottom:-8px;line-height:1;pointer-events:none}
+
+/* ══════════════════════════
+   SCRIPTURE CAROUSEL
+══════════════════════════ */
+#scriptures{padding:90px 6%;position:relative;overflow:hidden}
+#scriptures::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(134,18,17,.08),transparent 70%)}
+.scripture-track{position:relative;z-index:1}
+.scripture-main{max-width:780px;margin:0 auto;text-align:center}
+.scripture-quote{font-family:var(--font-d);font-size:clamp(1.6rem,3.5vw,2.8rem);font-style:italic;font-weight:300;line-height:1.45;color:rgba(226,226,224,.82);margin-bottom:20px;transition:opacity .5s,transform .5s}
+.scripture-ref{font-size:.6rem;letter-spacing:5px;color:var(--cr);text-transform:uppercase;margin-bottom:48px}
+.scripture-nav{display:flex;align-items:center;justify-content:center;gap:12px}
+.scr-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(226,226,224,.2);cursor:pointer;transition:all .3s;background:transparent}
+.scr-dot.active{background:var(--cr);border-color:var(--cr)}
+.scr-prev,.scr-next{width:36px;height:36px;border-radius:50%;border:1px solid rgba(226,226,224,.15);background:none;color:rgba(226,226,224,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:1rem}
+.scr-prev:hover,.scr-next:hover{border-color:var(--t1);color:var(--pe)}
+
+/* ══════════════════════════
+   MINISTRY STORY
+══════════════════════════ */
+#min-story{padding:90px 6%;background:var(--d2)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pe2)}
+.story-card{background:var(--d1);padding:48px 44px;position:relative;overflow:hidden;transition:background .4s}
+.story-card:hover{background:rgba(18,72,76,.12)}
+.story-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--cr),transparent)}
+.story-card.teal-card::after{background:linear-gradient(to right,var(--t1),transparent)}
+.story-num{font-family:var(--font-d);font-size:5rem;font-weight:300;line-height:.8;color:rgba(226,226,224,.05);position:absolute;top:20px;right:24px}
+.story-icon{margin-bottom:22px}
+.story-title{font-family:var(--font-d);font-size:1.6rem;font-weight:300;margin-bottom:12px;line-height:1}
+.story-body{font-size:.8rem;color:rgba(226,226,224,.4);line-height:2}
+.story-body strong{color:rgba(226,226,224,.72);font-weight:500}
+
+/* ══════════════════════════
+   UPCOMING MINISTRY EVENTS
+══════════════════════════ */
+#min-events{padding:90px 6%}
+.min-ev-grid{display:flex;flex-direction:column;gap:1px;background:var(--pe2);margin-top:52px}
+.min-ev-card{background:var(--d1);display:grid;grid-template-columns:100px 1fr auto;align-items:center;transition:background .4s;position:relative;overflow:hidden}
+.min-ev-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cr);transform:scaleY(0);transition:transform .4s;transform-origin:bottom}
+.min-ev-card:hover{background:rgba(18,72,76,.18)}
+.min-ev-card:hover::before{transform:scaleY(1)}
+.min-ev-card.featured::before{transform:scaleY(1)}
+.mec-date{padding:28px 20px;border-right:1px solid var(--pe2);text-align:center;flex-shrink:0}
+.mec-day{font-family:var(--font-d);font-size:2.6rem;font-weight:300;line-height:.85;color:var(--cr)}
+.mec-month{font-size:.5rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-top:5px}
+.mec-body{padding:24px 30px}
+.mec-type{font-size:.5rem;letter-spacing:3px;color:var(--t1);text-transform:uppercase;margin-bottom:6px}
+.mec-name{font-family:var(--font-d);font-size:1.4rem;font-weight:300;margin-bottom:8px;line-height:1}
+.mec-meta{display:flex;flex-wrap:wrap;gap:14px}
+.mec-meta-item{display:flex;align-items:center;gap:7px;font-size:.68rem;color:rgba(226,226,224,.4)}
+.mec-meta-item svg{width:12px;height:12px;flex-shrink:0;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.mec-action{padding:24px 28px 24px 0;flex-shrink:0}
+.mec-free{font-size:.56rem;letter-spacing:3px;color:var(--t1);text-transform:uppercase;padding:8px 16px;border:1px solid rgba(43,117,116,.3)}
+
+/* ══════════════════════════
+   IMPACT STATS
+══════════════════════════ */
+#min-stats{background:var(--d2);padding:72px 6%}
+.min-stats-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--pe2)}
+.min-stat{background:var(--d1);padding:36px 24px;text-align:center;position:relative;overflow:hidden;transition:background .4s}
+.min-stat:hover{background:rgba(18,72,76,.15)}
+.min-stat-num{font-family:var(--font-d);font-size:3.5rem;font-weight:300;line-height:1;color:var(--t1);margin-bottom:8px}
+.min-stat:nth-child(2n) .min-stat-num{color:var(--cr)}
+.min-stat-label{font-size:.56rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase}
+.min-stat-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:5rem;font-weight:300;color:rgba(226,226,224,.03);right:-8px;bottom:-10px;line-height:1;pointer-events:none}
+
+/* ══════════════════════════
+   DEVOTIONAL SECTION
+══════════════════════════ */
+#devotional{padding:90px 6%;position:relative;overflow:hidden}
+#devotional::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 50% 50%,rgba(43,117,116,.09),transparent 70%)}
+.dev-inner{position:relative;z-index:1}
+.dev-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pe2);margin-top:52px}
+.dev-card{background:var(--d2);padding:36px 30px;position:relative;overflow:hidden;transition:background .4s}
+.dev-card:hover{background:rgba(18,72,76,.15)}
+.dev-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
+.dev-tag{font-size:.5rem;letter-spacing:3px;color:var(--cr);text-transform:uppercase}
+.dev-date{font-size:.52rem;letter-spacing:2px;color:rgba(226,226,224,.22);text-transform:uppercase}
+.dev-verse{font-family:var(--font-d);font-size:1.3rem;font-style:italic;font-weight:300;color:rgba(226,226,224,.75);line-height:1.5;margin-bottom:12px}
+.dev-ref{font-size:.56rem;letter-spacing:3px;color:var(--t1);text-transform:uppercase;margin-bottom:16px}
+.dev-reflection{font-size:.74rem;color:rgba(226,226,224,.38);line-height:1.85}
+.dev-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:6rem;font-weight:300;color:rgba(226,226,224,.03);right:-8px;bottom:-10px;line-height:1;pointer-events:none}
+
+/* ══════════════════════════
+   PARTNER CTA
+══════════════════════════ */
+#min-cta{padding:90px 6%;text-align:center;position:relative;overflow:hidden;background:var(--d2)}
+#min-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 50% 50%,rgba(134,18,17,.08),transparent 70%)}
+.min-cta-inner{position:relative;z-index:1;max-width:560px;margin:0 auto}
+.min-cta-cross{margin:0 auto 28px;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.min-cta-cross svg{width:44px;height:44px;fill:none;stroke:rgba(134,18,17,.4);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.min-cta-title{font-family:var(--font-d);font-size:clamp(2rem,5vw,3.8rem);font-weight:300;line-height:.9;margin-bottom:14px}
+.min-cta-title em{font-style:italic;color:var(--t1)}
+.min-cta-desc{font-size:.83rem;color:rgba(226,226,224,.38);line-height:1.9;margin-bottom:36px}
+.min-cta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+.f-brand{font-family:var(--font-d);font-size:2rem;font-style:italic;font-weight:300;margin-bottom:12px}
+.f-brand em{color:var(--t1)}
+.f-tagline{font-size:.78rem;color:rgba(226,226,224,.28);line-height:1.9;max-width:280px}
+.f-socs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.f-col h5{font-size:.6rem;letter-spacing:5px;color:rgba(226,226,224,.22);text-transform:uppercase;margin-bottom:22px}
+.f-col ul{display:flex;flex-direction:column;gap:11px}
+.f-col ul li a{color:rgba(226,226,224,.38);font-size:.8rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--t1)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid var(--pe2);font-size:.63rem;letter-spacing:2px;color:rgba(226,226,224,.18);flex-wrap:wrap;gap:10px}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(min-width:481px) and (max-width:1024px){
+  #cur,#cur-r{display:none}
+  body{cursor:auto}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:18px 5%}
+  #min-hero{grid-template-columns:1fr 1fr}
+  .pillars-grid{grid-template-columns:repeat(2,1fr)}
+  .story-grid{grid-template-columns:1fr}
+  .dev-cards{grid-template-columns:1fr 1fr}
+  .min-stats-inner{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .min-ev-card{grid-template-columns:90px 1fr auto}
+}
+@media(max-width:480px){
+  body{font-size:14px;padding-bottom:62px;cursor:auto}
+  #cur,#cur-r{display:none}
+  #bottom-nav{display:block}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:13px 5%}
+  nav#mainNav.stuck{padding:9px 5%}
+  .n-mark{width:34px;height:34px;font-size:.95rem}
+  .n-text{font-size:.82rem;letter-spacing:2px}
+  .n-text small{font-size:.46rem;letter-spacing:3px}
+  #min-hero{grid-template-columns:1fr;min-height:auto}
+  .mnh-left{height:50vw;min-height:200px}
+  .mnh-right{padding:32px 5% 48px}
+  .mnh-title{font-size:clamp(2.6rem,12vw,4rem)}
+  .mnh-desc{font-size:.82rem}
+  #pillars{padding:52px 5%}
+  .pillars-grid{grid-template-columns:1fr 1fr}
+  .pillar-card{padding:24px 18px}
+  #scriptures{padding:52px 5%}
+  .scripture-quote{font-size:1.3rem}
+  #min-story{padding:52px 5%}
+  .story-grid{grid-template-columns:1fr}
+  .story-card{padding:32px 22px}
+  #min-events{padding:52px 5%}
+  .min-ev-card{grid-template-columns:76px 1fr}
+  .mec-action{display:none}
+  .mec-body{padding:18px 14px}
+  #min-stats{padding:48px 5%}
+  .min-stats-inner{grid-template-columns:repeat(2,1fr)}
+  #devotional{padding:52px 5%}
+  .dev-cards{grid-template-columns:1fr}
+  #min-cta{padding:52px 5%}
+  .min-cta-btns{flex-direction:column;align-items:center}
+  footer{padding:44px 5% 24px}
+  .foot-grid{grid-template-columns:1fr;gap:22px}
+  .f-bottom{font-size:.52rem;flex-direction:column;gap:4px}
+  #toast{bottom:70px;right:12px;left:12px;font-size:.62rem;padding:9px 14px}
+}
+@media(max-width:767px) and (orientation:landscape){
+  #bottom-nav{display:block}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  body{padding-bottom:62px}
+}
+@media(hover:none){body{cursor:auto}#cur,#cur-r{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15ms!important}
+  .rv,.rvl,.rvr{opacity:1!important;transform:none!important}
+  .mnh-tag,.mnh-title,.mnh-subtitle,.mnh-verse,.mnh-desc,.mnh-btns{opacity:1!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div><div id="toast"></div>
+
+<!-- ICON DEFS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-ticket"  viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></symbol>
+  <symbol id="i-cross"   viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/></symbol>
+  <symbol id="i-mic"     viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></symbol>
+  <symbol id="i-music"   viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-heart"   viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-arrow"   viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-pin"     viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock"   viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-star"    viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="i-mail"    viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="i-bag"     viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-fb"      viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig"      viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-yt"      viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></symbol>
+  <symbol id="i-tiktok"  viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527M9 15c1.5-1 3.5-.5 4.5.5M7 9c3-1.5 6-1 8.5 1"/></symbol>
+</svg>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕ close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="music.html" onclick="closeMob()">Music</a>
+  <a href="events.html" onclick="closeMob()">Events</a>
+  <a href="gallery.html" onclick="closeMob()">Gallery</a>
+  <a href="merch.html" onclick="closeMob()">Merch</a>
+  <a href="sponsors.html" onclick="closeMob()">Sponsors</a>
+  <a href="ministry.html" onclick="closeMob()">Ministry</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="partner.html" onclick="closeMob()">Partner</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="n-logo">
+    <div class="n-mark"><img src="assets/images/logo.webp" alt="Micky Mimsanii" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+    <div class="n-text">MICKY MIMSANII<small>#dreambig</small></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="merch.html">Merch</a></li>
+    <li><a href="sponsors.html">Sponsors</a></li>
+    <li><a href="ministry.html" class="active">Ministry</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="partner.html">Partner</a></li>
+  </ul>
+  <div class="n-nav-icons" id="navIcons"></div>
+  <a href="events.html" class="n-tkt">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Get Tickets
+  </a>
+  <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="min-hero">
+  <div class="mnh-left">
+    <div class="mnh-photo">
+      <!-- Replace with: <img src="assets/images/artist.jpg" alt="Micky Mimsanii Ministry"> -->
+    </div>
+    <div class="mnh-cross">
+      <svg viewBox="0 0 100 100"><line x1="50" y1="5" x2="50" y2="95"/><line x1="5" y1="35" x2="95" y2="35"/></svg>
+    </div>
+    <div class="mnh-stripe"></div>
+  </div>
+
+  <div class="mnh-right">
+    <div class="mnh-bg"></div>
+    <div class="mnh-ghost">FAITH</div>
+    <div class="mnh-tag"><div class="mnh-tag-line"></div><span class="mnh-tag-txt">Faith · Worship · Ministry</span></div>
+    <h1 class="mnh-title">The<br><em>Ministry</em></h1>
+    <p class="mnh-subtitle">More than music — a calling</p>
+    <div class="mnh-verse">
+      <p>"Let everything that has breath praise the Lord."</p>
+      <cite>Psalm 150:6</cite>
+    </div>
+    <p class="mnh-desc">Micky Mimsanii's ministry is rooted in one conviction — that music is one of the most powerful tools God uses to transform hearts. Every song, every stage, every moment of worship is an act of service to God and to people.</p>
+    <div class="mnh-btns">
+      <a href="#min-events" class="btn-primary">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg></span>
+        Ministry Events
+      </a>
+      <a href="sponsors.html" class="btn-outline">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+        Support the Ministry
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ IMPACT STATS ══════════ -->
+<div id="min-stats">
+  <div class="min-stats-inner">
+    <div class="min-stat rv">
+      <div class="min-stat-num">50+</div>
+      <div class="min-stat-label">Ministry Events</div>
+      <div class="min-stat-ghost">✦</div>
+    </div>
+    <div class="min-stat rv d1">
+      <div class="min-stat-num">20+</div>
+      <div class="min-stat-label">Churches Served</div>
+      <div class="min-stat-ghost">✦</div>
+    </div>
+    <div class="min-stat rv d2">
+      <div class="min-stat-num">8</div>
+      <div class="min-stat-label">Years in Ministry</div>
+      <div class="min-stat-ghost">✦</div>
+    </div>
+    <div class="min-stat rv d3">
+      <div class="min-stat-num">∞</div>
+      <div class="min-stat-label">Lives Touched</div>
+      <div class="min-stat-ghost">✦</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MINISTRY PILLARS ══════════ -->
+<section id="pillars">
+  <div class="sl rv">What We Do</div>
+  <h2 class="st rv">Areas of <em>Ministry</em></h2>
+  <div class="pillars-grid">
+
+    <div class="pillar-card rv">
+      <div class="pillar-ghost">♪</div>
+      <div class="pillar-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></span></div>
+      <div class="pillar-title">Worship Leading</div>
+      <div class="pillar-desc">Leading congregations into the presence of God through live worship. Micky serves churches, crusades and conferences as a worship minister and leads teams with excellence and humility.</div>
+    </div>
+
+    <div class="pillar-card cr-pillar rv d1">
+      <div class="pillar-ghost">✝</div>
+      <div class="pillar-icon"><span class="ir cr md"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg></span></div>
+      <div class="pillar-title">Crusades & Outreach</div>
+      <div class="pillar-desc">Taking the gospel beyond church walls. Micky has ministered at open-air crusades, community outreach events and evangelism drives across Nairobi, Mombasa and beyond.</div>
+    </div>
+
+    <div class="pillar-card rv d2">
+      <div class="pillar-ghost">♫</div>
+      <div class="pillar-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span></div>
+      <div class="pillar-title">Gospel Songwriting</div>
+      <div class="pillar-desc">Writing music that carries the weight of testimony and scripture. Every song is crafted as a ministry tool — born out of prayer and shaped to meet people in their real moments of life.</div>
+    </div>
+
+    <div class="pillar-card cr-pillar rv d3">
+      <div class="pillar-ghost">❤</div>
+      <div class="pillar-icon"><span class="ir cr md"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span></div>
+      <div class="pillar-title">Prayer & Intercession</div>
+      <div class="pillar-desc">At the core of all ministry is prayer. Micky leads prayer sessions and intercession moments at events, believing that everything that happens on stage first happens in the prayer room.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ SCRIPTURE CAROUSEL ══════════ -->
+<section id="scriptures">
+  <div class="sl rv" style="justify-content:center">The Word</div>
+  <div class="scripture-track">
+    <div class="scripture-main">
+      <div class="scripture-quote" id="scrQuote">"Sing to the Lord a new song; sing to the Lord, all the earth."</div>
+      <div class="scripture-ref" id="scrRef">Psalm 96:1</div>
+      <div class="scripture-nav">
+        <button class="scr-prev" onclick="prevScripture()">‹</button>
+        <div id="scrDots"></div>
+        <button class="scr-next" onclick="nextScripture()">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MINISTRY STORY ══════════ -->
+<section id="min-story">
+  <div class="sl rv">The Heart Behind It</div>
+  <h2 class="st rv">Ministry <em>Philosophy</em></h2>
+  <div class="story-grid">
+
+    <div class="story-card rvl">
+      <div class="story-num">01</div>
+      <div class="story-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></span></div>
+      <div class="story-title">Music as an Altar</div>
+      <div class="story-body">
+        <strong>Micky believes the stage is a sacred space.</strong> Every performance is not a concert — it is a moment of encounter. The music creates an atmosphere where people can meet God, whether they come broken, searching or celebrating.
+        <br><br>
+        This is why every set list is prayed over, every lyric is chosen carefully, and every moment of spontaneous worship is welcomed. The goal is never entertainment — it is transformation.
+      </div>
+    </div>
+
+    <div class="story-card teal-card rvr">
+      <div class="story-num">02</div>
+      <div class="story-icon"><span class="ir cr md"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span></div>
+      <div class="story-title">Faith Lived Out Loud</div>
+      <div class="story-body">
+        <strong>Ministry is not a title — it is a lifestyle.</strong> Micky serves not only when on a platform but in how he walks, speaks and creates. The music is simply the most visible expression of a faith that is lived daily.
+        <br><br>
+        Partnering with local churches, mentoring young artists, and showing up for community — these are the less visible but equally important parts of the ministry that keep it grounded and real.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ UPCOMING MINISTRY EVENTS ══════════ -->
+<section id="min-events">
+  <div class="sl rv">On the Calendar</div>
+  <h2 class="st rv">Upcoming <em>Ministry Events</em></h2>
+
+  <div class="min-ev-grid">
+
+    <div class="min-ev-card featured rv">
+      <div class="mec-date">
+        <div class="mec-day">12</div>
+        <div class="mec-month">Dec 2026</div>
+      </div>
+      <div class="mec-body">
+        <div class="mec-type">Concert · Ministry Night</div>
+        <div class="mec-name">Dream Big Concert</div>
+        <div class="mec-meta">
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg>KICC, Nairobi</div>
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg>6:00 PM</div>
+        </div>
+      </div>
+      <div class="mec-action">
+        <a href="events.html" class="btn-primary" style="font-size:.6rem;padding:9px 16px;white-space:nowrap">
+          <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+          Get Tickets
+        </a>
+      </div>
+    </div>
+
+    <div class="min-ev-card rv d1">
+      <div class="mec-date">
+        <div class="mec-day">08</div>
+        <div class="mec-month">Feb 2027</div>
+      </div>
+      <div class="mec-body">
+        <div class="mec-type">Worship Night</div>
+        <div class="mec-name">Worship Night — Mavuno Church</div>
+        <div class="mec-meta">
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg>Mavuno Church, Nairobi</div>
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg>5:00 PM</div>
+        </div>
+      </div>
+      <div class="mec-action">
+        <a href="events.html" class="btn-primary" style="font-size:.6rem;padding:9px 16px;white-space:nowrap">
+          <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+          Get Tickets
+        </a>
+      </div>
+    </div>
+
+    <div class="min-ev-card rv d2">
+      <div class="mec-date">
+        <div class="mec-day">22</div>
+        <div class="mec-month">Mar 2027</div>
+      </div>
+      <div class="mec-body">
+        <div class="mec-type">Gospel Gala</div>
+        <div class="mec-name">Gospel Gala — Mombasa</div>
+        <div class="mec-meta">
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg>Sarova Whitesands, Mombasa</div>
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg>7:00 PM</div>
+        </div>
+      </div>
+      <div class="mec-action">
+        <a href="events.html" class="btn-primary" style="font-size:.6rem;padding:9px 16px;white-space:nowrap">
+          <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+          Get Tickets
+        </a>
+      </div>
+    </div>
+
+    <div class="min-ev-card rv d3">
+      <div class="mec-date">
+        <div class="mec-day">TBA</div>
+        <div class="mec-month">2027</div>
+      </div>
+      <div class="mec-body">
+        <div class="mec-type">Church Partnership</div>
+        <div class="mec-name">Church Invitation — Open Dates</div>
+        <div class="mec-meta">
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg>Your Church, Kenya</div>
+          <div class="mec-meta-item"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg>Book via email</div>
+        </div>
+      </div>
+      <div class="mec-action">
+        <a href="mailto:mimsanii40@gmail.com?subject=Ministry Booking" class="btn-outline" style="font-size:.6rem;padding:9px 16px;white-space:nowrap">
+          Book Micky
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ DEVOTIONAL SECTION ══════════ -->
+<section id="devotional">
+  <div class="dev-inner">
+    <div class="sl rv">Word & Reflection</div>
+    <h2 class="st rv">Devotional <em>Corner</em></h2>
+    <div class="dev-cards">
+
+      <div class="dev-card rv">
+        <div class="dev-ghost">✦</div>
+        <div class="dev-card-top">
+          <div class="dev-tag">Devotional</div>
+          <div class="dev-date">Week 1</div>
+        </div>
+        <div class="dev-verse">"He put a new song in my mouth, a hymn of praise to our God."</div>
+        <div class="dev-ref">Psalm 40:3</div>
+        <div class="dev-reflection">God doesn't just give us songs to sing — He places them in us as testimony. Your story is someone else's breakthrough. Don't hold back what God has put in your heart.</div>
+      </div>
+
+      <div class="dev-card rv d1">
+        <div class="dev-ghost">✦</div>
+        <div class="dev-card-top">
+          <div class="dev-tag">Devotional</div>
+          <div class="dev-date">Week 2</div>
+        </div>
+        <div class="dev-verse">"Worship the Lord with gladness; come before him with joyful songs."</div>
+        <div class="dev-ref">Psalm 100:2</div>
+        <div class="dev-reflection">Worship is not a feeling — it is a choice. Some of the most powerful acts of worship happen when we don't feel like it but choose to trust God anyway. That is where faith becomes real.</div>
+      </div>
+
+      <div class="dev-card rv d2">
+        <div class="dev-ghost">✦</div>
+        <div class="dev-card-top">
+          <div class="dev-tag">Devotional</div>
+          <div class="dev-date">Week 3</div>
+        </div>
+        <div class="dev-verse">"Speaking to one another with psalms, hymns, and songs from the Spirit."</div>
+        <div class="dev-ref">Ephesians 5:19</div>
+        <div class="dev-reflection">Music was never meant to be just performance. It is communication — between us and God, and between us and each other. When we worship together, we build each other up in faith.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section id="min-cta">
+  <div class="min-cta-inner rv">
+    <div class="min-cta-cross">
+      <svg viewBox="0 0 24 24"><use href="#i-cross"/></svg>
+    </div>
+    <div class="sl" style="justify-content:center;margin-bottom:24px">Invite & Partner</div>
+    <h2 class="min-cta-title">Bring the Ministry<br><em>to Your Church</em></h2>
+    <p class="min-cta-desc">Want Micky to minister at your church, crusade, worship night or conference? Reach out and let's talk about how we can serve your congregation together.</p>
+    <div class="min-cta-btns">
+      <a href="mailto:mimsanii40@gmail.com?subject=Ministry Booking Enquiry" class="btn-primary">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+        Book a Ministry Date
+      </a>
+      <a href="sponsors.html" class="btn-outline">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+        Support the Ministry
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="f-brand">Micky <em>Mimsanii</em></div>
+      <p class="f-tagline">Musician · Songwriter · Vocalist · Minister.<br>Dreaming big, one song at a time.</p>
+      <div class="f-socs">
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Facebook coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-fb"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Instagram coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ig"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('YouTube coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-yt"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('TikTok coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tiktok"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Spotify coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-spotify"/></svg></span>
+      </div>
+    </div>
+    <div class="f-col"><h5>Pages</h5><ul>
+      <li><a href="about.html">About &amp; Bio</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="events.html">Events &amp; Tickets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="merch.html">Merch Store</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Support</h5><ul>
+      <li><a href="sponsors.html">Sponsors &amp; Donate</a></li>
+      <li><a href="partner.html">Partner With Us</a></li>
+      <li><a href="ministry.html">Ministry</a></li>
+      <li><a href="blog.html">Blog &amp; News</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:mimsanii40@gmail.com">mimsanii40@gmail.com</a></li>
+      <li><a href="tel:+254115555072">+254 115 555 072</a></li>
+      <li><a href="#">Nairobi, Kenya</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Micky #mimsanii · All rights reserved.</span>
+    <span>Crafted with passion · by #mimsanii</span>
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="bn-inner">
+    <a href="index.html" class="bn-item" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>Home
+    </a>
+    <a href="music.html" class="bn-item" aria-label="Music">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music
+    </a>
+    <a href="events.html" class="bn-item" aria-label="Events">
+      <svg viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></svg>Events
+    </a>
+    <a href="gallery.html" class="bn-item" aria-label="Gallery">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Gallery
+    </a>
+    <button class="bn-item" aria-label="More" onclick="openMoreSheet()" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>More
+    </button>
+  </div>
+</nav>
+
+<!-- MORE SHEET -->
+<div id="bn-more-sheet" role="dialog" aria-modal="true">
+  <div class="bn-sheet-bg" onclick="closeMoreSheet()"></div>
+  <div class="bn-sheet-panel">
+    <div class="bn-sheet-handle"></div>
+    <div class="bn-sheet-grid">
+      <a href="merch.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg><span>Merch</span></a>
+      <a href="sponsors.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg><span>Donate</span></a>
+      <a href="ministry.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg><span>Ministry</span></a>
+      <a href="blog.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Blog</span></a>
+      <a href="about.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About</span></a>
+      <a href="partner.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Partner</span></a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a)})();
+
+/* STICKY NAV */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+/* MORE SHEET */
+function openMoreSheet(){document.getElementById('bn-more-sheet').classList.add('open');document.body.style.overflow='hidden'}
+function closeMoreSheet(){document.getElementById('bn-more-sheet').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMoreSheet()});
+let _sy=0;
+document.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_sy>60&&document.getElementById('bn-more-sheet').classList.contains('open'))closeMoreSheet()},{passive:true});
+
+/* TABLET ICON NAV */
+(function(){
+  const items=[
+    {href:'music.html',label:'Music',svg:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',cls:''},
+    {href:'events.html',label:'Events',svg:'<path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/>',cls:'tkt-icon'},
+    {href:'gallery.html',label:'Gallery',svg:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',cls:''},
+    {href:'merch.html',label:'Merch',svg:'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',cls:''},
+    {href:null,label:'More',svg:'<circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>',cls:'',more:true},
+  ];
+  const wrap=document.getElementById('navIcons');
+  items.forEach(({href,label,svg,cls,more})=>{
+    const el=more?document.createElement('button'):document.createElement('a');
+    if(!more)el.href=href;
+    else{el.style.cssText='background:none;border:none;font-family:inherit;cursor:pointer;';el.onclick=openMoreSheet;}
+    el.className='n-nav-icon '+(cls||'');
+    el.innerHTML=`<svg viewBox="0 0 24 24">${svg}</svg>${label}`;
+    wrap.appendChild(el);
+  });
+})();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+
+/* TOAST */
+let _tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
+
+/* ══════════════════════
+   SCRIPTURE CAROUSEL
+══════════════════════ */
+const scriptures=[
+  {quote:'"Sing to the Lord a new song; sing to the Lord, all the earth."',ref:'Psalm 96:1'},
+  {quote:'"Let the message of Christ dwell among you richly as you teach and admonish one another with all wisdom through psalms, hymns, and songs from the Spirit."',ref:'Colossians 3:16'},
+  {quote:'"Praise him with the sounding of the trumpet, praise him with the harp and lyre, praise him with timbrel and dancing."',ref:'Psalm 150:3-4'},
+  {quote:'"I will sing to the Lord all my life; I will sing praise to my God as long as I live."',ref:'Psalm 104:33'},
+  {quote:'"Make music to the Lord with the harp, with the harp and the sound of singing."',ref:'Psalm 98:5'},
+  {quote:'"Is anyone happy? Let them sing songs of praise."',ref:'James 5:13'},
+];
+
+let scrIndex = 0;
+let scrTimer;
+
+function buildDots(){
+  const wrap = document.getElementById('scrDots');
+  wrap.innerHTML = scriptures.map((_,i)=>
+    `<div class="scr-dot${i===0?' active':''}" onclick="goScripture(${i})"></div>`
+  ).join('');
+}
+
+function goScripture(i){
+  scrIndex = (i + scriptures.length) % scriptures.length;
+  const q = document.getElementById('scrQuote');
+  const r = document.getElementById('scrRef');
+  q.style.opacity='0'; q.style.transform='translateY(12px)';
+  setTimeout(()=>{
+    q.textContent = scriptures[scrIndex].quote;
+    r.textContent = scriptures[scrIndex].ref;
+    q.style.opacity='1'; q.style.transform='none';
+  },300);
+  document.querySelectorAll('.scr-dot').forEach((d,idx)=>d.classList.toggle('active',idx===scrIndex));
+  resetTimer();
+}
+
+function nextScripture(){ goScripture(scrIndex+1); }
+function prevScripture(){ goScripture(scrIndex-1); }
+
+function resetTimer(){
+  clearInterval(scrTimer);
+  scrTimer = setInterval(()=>goScripture(scrIndex+1), 6000);
+}
+
+buildDots();
+resetTimer();
+
+/* Swipe scripture */
+let scrTouchX=0;
+document.getElementById('scriptures').addEventListener('touchstart',e=>{scrTouchX=e.touches[0].clientX},{passive:true});
+document.getElementById('scriptures').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-scrTouchX;
+  if(Math.abs(dx)>40) goScripture(scrIndex+(dx<0?1:-1));
+},{passive:true});
+</script>
+</body>
+</html>

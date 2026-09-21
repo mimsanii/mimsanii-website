@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micky Mimsanii — Partner With Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{
+  --d1:#0E2931;--d2:#12484C;--t1:#2B7574;--cr:#861211;
+  --pe:#E2E2E0;--pe2:rgba(226,226,224,.07);
+  --font-d:'Cormorant Garamond',serif;--font-b:'Outfit',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--d1);color:var(--pe);overflow-x:hidden;cursor:none;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+ul{list-style:none}
+img{display:block;width:100%;object-fit:cover}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+/* CURSOR */
+#cur{width:8px;height:8px;background:var(--cr);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+#cur-r{width:30px;height:30px;border:1.5px solid rgba(43,117,116,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:all .12s ease}
+
+/* GLOW RING */
+.ir{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:all .35s}
+.ir svg{display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ir{border:1px solid rgba(43,117,116,.5);background:radial-gradient(circle at 38% 38%,rgba(43,117,116,.22) 0%,transparent 68%);box-shadow:0 0 12px rgba(43,117,116,.22),inset 0 0 8px rgba(43,117,116,.08)}
+.ir svg{stroke:var(--t1);stroke-width:1.5}
+.ir.cr{border-color:rgba(134,18,17,.55);background:radial-gradient(circle at 38% 38%,rgba(134,18,17,.2) 0%,transparent 68%);box-shadow:0 0 12px rgba(134,18,17,.2),inset 0 0 8px rgba(134,18,17,.08)}
+.ir.cr svg{stroke:#c0302f}
+.ir.pe{border-color:rgba(226,226,224,.18);background:radial-gradient(circle at 38% 38%,rgba(226,226,224,.06) 0%,transparent 68%);box-shadow:0 0 8px rgba(226,226,224,.06),inset 0 0 6px rgba(226,226,224,.03)}
+.ir.pe svg{stroke:rgba(226,226,224,.45)}
+.ir.sm{width:32px;height:32px}.ir.sm svg{width:14px;height:14px}
+.ir.md{width:46px;height:46px}.ir.md svg{width:21px;height:21px}
+.ir.lg{width:58px;height:58px}.ir.lg svg{width:27px;height:27px}
+.ir.xl{width:76px;height:76px}.ir.xl svg{width:34px;height:34px}
+a:hover .ir,.ring-hover:hover .ir{box-shadow:0 0 22px rgba(43,117,116,.5),inset 0 0 14px rgba(43,117,116,.18);border-color:rgba(43,117,116,.9)}
+a:hover .ir.cr,.ring-hover:hover .ir.cr{box-shadow:0 0 22px rgba(134,18,17,.45),inset 0 0 14px rgba(134,18,17,.18);border-color:rgba(134,18,17,.9)}
+
+/* NAV */
+nav#mainNav{position:fixed;top:0;width:100%;z-index:900;padding:24px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav#mainNav.stuck{background:rgba(14,41,49,.92);backdrop-filter:blur(20px);padding:15px 6%;border-bottom:1px solid var(--pe2)}
+.n-logo{display:flex;align-items:center;gap:14px}
+.n-mark{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t1);box-shadow:0 0 12px rgba(43,117,116,.25);background:var(--d2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.25rem;font-weight:600;overflow:hidden;transition:all .3s;flex-shrink:0}
+.n-logo:hover .n-mark{border-color:var(--cr);box-shadow:0 0 18px rgba(134,18,17,.3)}
+.n-text{font-family:var(--font-d);font-size:1.05rem;font-weight:600;letter-spacing:3px;line-height:1.1}
+.n-text small{display:block;font-size:.58rem;letter-spacing:5px;color:var(--t1);font-family:var(--font-b);font-weight:400}
+.n-links{display:flex;gap:28px}
+.n-links a{color:rgba(226,226,224,.48);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cr);transition:width .3s}
+.n-links a:hover,.n-links a.active{color:var(--pe)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-tkt{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:1px solid var(--cr);color:var(--pe);padding:8px 20px;transition:all .3s}
+.n-tkt:hover{background:var(--cr)}
+.n-nav-icons{display:none;gap:10px;align-items:center}
+.n-nav-icon{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(226,226,224,.45);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;padding:4px}
+.n-nav-icon:hover,.n-nav-icon:active{color:var(--t1)}
+.n-nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n-nav-icon.tkt-icon{color:rgba(134,18,17,.8)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--pe);transition:all .3s}
+#mob{display:none;position:fixed;inset:0;z-index:800;background:var(--d1);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob.open{display:flex}
+#mob a{font-family:var(--font-d);font-size:2.6rem;font-style:italic;color:var(--pe);transition:color .3s;letter-spacing:2px}
+#mob a:hover{color:var(--t1)}
+.mob-x{position:absolute;top:26px;right:6%;font-size:1.3rem;cursor:pointer;color:rgba(226,226,224,.4);background:none;border:none;font-family:var(--font-b)}
+
+/* BOTTOM NAV */
+#bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(6,13,17,.96);backdrop-filter:blur(18px);border-top:1px solid rgba(43,117,116,.25);height:62px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-inner{display:flex;height:62px;align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(226,226,224,.35);text-decoration:none;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;position:relative;background:none;border:none;font-family:var(--font-b)}
+.bn-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.active{color:var(--t1)}
+.bn-item.active::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cr)}
+#bn-more-sheet{display:none;position:fixed;inset:0;z-index:940}
+#bn-more-sheet.open{display:block}
+.bn-sheet-bg{position:absolute;inset:0;background:rgba(6,13,17,.7)}
+.bn-sheet-panel{position:absolute;bottom:62px;left:0;right:0;background:var(--d2);border-top:1px solid rgba(43,117,116,.3);border-radius:20px 20px 0 0;padding:18px 0 24px;animation:sheetUp .28s cubic-bezier(.25,.8,.25,1) both}
+@keyframes sheetUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.bn-sheet-handle{width:36px;height:3px;border-radius:2px;background:rgba(226,226,224,.2);margin:0 auto 18px}
+.bn-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(226,226,224,.05)}
+.bn-sheet-item{background:var(--d1);padding:20px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--pe);-webkit-tap-highlight-color:transparent;transition:background .3s}
+.bn-sheet-item:active{background:rgba(43,117,116,.15)}
+.bn-sheet-item svg{width:22px;height:22px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-sheet-item.cr-item svg{stroke:#c0302f}
+.bn-sheet-item span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.55)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cr);color:var(--pe);padding:13px 30px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));transition:all .35s;border:none}
+.btn-primary:hover{background:#a01615;letter-spacing:4px}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(226,226,224,.2);color:rgba(226,226,224,.65);padding:12px 28px;font-size:.7rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all .35s;background:none}
+.btn-outline:hover{border-color:var(--t1);color:var(--pe)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+.sl{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase;margin-bottom:18px}
+.sl::before{content:'';width:26px;height:1px;background:var(--cr)}
+.st{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.92;letter-spacing:-1px;margin-bottom:18px}
+.st em{font-style:italic;color:var(--t1)}
+.div-cr{width:50px;height:1px;background:linear-gradient(to right,var(--cr),transparent);margin:28px 0}
+
+/* TOAST */
+#toast{position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--d2);border:1px solid rgba(43,117,116,.45);color:var(--pe);padding:13px 24px;font-size:.73rem;letter-spacing:2px;transform:translateY(70px);opacity:0;pointer-events:none;transition:all .4s}
+#toast.show{transform:none;opacity:1}
+#toast.err{border-color:rgba(134,18,17,.6);background:rgba(134,18,17,.12)}
+#toast.ok{border-color:rgba(43,117,116,.7);background:rgba(43,117,116,.1)}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════════
+   PARTNER HERO
+══════════════════════════ */
+#pt-hero{min-height:72vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:100px}
+.pth-left{display:flex;flex-direction:column;justify-content:center;padding:60px 6% 60px;position:relative;z-index:2}
+.pth-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 20% 50%,rgba(43,117,116,.22),transparent 65%)}
+.pth-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:clamp(5rem,14vw,12rem);font-weight:300;color:rgba(226,226,224,.03);letter-spacing:-5px;top:50%;left:0;transform:translateY(-50%);white-space:nowrap;pointer-events:none;z-index:1}
+.pth-tag{display:flex;align-items:center;gap:14px;margin-bottom:22px;opacity:0;animation:rise .9s .1s both}
+.pth-tag-line{width:36px;height:1px;background:var(--cr)}
+.pth-tag-txt{font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase}
+.pth-title{font-family:var(--font-d);font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:.88;letter-spacing:-2px;margin-bottom:24px;opacity:0;animation:rise .9s .25s both}
+.pth-title em{font-style:italic;color:var(--t1);display:block}
+.pth-desc{font-size:.88rem;color:rgba(226,226,224,.45);line-height:2;max-width:420px;margin-bottom:40px;opacity:0;animation:rise .9s .4s both}
+.pth-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:rise .9s .55s both}
+.pth-right{position:relative;overflow:hidden;background:var(--d2)}
+.pth-right-bg{position:absolute;inset:0;background:linear-gradient(155deg,var(--d2) 0%,rgba(43,117,116,.4) 50%,var(--d1) 100%)}
+.pth-right-stripe{position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--cr),var(--t1))}
+.pth-right-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:52px 48px;z-index:2}
+.pth-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pe2)}
+.pth-stat{background:rgba(14,41,49,.5);padding:28px 24px;text-align:center}
+.pth-stat-num{font-family:var(--font-d);font-size:2.8rem;font-weight:300;color:var(--t1);line-height:1;margin-bottom:6px}
+.pth-stat:nth-child(2n) .pth-stat-num{color:var(--cr)}
+.pth-stat-label{font-size:.54rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase}
+.pth-quote{margin-top:32px;border-left:2px solid var(--cr);padding:14px 20px}
+.pth-quote p{font-family:var(--font-d);font-size:1.1rem;font-style:italic;font-weight:300;color:rgba(226,226,224,.6);line-height:1.55;margin-bottom:6px}
+.pth-quote cite{font-size:.52rem;letter-spacing:3px;color:rgba(226,226,224,.22);text-transform:uppercase;font-style:normal}
+
+/* ══════════════════════════
+   PARTNER TYPES
+══════════════════════════ */
+#partner-types{padding:90px 6%;background:var(--d2)}
+.pt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--pe2);margin-top:52px}
+.pt-card{background:var(--d1);padding:36px 28px;position:relative;overflow:hidden;cursor:pointer;transition:background .4s;border:2px solid transparent}
+.pt-card:hover{background:rgba(18,72,76,.18)}
+.pt-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--t1);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.pt-card:hover::before,.pt-card.active-type::before{transform:scaleX(1)}
+.pt-card.cr-type::before{background:var(--cr)}
+.pt-card.active-type{border-color:rgba(43,117,116,.3);background:rgba(43,117,116,.07)}
+.pt-card.active-type.cr-type{border-color:rgba(134,18,17,.3);background:rgba(134,18,17,.05)}
+.pt-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:5rem;font-weight:300;color:rgba(226,226,224,.03);right:-8px;bottom:-8px;line-height:1;pointer-events:none}
+.pt-icon{margin-bottom:18px}
+.pt-name{font-family:var(--font-d);font-size:1.2rem;font-weight:400;margin-bottom:8px;line-height:1}
+.pt-desc{font-size:.72rem;color:rgba(226,226,224,.36);line-height:1.8}
+
+/* ══════════════════════════
+   QUICK CONTACT FORM
+══════════════════════════ */
+#quick-contact{padding:90px 6%}
+.qc-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:52px}
+.qc-left .sl{margin-bottom:22px}
+.qc-intro{font-size:.86rem;color:rgba(226,226,224,.42);line-height:2;margin-bottom:32px}
+.qc-contact-cards{display:flex;flex-direction:column;gap:1px;background:var(--pe2)}
+.qc-contact-card{background:var(--d2);padding:20px 22px;display:flex;align-items:center;gap:16px;transition:background .3s}
+.qc-contact-card:hover{background:rgba(18,72,76,.15)}
+.qc-contact-label{font-size:.56rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:3px}
+.qc-contact-val{font-size:.82rem;color:rgba(226,226,224,.7)}
+
+/* Form */
+.pf-field{margin-bottom:16px}
+.pf-label{display:block;font-size:.56rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:8px}
+.pf-input{width:100%;background:var(--d2);border:1px solid rgba(226,226,224,.1);color:var(--pe);font-family:var(--font-b);font-size:.8rem;padding:12px 16px;outline:none;transition:border-color .3s}
+.pf-input::placeholder{color:rgba(226,226,224,.18)}
+.pf-input:focus{border-color:rgba(43,117,116,.5)}
+.pf-input.err{border-color:rgba(134,18,17,.55)}
+.pf-textarea{resize:vertical;min-height:100px}
+.pf-submit{width:100%;background:var(--t1);color:var(--pe);border:none;padding:14px;font-family:var(--font-b);font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .35s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px}
+.pf-submit:hover:not(:disabled){background:#1e5e5d}
+.pf-submit:disabled{opacity:.4;cursor:not-allowed}
+.pf-submit .spinner{width:15px;height:15px;border:2px solid rgba(226,226,224,.3);border-top-color:var(--pe);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.pf-submit.loading .spinner{display:block}
+.pf-submit.loading .btn-label{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══════════════════════════
+   DETAILED ENQUIRY FORM
+══════════════════════════ */
+#detailed-form{padding:90px 6%;background:var(--d2)}
+.df-box{background:var(--d1);padding:52px 48px;position:relative;overflow:hidden}
+.df-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,var(--cr),var(--t1))}
+.df-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.df-full{grid-column:1 / -1}
+
+/* Partnership type selector */
+.ptype-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px}
+.ptype-btn{padding:12px 8px;border:1px solid rgba(226,226,224,.1);color:rgba(226,226,224,.38);background:none;cursor:pointer;transition:all .3s;font-size:.58rem;letter-spacing:1px;text-transform:uppercase;text-align:center}
+.ptype-btn:hover{border-color:rgba(43,117,116,.4);color:rgba(226,226,224,.7);background:rgba(43,117,116,.07)}
+.ptype-btn.selected{border-color:var(--t1);color:var(--pe);background:rgba(43,117,116,.1)}
+
+/* Budget selector */
+.budget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
+.budget-btn{padding:11px 8px;border:1px solid rgba(226,226,224,.1);color:rgba(226,226,224,.38);background:none;cursor:pointer;transition:all .3s;font-size:.58rem;letter-spacing:1px;text-transform:uppercase;text-align:center}
+.budget-btn:hover{border-color:rgba(43,117,116,.4);color:rgba(226,226,224,.7)}
+.budget-btn.selected{border-color:var(--t1);color:var(--pe);background:rgba(43,117,116,.1)}
+
+.df-submit{background:var(--cr);color:var(--pe);border:none;padding:15px 40px;font-family:var(--font-b);font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .35s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));display:inline-flex;align-items:center;gap:10px;margin-top:8px}
+.df-submit:hover:not(:disabled){background:#a01615;letter-spacing:4px}
+.df-submit:disabled{opacity:.4;cursor:not-allowed}
+.df-submit .spinner{width:15px;height:15px;border:2px solid rgba(226,226,224,.3);border-top-color:var(--pe);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.df-submit.loading .spinner{display:block}
+.df-submit.loading .btn-label{display:none}
+
+/* ══════════════════════════
+   FAQ
+══════════════════════════ */
+#faq{padding:90px 6%}
+.faq-list{margin-top:52px;display:flex;flex-direction:column;gap:1px;background:var(--pe2)}
+.faq-item{background:var(--d2);overflow:hidden}
+.faq-q{padding:22px 28px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .3s;gap:16px}
+.faq-q:hover{background:rgba(43,117,116,.08)}
+.faq-q-text{font-family:var(--font-d);font-size:1.15rem;font-weight:400;line-height:1.2}
+.faq-icon{width:28px;height:28px;border-radius:50%;border:1px solid rgba(226,226,224,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;color:rgba(226,226,224,.4);font-size:1.1rem}
+.faq-item.open .faq-icon{border-color:var(--cr);color:var(--pe);transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.25,.8,.25,1)}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding:0 28px 22px;font-size:.8rem;color:rgba(226,226,224,.42);line-height:1.9}
+
+/* SUCCESS BANNER */
+.success-banner{display:none;background:rgba(43,117,116,.12);border:1px solid rgba(43,117,116,.35);padding:18px 22px;margin-top:16px;display:flex;align-items:center;gap:14px}
+.success-banner.show{display:flex}
+.success-banner svg{width:20px;height:20px;flex-shrink:0;fill:none;stroke:var(--t1);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.success-banner p{font-size:.76rem;color:rgba(226,226,224,.6);line-height:1.6}
+.success-banner strong{color:var(--t1)}
+
+/* FOOTER */
+footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+.f-brand{font-family:var(--font-d);font-size:2rem;font-style:italic;font-weight:300;margin-bottom:12px}
+.f-brand em{color:var(--t1)}
+.f-tagline{font-size:.78rem;color:rgba(226,226,224,.28);line-height:1.9;max-width:280px}
+.f-socs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.f-col h5{font-size:.6rem;letter-spacing:5px;color:rgba(226,226,224,.22);text-transform:uppercase;margin-bottom:22px}
+.f-col ul{display:flex;flex-direction:column;gap:11px}
+.f-col ul li a{color:rgba(226,226,224,.38);font-size:.8rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--t1)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid var(--pe2);font-size:.63rem;letter-spacing:2px;color:rgba(226,226,224,.18);flex-wrap:wrap;gap:10px}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(min-width:481px) and (max-width:1024px){
+  #cur,#cur-r{display:none}
+  body{cursor:auto}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:18px 5%}
+  #pt-hero{grid-template-columns:1fr 1fr;padding-top:80px}
+  .pt-grid{grid-template-columns:repeat(2,1fr)}
+  .qc-layout{grid-template-columns:1fr;gap:40px}
+  .df-grid{grid-template-columns:1fr}
+  .df-full{grid-column:1}
+  .ptype-grid{grid-template-columns:repeat(2,1fr)}
+  .budget-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:480px){
+  body{font-size:14px;padding-bottom:62px;cursor:auto}
+  #cur,#cur-r{display:none}
+  #bottom-nav{display:block}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:13px 5%}
+  nav#mainNav.stuck{padding:9px 5%}
+  .n-mark{width:34px;height:34px;font-size:.95rem}
+  .n-text{font-size:.82rem;letter-spacing:2px}
+  .n-text small{font-size:.46rem;letter-spacing:3px}
+  #pt-hero{grid-template-columns:1fr;min-height:auto;padding-top:70px}
+  .pth-right{min-height:300px}
+  .pth-left{padding:32px 5% 36px}
+  .pth-title{font-size:clamp(2.6rem,12vw,4rem)}
+  .pth-desc{font-size:.82rem;max-width:100%}
+  .pth-right-content{padding:32px 22px}
+  #partner-types{padding:52px 5%}
+  .pt-grid{grid-template-columns:repeat(2,1fr)}
+  .pt-card{padding:24px 16px}
+  #quick-contact{padding:52px 5%}
+  .qc-layout{grid-template-columns:1fr;gap:32px}
+  #detailed-form{padding:52px 5%}
+  .df-box{padding:32px 20px}
+  .df-grid{grid-template-columns:1fr}
+  .df-full{grid-column:1}
+  .ptype-grid{grid-template-columns:repeat(2,1fr)}
+  .budget-grid{grid-template-columns:repeat(2,1fr)}
+  #faq{padding:52px 5%}
+  .faq-q{padding:18px 18px}
+  .faq-q-text{font-size:1rem}
+  .faq-a-inner{padding:0 18px 18px}
+  footer{padding:44px 5% 24px}
+  .foot-grid{grid-template-columns:1fr;gap:22px}
+  .f-bottom{font-size:.52rem;flex-direction:column;gap:4px}
+  #toast{bottom:70px;right:12px;left:12px;font-size:.62rem;padding:9px 14px}
+}
+@media(max-width:767px) and (orientation:landscape){
+  #bottom-nav{display:block}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  body{padding-bottom:62px}
+}
+@media(hover:none){body{cursor:auto}#cur,#cur-r{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15ms!important}
+  .rv,.rvl,.rvr{opacity:1!important;transform:none!important}
+  .pth-tag,.pth-title,.pth-desc,.pth-btns{opacity:1!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div><div id="toast"></div>
+
+<!-- ICON DEFS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-ticket"  viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></symbol>
+  <symbol id="i-heart"   viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-cross"   viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/></symbol>
+  <symbol id="i-music"   viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-mic"     viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></symbol>
+  <symbol id="i-users"   viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-star"    viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="i-mail"    viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="i-arrow"   viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-check"   viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-bag"     viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-camera"  viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-fb"      viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig"      viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-yt"      viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></symbol>
+  <symbol id="i-tiktok"  viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527M9 15c1.5-1 3.5-.5 4.5.5M7 9c3-1.5 6-1 8.5 1"/></symbol>
+</svg>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕ close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="music.html" onclick="closeMob()">Music</a>
+  <a href="events.html" onclick="closeMob()">Events</a>
+  <a href="gallery.html" onclick="closeMob()">Gallery</a>
+  <a href="merch.html" onclick="closeMob()">Merch</a>
+  <a href="sponsors.html" onclick="closeMob()">Sponsors</a>
+  <a href="ministry.html" onclick="closeMob()">Ministry</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="partner.html" onclick="closeMob()">Partner</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="n-logo">
+    <div class="n-mark"><img src="assets/images/logo.webp" alt="Micky Mimsanii" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+    <div class="n-text">MICKY MIMSANII<small>#dreambig</small></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="merch.html">Merch</a></li>
+    <li><a href="sponsors.html">Sponsors</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="partner.html" class="active">Partner</a></li>
+  </ul>
+  <div class="n-nav-icons" id="navIcons"></div>
+  <a href="events.html" class="n-tkt">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Get Tickets
+  </a>
+  <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="pt-hero">
+  <div class="pth-left">
+    <div class="pth-bg"></div>
+    <div class="pth-ghost">BUILD</div>
+    <div class="pth-tag"><div class="pth-tag-line"></div><span class="pth-tag-txt">Collaborate · Build · Impact</span></div>
+    <h1 class="pth-title">Partner<br><em>With Us</em></h1>
+    <p class="pth-desc">Great things rarely happen alone. Whether you're a church, a brand, a fellow artist or a media house — there's a seat at the table for you. Let's build something that matters.</p>
+    <div class="pth-btns">
+      <a href="#quick-contact" class="btn-primary">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+        Quick Enquiry
+      </a>
+      <a href="#detailed-form" class="btn-outline">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-arrow"/></svg></span>
+        Full Partnership Form
+      </a>
+    </div>
+  </div>
+
+  <div class="pth-right">
+    <div class="pth-right-bg"></div>
+    <div class="pth-right-stripe"></div>
+    <div class="pth-right-content">
+      <div class="pth-stat-grid">
+        <div class="pth-stat">
+          <div class="pth-stat-num">50+</div>
+          <div class="pth-stat-label">Events Done</div>
+        </div>
+        <div class="pth-stat">
+          <div class="pth-stat-num">5K+</div>
+          <div class="pth-stat-label">Fans Reached</div>
+        </div>
+        <div class="pth-stat">
+          <div class="pth-stat-num">20+</div>
+          <div class="pth-stat-label">Church Partners</div>
+        </div>
+        <div class="pth-stat">
+          <div class="pth-stat-num">8</div>
+          <div class="pth-stat-label">Years Active</div>
+        </div>
+      </div>
+      <div class="pth-quote">
+        <p>"Two are better than one, because they have a good return for their labor."</p>
+        <cite>Ecclesiastes 4:9</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PARTNER TYPES ══════════ -->
+<section id="partner-types">
+  <div class="sl rv">Who We Work With</div>
+  <h2 class="st rv">Types of <em>Partnership</em></h2>
+  <div class="pt-grid">
+
+    <div class="pt-card rv" onclick="setPartnerType('Church / Ministry')">
+      <div class="pt-ghost">✝</div>
+      <div class="pt-icon"><span class="ir cr md"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg></span></div>
+      <div class="pt-name">Church & Ministry</div>
+      <div class="pt-desc">Worship nights, crusades, church conferences.</div>
+    </div>
+
+    <div class="pt-card cr-type rv d1" onclick="setPartnerType('Brand / Corporate')">
+      <div class="pt-ghost">★</div>
+      <div class="pt-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-star"/></svg></span></div>
+      <div class="pt-name">Brand & Corporate</div>
+      <div class="pt-desc">Event sponsorships, brand endorsements and corporate partnerships that reach Kenya's gospel and faith community.</div>
+    </div>
+
+    <div class="pt-card rv d2" onclick="setPartnerType('Music Collaboration')">
+      <div class="pt-ghost">♪</div>
+      <div class="pt-icon"><span class="ir cr md"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span></div>
+      <div class="pt-name">Music Collaboration</div>
+      <div class="pt-desc">Co-writing, features, production partnerships. If you create music that aligns with the vision, let's talk.</div>
+    </div>
+
+    <div class="pt-card cr-type rv d3" onclick="setPartnerType('Media & Press')">
+      <div class="pt-ghost">📷</div>
+      <div class="pt-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-camera"/></svg></span></div>
+      <div class="pt-name">Media & Press</div>
+      <div class="pt-desc">Interviews, features, radio appearances, podcasts, editorial coverage. Press kits and assets available on request.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ QUICK CONTACT ══════════ -->
+<section id="quick-contact">
+  <div class="qc-layout">
+    <div class="qc-left rvl">
+      <div class="sl">Get in Touch</div>
+      <h2 class="st">Say <em>Hello</em></h2>
+      <p class="qc-intro">Have a quick question or want to start a conversation? Drop a message and someone from the team will get back to you within 48 hours.</p>
+      <div class="qc-contact-cards">
+        <a href="mailto:mimsanii40@gmail.com" class="qc-contact-card">
+          <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+          <div>
+            <div class="qc-contact-label">Email</div>
+            <div class="qc-contact-val">mimsanii40@gmail.com</div>
+          </div>
+        </a>
+        <a href="tel:+254115555072" class="qc-contact-card">
+          <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></span>
+          <div>
+            <div class="qc-contact-label">Phone / WhatsApp</div>
+            <div class="qc-contact-val">+254 115 555 072</div>
+          </div>
+        </a>
+        <div class="qc-contact-card">
+          <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg></span>
+          <div>
+            <div class="qc-contact-label">Response Time</div>
+            <div class="qc-contact-val">Within 48 hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rvr">
+      <div class="pf-field">
+        <label class="pf-label" for="qcName">Your Name</label>
+        <input class="pf-input" id="qcName" type="text" placeholder="John Kamau" autocomplete="name">
+      </div>
+      <div class="pf-field">
+        <label class="pf-label" for="qcEmail">Email Address</label>
+        <input class="pf-input" id="qcEmail" type="email" placeholder="john@example.com" autocomplete="email">
+      </div>
+      <div class="pf-field">
+        <label class="pf-label" for="qcSubject">Subject</label>
+        <input class="pf-input" id="qcSubject" type="text" placeholder="e.g. Church partnership enquiry">
+      </div>
+      <div class="pf-field">
+        <label class="pf-label" for="qcMessage">Message</label>
+        <textarea class="pf-input pf-textarea" id="qcMessage" placeholder="Tell us a bit about what you have in mind..."></textarea>
+      </div>
+      <button class="pf-submit" id="qcBtn" onclick="submitQuickContact()">
+        <div class="spinner"></div>
+        <span class="btn-label">
+          <span class="ir sm" style="margin-right:6px"><svg viewBox="0 0 24 24"><use href="#i-arrow"/></svg></span>
+          Send Message
+        </span>
+      </button>
+      <div class="success-banner" id="qcSuccess">
+        <svg viewBox="0 0 24 24"><use href="#i-check"/></svg>
+        <p><strong>Message sent!</strong> We'll get back to you within 48 hours. God bless you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DETAILED FORM ══════════ -->
+<section id="detailed-form">
+  <div class="sl rv">For Serious Partnerships</div>
+  <h2 class="st rv">Full Partnership <em>Enquiry</em></h2>
+
+  <div class="df-box rv">
+    <div class="df-grid">
+
+      <div class="pf-field">
+        <label class="pf-label" for="dfName">Full Name *</label>
+        <input class="pf-input" id="dfName" type="text" placeholder="John Kamau" autocomplete="name">
+      </div>
+
+      <div class="pf-field">
+        <label class="pf-label" for="dfOrg">Organisation / Church / Brand</label>
+        <input class="pf-input" id="dfOrg" type="text" placeholder="e.g. Nairobi Chapel, Brand XYZ">
+      </div>
+
+      <div class="pf-field">
+        <label class="pf-label" for="dfEmail">Email Address *</label>
+        <input class="pf-input" id="dfEmail" type="email" placeholder="john@example.com" autocomplete="email">
+      </div>
+
+      <div class="pf-field">
+        <label class="pf-label" for="dfPhone">Phone / WhatsApp *</label>
+        <input class="pf-input" id="dfPhone" type="tel" placeholder="0712 345 678" autocomplete="tel">
+      </div>
+
+      <div class="pf-field df-full">
+        <label class="pf-label">Partnership Type *</label>
+        <div class="ptype-grid" id="ptypeGrid">
+          <button class="ptype-btn" data-type="Church / Ministry" onclick="selectPtype(this)">Church / Ministry</button>
+          <button class="ptype-btn" data-type="Brand / Corporate" onclick="selectPtype(this)">Brand / Corporate</button>
+          <button class="ptype-btn" data-type="Music Collaboration" onclick="selectPtype(this)">Music Collab</button>
+          <button class="ptype-btn" data-type="Media & Press" onclick="selectPtype(this)">Media & Press</button>
+        </div>
+      </div>
+
+      <div class="pf-field df-full">
+        <label class="pf-label">Estimated Budget / Investment</label>
+        <div class="budget-grid" id="budgetGrid">
+          <button class="budget-btn" data-budget="Under KSh 50,000" onclick="selectBudget(this)">Under 50K</button>
+          <button class="budget-btn" data-budget="KSh 50,000 – 200,000" onclick="selectBudget(this)">50K – 200K</button>
+          <button class="budget-btn" data-budget="KSh 200,000 – 500,000" onclick="selectBudget(this)">200K – 500K</button>
+          <button class="budget-btn" data-budget="KSh 500,000+" onclick="selectBudget(this)">500K+</button>
+          <button class="budget-btn" data-budget="Non-monetary / In-kind" onclick="selectBudget(this)">In-kind / Non-monetary</button>
+          <button class="budget-btn" data-budget="Prefer not to say" onclick="selectBudget(this)">Prefer not to say</button>
+        </div>
+      </div>
+
+      <div class="pf-field df-full">
+        <label class="pf-label" for="dfDetails">Partnership Details *</label>
+        <textarea class="pf-input pf-textarea" id="dfDetails" style="min-height:130px" placeholder="Describe your partnership idea — what you're looking for, timeline, scope, and how you see this working together..."></textarea>
+      </div>
+
+      <div class="pf-field df-full">
+        <label class="pf-label" for="dfTimeline">Ideal Timeline / Event Date</label>
+        <input class="pf-input" id="dfTimeline" type="text" placeholder="e.g. March 2027, or ASAP">
+      </div>
+
+    </div>
+
+    <button class="df-submit" id="dfBtn" onclick="submitDetailedForm()">
+      <div class="spinner"></div>
+      <span class="btn-label">
+        <span class="ir cr sm" style="margin-right:6px"><svg viewBox="0 0 24 24"><use href="#i-arrow"/></svg></span>
+        Submit Partnership Enquiry
+      </span>
+    </button>
+    <div class="success-banner" id="dfSuccess">
+      <svg viewBox="0 0 24 24"><use href="#i-check"/></svg>
+      <p><strong>Enquiry received!</strong> The team will review your submission and reach out within 72 hours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section id="faq">
+  <div class="sl rv">Common Questions</div>
+  <h2 class="st rv">Partnership <em>FAQ</em></h2>
+
+  <div class="faq-list rv">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">How quickly will you respond to my enquiry?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Quick contact messages are typically responded to within 48 hours. Full partnership enquiries may take up to 72 hours as they require the team to review your proposal properly. If your matter is urgent, please call or WhatsApp directly on +254 115 555 072.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">Does Micky minister at small churches or only large events?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Micky serves all sizes of congregation — from intimate worship nights with 50 people to large gospel concerts with thousands. The size of the crowd does not determine the commitment to excellence and the heart behind the ministry. Every booking is treated with the same seriousness.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">What is included in a church ministry booking?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">A typical church booking includes worship leading, a gospel performance set, and where relevant, a short spoken ministry moment. Technical requirements (sound, lighting, backline) are discussed during the booking process. A formal rider and booking agreement is provided after initial discussions.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">Can brands partner with Micky even if they are not faith-based?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Yes — brands do not need to be faith-based to partner with the ministry. However, all partnerships must align with the values of the ministry: respect for faith, family and community. Brands that conflict with these values (alcohol, gambling, adult content) will not be considered regardless of the financial offer.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">How does a music collaboration work?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Music collaborations start with a creative conversation — sharing ideas, listening to existing work, and establishing whether there is genuine creative alignment. From there, a songwriting or feature session is arranged. All collaboration details including royalty splits and release timelines are agreed in writing before any studio time begins.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">How do I get a press kit or media assets?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Press kits including hi-res artist photos, official bio, discography and streaming links are available on the <a href="about.html#press" style="color:var(--t1);text-decoration:underline">About page</a>. For specific media requests — interviews, editorial features or broadcast appearances — use the quick contact form above or email directly.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">Is there a minimum sponsorship amount?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">For individual donations, there is no minimum — every shilling counts. For formal sponsorship partnerships (with branding, perks and recognition), the Seed tier starts at KSh 5,000. See the <a href="sponsors.html#sponsor-tiers" style="color:var(--t1);text-decoration:underline">Sponsorship Tiers</a> on the Donate page for full details.</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="f-brand">Micky <em>Mimsanii</em></div>
+      <p class="f-tagline">Musician · Songwriter · Vocalist · Minister.<br>Dreaming big, one song at a time.</p>
+      <div class="f-socs">
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Facebook coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-fb"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Instagram coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ig"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('YouTube coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-yt"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('TikTok coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tiktok"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Spotify coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-spotify"/></svg></span>
+      </div>
+    </div>
+    <div class="f-col"><h5>Pages</h5><ul>
+      <li><a href="about.html">About &amp; Bio</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="events.html">Events &amp; Tickets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="merch.html">Merch Store</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Support</h5><ul>
+      <li><a href="sponsors.html">Sponsors &amp; Donate</a></li>
+      <li><a href="partner.html">Partner With Us</a></li>
+      <li><a href="ministry.html">Ministry</a></li>
+      <li><a href="blog.html">Blog &amp; News</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:mimsanii40@gmail.com">mimsanii40@gmail.com</a></li>
+      <li><a href="tel:+254115555072">+254 115 555 072</a></li>
+      <li><a href="#">Nairobi, Kenya</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Micky #mimsanii · All rights reserved.</span>
+    <span>Crafted with passion · by #mimsanii</span>
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="bn-inner">
+    <a href="index.html" class="bn-item" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>Home
+    </a>
+    <a href="music.html" class="bn-item" aria-label="Music">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music
+    </a>
+    <a href="events.html" class="bn-item" aria-label="Events">
+      <svg viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></svg>Events
+    </a>
+    <a href="gallery.html" class="bn-item" aria-label="Gallery">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Gallery
+    </a>
+    <button class="bn-item" aria-label="More" onclick="openMoreSheet()" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>More
+    </button>
+  </div>
+</nav>
+
+<!-- MORE SHEET -->
+<div id="bn-more-sheet" role="dialog" aria-modal="true">
+  <div class="bn-sheet-bg" onclick="closeMoreSheet()"></div>
+  <div class="bn-sheet-panel">
+    <div class="bn-sheet-handle"></div>
+    <div class="bn-sheet-grid">
+      <a href="merch.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg><span>Merch</span></a>
+      <a href="sponsors.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg><span>Donate</span></a>
+      <a href="ministry.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg><span>Ministry</span></a>
+      <a href="blog.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Blog</span></a>
+      <a href="about.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About</span></a>
+      <a href="partner.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Partner</span></a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════
+   CONFIG
+══════════════════════════════════ */
+const SUPABASE_URL = 'https://osbuvwtetizjvjqwhktu.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_H8CRGGDknZS19sFTM1LbLA_2R_nORFk';
+
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* CURSOR */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a)})();
+
+/* STICKY NAV */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+/* MORE SHEET */
+function openMoreSheet(){document.getElementById('bn-more-sheet').classList.add('open');document.body.style.overflow='hidden'}
+function closeMoreSheet(){document.getElementById('bn-more-sheet').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMoreSheet()});
+let _sy=0;
+document.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_sy>60&&document.getElementById('bn-more-sheet').classList.contains('open'))closeMoreSheet()},{passive:true});
+
+/* TABLET ICON NAV */
+(function(){
+  const items=[
+    {href:'music.html',label:'Music',svg:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',cls:''},
+    {href:'events.html',label:'Events',svg:'<path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/>',cls:'tkt-icon'},
+    {href:'gallery.html',label:'Gallery',svg:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',cls:''},
+    {href:'merch.html',label:'Merch',svg:'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',cls:''},
+    {href:null,label:'More',svg:'<circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>',cls:'',more:true},
+  ];
+  const wrap=document.getElementById('navIcons');
+  items.forEach(({href,label,svg,cls,more})=>{
+    const el=more?document.createElement('button'):document.createElement('a');
+    if(!more)el.href=href;
+    else{el.style.cssText='background:none;border:none;font-family:inherit;cursor:pointer;';el.onclick=openMoreSheet;}
+    el.className='n-nav-icon '+(cls||'');
+    el.innerHTML=`<svg viewBox="0 0 24 24">${svg}</svg>${label}`;
+    wrap.appendChild(el);
+  });
+})();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+
+/* TOAST */
+let _tt;
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='';
+  if(type)t.classList.add(type);
+  t.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+/* ══════════════════════
+   PARTNER TYPE CARDS
+══════════════════════ */
+let selectedPartnerType = '';
+
+function setPartnerType(type){
+  selectedPartnerType = type;
+  // highlight the card
+  document.querySelectorAll('.pt-card').forEach(c=>c.classList.remove('active-type'));
+  event.currentTarget.classList.add('active-type');
+  // scroll to detailed form and pre-select the type
+  document.getElementById('detailed-form').scrollIntoView({behavior:'smooth'});
+  // select the matching ptype button
+  document.querySelectorAll('.ptype-btn').forEach(b=>{
+    if(b.dataset.type===type){selectPtype(b);}
+  });
+}
+
+/* ══════════════════════
+   FORM SELECTORS
+══════════════════════ */
+let selectedPtype  = '';
+let selectedBudget = '';
+
+function selectPtype(btn){
+  document.querySelectorAll('.ptype-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedPtype = btn.dataset.type;
+}
+
+function selectBudget(btn){
+  document.querySelectorAll('.budget-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedBudget = btn.dataset.budget;
+}
+
+/* ══════════════════════
+   VALIDATION HELPERS
+══════════════════════ */
+function validateField(id){
+  const el=document.getElementById(id);
+  const val=el.value.trim();
+  if(!val){el.classList.add('err');return false;}
+  el.classList.remove('err');
+  return true;
+}
+
+function validateEmail(id){
+  const el=document.getElementById(id);
+  const val=el.value.trim();
+  if(!val||!val.includes('@')){el.classList.add('err');return false;}
+  el.classList.remove('err');
+  return true;
+}
+
+/* ══════════════════════
+   QUICK CONTACT → SUPABASE
+══════════════════════ */
+async function submitQuickContact(){
+  const okName    = validateField('qcName');
+  const okEmail   = validateEmail('qcEmail');
+  const okSubject = validateField('qcSubject');
+  const okMsg     = validateField('qcMessage');
+  if(!okName||!okEmail||!okSubject||!okMsg){
+    toast('Please fill in all fields','err');return;
+  }
+
+  const btn=document.getElementById('qcBtn');
+  btn.classList.add('loading');btn.disabled=true;
+
+  const data={
+    name:    document.getElementById('qcName').value.trim(),
+    email:   document.getElementById('qcEmail').value.trim(),
+    subject: document.getElementById('qcSubject').value.trim(),
+    message: document.getElementById('qcMessage').value.trim(),
+    form_type:'quick_contact'
+  };
+
+  const {error}=await db.from('partner_enquiries').insert([data]);
+
+  btn.classList.remove('loading');btn.disabled=false;
+
+  if(error){
+    console.error(error);
+    toast('Something went wrong. Please email us directly.','err');
+    return;
+  }
+
+  document.getElementById('qcSuccess').classList.add('show');
+  document.getElementById('qcName').value='';
+  document.getElementById('qcEmail').value='';
+  document.getElementById('qcSubject').value='';
+  document.getElementById('qcMessage').value='';
+  toast('Message sent successfully!','ok');
+}
+
+/* ══════════════════════
+   DETAILED FORM → SUPABASE
+══════════════════════ */
+async function submitDetailedForm(){
+  const okName    = validateField('dfName');
+  const okEmail   = validateEmail('dfEmail');
+  const okPhone   = validateField('dfPhone');
+  const okDetails = validateField('dfDetails');
+
+  if(!okName||!okEmail||!okPhone||!okDetails){
+    toast('Please fill in all required fields (*)','err');return;
+  }
+  if(!selectedPtype){
+    toast('Please select a partnership type','err');return;
+  }
+
+  const btn=document.getElementById('dfBtn');
+  btn.classList.add('loading');btn.disabled=true;
+
+  const data={
+    name:             document.getElementById('dfName').value.trim(),
+    organisation:     document.getElementById('dfOrg').value.trim(),
+    email:            document.getElementById('dfEmail').value.trim(),
+    phone:            document.getElementById('dfPhone').value.trim(),
+    partnership_type: selectedPtype,
+    budget:           selectedBudget,
+    details:          document.getElementById('dfDetails').value.trim(),
+    timeline:         document.getElementById('dfTimeline').value.trim(),
+    form_type:        'detailed_enquiry'
+  };
+
+  const {error}=await db.from('partner_enquiries').insert([data]);
+
+  btn.classList.remove('loading');btn.disabled=false;
+
+  if(error){
+    console.error(error);
+    toast('Something went wrong. Please email us directly.','err');
+    return;
+  }
+
+  document.getElementById('dfSuccess').classList.add('show');
+  // clear form
+  ['dfName','dfOrg','dfEmail','dfPhone','dfDetails','dfTimeline'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.querySelectorAll('.ptype-btn,.budget-btn').forEach(b=>b.classList.remove('selected'));
+  selectedPtype='';selectedBudget='';
+  toast('Partnership enquiry submitted!','ok');
+}
+
+/* ══════════════════════
+   FAQ ACCORDION
+══════════════════════ */
+function toggleFaq(qEl){
+  const item=qEl.parentElement;
+  const isOpen=item.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  // open clicked if it was closed
+  if(!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>

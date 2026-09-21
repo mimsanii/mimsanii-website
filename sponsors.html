@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micky Mimsanii — Sponsors & Donate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Paystack -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<style>
+:root{
+  --d1:#0E2931;--d2:#12484C;--t1:#2B7574;--cr:#861211;
+  --pe:#E2E2E0;--pe2:rgba(226,226,224,.07);
+  --font-d:'Cormorant Garamond',serif;--font-b:'Outfit',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--d1);color:var(--pe);overflow-x:hidden;cursor:none;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+ul{list-style:none}
+img{display:block;width:100%;object-fit:cover}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+#cur{width:8px;height:8px;background:var(--cr);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+#cur-r{width:30px;height:30px;border:1.5px solid rgba(43,117,116,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:all .12s ease}
+
+.ir{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:all .35s}
+.ir svg{display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ir{border:1px solid rgba(43,117,116,.5);background:radial-gradient(circle at 38% 38%,rgba(43,117,116,.22) 0%,transparent 68%);box-shadow:0 0 12px rgba(43,117,116,.22),inset 0 0 8px rgba(43,117,116,.08)}
+.ir svg{stroke:var(--t1);stroke-width:1.5}
+.ir.cr{border-color:rgba(134,18,17,.55);background:radial-gradient(circle at 38% 38%,rgba(134,18,17,.2) 0%,transparent 68%);box-shadow:0 0 12px rgba(134,18,17,.2),inset 0 0 8px rgba(134,18,17,.08)}
+.ir.cr svg{stroke:#c0302f}
+.ir.pe{border-color:rgba(226,226,224,.18);background:radial-gradient(circle at 38% 38%,rgba(226,226,224,.06) 0%,transparent 68%);box-shadow:0 0 8px rgba(226,226,224,.06),inset 0 0 6px rgba(226,226,224,.03)}
+.ir.pe svg{stroke:rgba(226,226,224,.45)}
+.ir.sm{width:32px;height:32px}.ir.sm svg{width:14px;height:14px}
+.ir.md{width:46px;height:46px}.ir.md svg{width:21px;height:21px}
+.ir.lg{width:58px;height:58px}.ir.lg svg{width:27px;height:27px}
+.ir.xl{width:76px;height:76px}.ir.xl svg{width:34px;height:34px}
+a:hover .ir,.ring-hover:hover .ir{box-shadow:0 0 22px rgba(43,117,116,.5),inset 0 0 14px rgba(43,117,116,.18);border-color:rgba(43,117,116,.9)}
+a:hover .ir.cr,.ring-hover:hover .ir.cr{box-shadow:0 0 22px rgba(134,18,17,.45),inset 0 0 14px rgba(134,18,17,.18);border-color:rgba(134,18,17,.9)}
+
+nav#mainNav{position:fixed;top:0;width:100%;z-index:900;padding:24px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav#mainNav.stuck{background:rgba(14,41,49,.92);backdrop-filter:blur(20px);padding:15px 6%;border-bottom:1px solid var(--pe2)}
+.n-logo{display:flex;align-items:center;gap:14px}
+.n-mark{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t1);box-shadow:0 0 12px rgba(43,117,116,.25);background:var(--d2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.25rem;font-weight:600;overflow:hidden;transition:all .3s;flex-shrink:0}
+.n-logo:hover .n-mark{border-color:var(--cr);box-shadow:0 0 18px rgba(134,18,17,.3)}
+.n-text{font-family:var(--font-d);font-size:1.05rem;font-weight:600;letter-spacing:3px;line-height:1.1}
+.n-text small{display:block;font-size:.58rem;letter-spacing:5px;color:var(--t1);font-family:var(--font-b);font-weight:400}
+.n-links{display:flex;gap:28px}
+.n-links a{color:rgba(226,226,224,.48);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cr);transition:width .3s}
+.n-links a:hover,.n-links a.active{color:var(--pe)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-tkt{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:1px solid var(--cr);color:var(--pe);padding:8px 20px;transition:all .3s}
+.n-tkt:hover{background:var(--cr)}
+.n-nav-icons{display:none;gap:10px;align-items:center}
+.n-nav-icon{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(226,226,224,.45);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;padding:4px}
+.n-nav-icon:hover,.n-nav-icon:active{color:var(--t1)}
+.n-nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n-nav-icon.tkt-icon{color:rgba(134,18,17,.8)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--pe);transition:all .3s}
+#mob{display:none;position:fixed;inset:0;z-index:800;background:var(--d1);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob.open{display:flex}
+#mob a{font-family:var(--font-d);font-size:2.6rem;font-style:italic;color:var(--pe);transition:color .3s;letter-spacing:2px}
+#mob a:hover{color:var(--t1)}
+.mob-x{position:absolute;top:26px;right:6%;font-size:1.3rem;cursor:pointer;color:rgba(226,226,224,.4);background:none;border:none;font-family:var(--font-b)}
+
+#bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(6,13,17,.96);backdrop-filter:blur(18px);border-top:1px solid rgba(43,117,116,.25);height:62px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-inner{display:flex;height:62px;align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(226,226,224,.35);text-decoration:none;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;position:relative;background:none;border:none;font-family:var(--font-b)}
+.bn-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.active{color:var(--t1)}
+.bn-item.active::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cr)}
+#bn-more-sheet{display:none;position:fixed;inset:0;z-index:940}
+#bn-more-sheet.open{display:block}
+.bn-sheet-bg{position:absolute;inset:0;background:rgba(6,13,17,.7)}
+.bn-sheet-panel{position:absolute;bottom:62px;left:0;right:0;background:var(--d2);border-top:1px solid rgba(43,117,116,.3);border-radius:20px 20px 0 0;padding:18px 0 24px;animation:sheetUp .28s cubic-bezier(.25,.8,.25,1) both}
+@keyframes sheetUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.bn-sheet-handle{width:36px;height:3px;border-radius:2px;background:rgba(226,226,224,.2);margin:0 auto 18px}
+.bn-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(226,226,224,.05)}
+.bn-sheet-item{background:var(--d1);padding:20px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--pe);-webkit-tap-highlight-color:transparent;transition:background .3s}
+.bn-sheet-item:active{background:rgba(43,117,116,.15)}
+.bn-sheet-item svg{width:22px;height:22px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-sheet-item.cr-item svg{stroke:#c0302f}
+.bn-sheet-item span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.55)}
+
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cr);color:var(--pe);padding:13px 30px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));transition:all .35s;border:none}
+.btn-primary:hover{background:#a01615;letter-spacing:4px}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(226,226,224,.2);color:rgba(226,226,224,.65);padding:12px 28px;font-size:.7rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all .35s;background:none}
+.btn-outline:hover{border-color:var(--t1);color:var(--pe)}
+
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+.sl{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase;margin-bottom:18px}
+.sl::before{content:'';width:26px;height:1px;background:var(--cr)}
+.st{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.92;letter-spacing:-1px;margin-bottom:18px}
+.st em{font-style:italic;color:var(--t1)}
+
+#toast{position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--d2);border:1px solid rgba(43,117,116,.45);color:var(--pe);padding:13px 24px;font-size:.73rem;letter-spacing:2px;transform:translateY(70px);opacity:0;pointer-events:none;transition:all .4s}
+#toast.show{transform:none;opacity:1}
+#toast.err{border-color:rgba(134,18,17,.6);background:rgba(134,18,17,.12)}
+#toast.ok{border-color:rgba(43,117,116,.7);background:rgba(43,117,116,.1)}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+#sp-hero{min-height:70vh;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding:100px 6% 72px}
+.sph-bg{position:absolute;inset:0;background:radial-gradient(ellipse 65% 75% at 70% 35%,rgba(134,18,17,.22),transparent 60%),radial-gradient(ellipse 50% 60% at 15% 75%,rgba(43,117,116,.2),transparent 55%),linear-gradient(158deg,var(--d2) 0%,var(--d1) 100%)}
+.sph-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:clamp(7rem,20vw,18rem);font-weight:300;color:rgba(226,226,224,.03);right:-2%;top:50%;transform:translateY(-50%);letter-spacing:-8px;pointer-events:none;white-space:nowrap}
+.sph-content{position:relative;z-index:2;max-width:680px}
+.sph-tag{display:flex;align-items:center;gap:14px;margin-bottom:20px;opacity:0;animation:rise .9s .1s both}
+.sph-tag-line{width:36px;height:1px;background:var(--cr)}
+.sph-tag-txt{font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase}
+.sph-title{font-family:var(--font-d);font-size:clamp(3rem,9vw,8rem);font-weight:300;line-height:.88;letter-spacing:-2px;margin-bottom:20px;opacity:0;animation:rise .9s .25s both}
+.sph-title em{font-style:italic;color:var(--t1)}
+.sph-verse{border-left:2px solid var(--cr);padding:14px 20px;margin-bottom:28px;opacity:0;animation:rise .9s .38s both}
+.sph-verse p{font-family:var(--font-d);font-size:1.1rem;font-style:italic;font-weight:300;color:rgba(226,226,224,.65);line-height:1.5;margin-bottom:6px}
+.sph-verse cite{font-size:.54rem;letter-spacing:3px;color:rgba(226,226,224,.25);text-transform:uppercase;font-style:normal}
+.sph-desc{font-size:.86rem;color:rgba(226,226,224,.42);line-height:1.9;opacity:0;animation:rise .9s .48s both}
+
+.impact-strip{background:var(--d2);border-top:1px solid var(--pe2);border-bottom:1px solid var(--pe2);padding:24px 6%;display:flex;align-items:center;justify-content:center;gap:64px;flex-wrap:wrap}
+.is-item{text-align:center}
+.is-num{font-family:var(--font-d);font-size:2.4rem;font-weight:300;color:var(--t1);line-height:1}
+.is-item:nth-child(2n) .is-num{color:var(--cr)}
+.is-label{font-size:.54rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-top:4px}
+
+#causes{padding:90px 6%}
+.causes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pe2);margin-top:52px}
+.cause-card{background:var(--d2);padding:40px 32px;position:relative;overflow:hidden;cursor:pointer;transition:all .35s;border:2px solid transparent}
+.cause-card:hover{background:rgba(18,72,76,.2)}
+.cause-card.selected{border-color:var(--t1);background:rgba(43,117,116,.08)}
+.cause-card.selected-cr{border-color:var(--cr);background:rgba(134,18,17,.06)}
+.cause-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--t1);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.cause-card.selected::before,.cause-card:hover::before{transform:scaleX(1)}
+.cause-card.cr-cause::before{background:var(--cr)}
+.cause-card.selected-cr::before{transform:scaleX(1)}
+.cause-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:6rem;font-weight:300;color:rgba(226,226,224,.03);right:-8px;bottom:-8px;line-height:1;pointer-events:none}
+.cause-icon{margin-bottom:20px}
+.cause-name{font-family:var(--font-d);font-size:1.4rem;font-weight:300;margin-bottom:10px;line-height:1}
+.cause-desc{font-size:.74rem;color:rgba(226,226,224,.38);line-height:1.85;margin-bottom:18px}
+.cause-goal{font-size:.58rem;letter-spacing:2px;color:rgba(226,226,224,.22);text-transform:uppercase}
+.cause-goal span{color:var(--t1);font-weight:600}
+.cause-check{position:absolute;top:16px;right:16px;width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(43,117,116,.4);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.cause-card.selected .cause-check{background:var(--t1);border-color:var(--t1)}
+.cause-card.selected-cr .cause-check{background:var(--cr);border-color:var(--cr)}
+.cause-check svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s}
+.cause-card.selected .cause-check svg,.cause-card.selected-cr .cause-check svg{opacity:1}
+
+#donate-form{padding:90px 6%;background:var(--d2)}
+.donate-layout{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pe2);margin-top:52px}
+.df-left{background:var(--d1);padding:52px 48px}
+.df-right{background:var(--d1);padding:52px 48px;display:flex;flex-direction:column;justify-content:space-between}
+
+.df-section-label{font-size:.56rem;letter-spacing:4px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:16px}
+.amount-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.amt-btn{padding:14px 8px;border:1px solid rgba(226,226,224,.12);color:rgba(226,226,224,.45);background:none;cursor:pointer;transition:all .3s;font-family:var(--font-d);font-size:1.1rem;font-weight:300;position:relative}
+.amt-btn:hover{border-color:rgba(43,117,116,.5);color:var(--pe);background:rgba(43,117,116,.07)}
+.amt-btn.active{border-color:var(--t1);color:var(--pe);background:rgba(43,117,116,.12)}
+.amt-btn small{display:block;font-family:var(--font-b);font-size:.48rem;letter-spacing:2px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:3px}
+
+.custom-amt-wrap{position:relative;margin-bottom:32px}
+.custom-amt-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:.7rem;color:rgba(226,226,224,.3);letter-spacing:2px;pointer-events:none}
+.custom-amt-input{width:100%;background:var(--d2);border:1px solid rgba(226,226,224,.1);color:var(--pe);font-family:var(--font-d);font-size:1.4rem;font-weight:300;padding:13px 16px 13px 52px;outline:none;transition:border-color .3s}
+.custom-amt-input::placeholder{color:rgba(226,226,224,.18)}
+.custom-amt-input:focus{border-color:rgba(43,117,116,.5)}
+.custom-amt-input.err{border-color:rgba(134,18,17,.55)}
+
+.df-cause-display{background:var(--d2);border:1px solid rgba(43,117,116,.2);padding:16px 18px;margin-bottom:32px;display:flex;align-items:center;gap:14px}
+.df-cause-icon{flex-shrink:0}
+.df-cause-name{font-family:var(--font-d);font-size:1.1rem;font-weight:300}
+.df-cause-sub{font-size:.6rem;color:rgba(226,226,224,.3);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.change-cause-btn{margin-left:auto;font-size:.56rem;letter-spacing:2px;color:rgba(43,117,116,.6);text-transform:uppercase;cursor:pointer;background:none;border:none;white-space:nowrap;transition:color .3s}
+.change-cause-btn:hover{color:var(--t1)}
+
+.df-field{margin-bottom:16px}
+.df-label{display:block;font-size:.56rem;letter-spacing:3px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:8px}
+.df-input{width:100%;background:var(--d2);border:1px solid rgba(226,226,224,.1);color:var(--pe);font-family:var(--font-b);font-size:.8rem;padding:12px 16px;outline:none;transition:border-color .3s}
+.df-input::placeholder{color:rgba(226,226,224,.2)}
+.df-input:focus{border-color:rgba(43,117,116,.5)}
+.df-input.err{border-color:rgba(134,18,17,.55)}
+
+.df-summary{background:var(--d2);border:1px solid rgba(226,226,224,.07);padding:20px 20px;margin-bottom:24px}
+.df-summary-row{display:flex;justify-content:space-between;font-size:.7rem;color:rgba(226,226,224,.38);margin-bottom:10px}
+.df-summary-row:last-child{margin-bottom:0;padding-top:12px;border-top:1px solid var(--pe2);color:var(--pe);font-size:.8rem}
+.df-summary-row:last-child span:last-child{font-family:var(--font-d);font-size:1.5rem;font-weight:300;color:var(--t1)}
+
+.df-donate-btn{width:100%;background:var(--cr);color:var(--pe);border:none;padding:16px;font-family:var(--font-b);font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .35s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));display:flex;align-items:center;justify-content:center;gap:10px}
+.df-donate-btn:hover:not(:disabled){background:#a01615;letter-spacing:4px}
+.df-donate-btn:disabled{opacity:.4;cursor:not-allowed}
+.df-donate-btn .spinner{width:16px;height:16px;border:2px solid rgba(226,226,224,.3);border-top-color:var(--pe);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.df-donate-btn.loading .spinner{display:block}
+.df-donate-btn.loading .btn-label{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.df-secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.54rem;letter-spacing:2px;color:rgba(226,226,224,.18);text-transform:uppercase}
+.df-secure svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5}
+
+.anon-toggle{display:flex;align-items:center;gap:12px;margin-bottom:20px;cursor:pointer}
+.anon-check{width:20px;height:20px;border:1px solid rgba(226,226,224,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;background:none}
+.anon-check.checked{background:var(--t1);border-color:var(--t1)}
+.anon-check svg{width:11px;height:11px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s}
+.anon-check.checked svg{opacity:1}
+.anon-label{font-size:.68rem;color:rgba(226,226,224,.38);line-height:1.5}
+
+#donateSuccess{display:none;position:fixed;inset:0;z-index:9800;background:rgba(6,13,17,.92);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:20px}
+#donateSuccess.open{display:flex}
+.ds-box{background:var(--d2);border:1px solid rgba(43,117,116,.25);width:100%;max-width:460px;padding:52px 44px;text-align:center;position:relative;overflow:hidden;animation:dsIn .35s cubic-bezier(.25,.8,.25,1) both}
+@keyframes dsIn{from{opacity:0;transform:scale(.96) translateY(20px)}to{opacity:1;transform:none}}
+.ds-stripe{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,var(--t1),var(--cr))}
+.ds-icon{width:72px;height:72px;border-radius:50%;border:2px solid var(--t1);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 0 32px rgba(43,117,116,.25)}
+.ds-icon svg{width:32px;height:32px;fill:none;stroke:var(--t1);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ds-title{font-family:var(--font-d);font-size:2.4rem;font-weight:300;margin-bottom:8px}
+.ds-title em{font-style:italic;color:var(--t1)}
+.ds-amount{font-family:var(--font-d);font-size:2rem;font-weight:300;color:var(--pe);margin-bottom:6px}
+.ds-cause{font-size:.58rem;letter-spacing:3px;color:var(--t1);text-transform:uppercase;margin-bottom:20px}
+.ds-ref{font-size:.62rem;letter-spacing:2px;color:rgba(226,226,224,.25);text-transform:uppercase;margin-bottom:28px}
+.ds-verse{border-left:2px solid var(--cr);padding:12px 18px;margin-bottom:28px;text-align:left}
+.ds-verse p{font-family:var(--font-d);font-size:1rem;font-style:italic;color:rgba(226,226,224,.6);line-height:1.5;margin-bottom:4px}
+.ds-verse cite{font-size:.5rem;letter-spacing:3px;color:rgba(226,226,224,.22);text-transform:uppercase;font-style:normal}
+
+#sponsorModal{display:none;position:fixed;inset:0;z-index:9800;background:rgba(6,13,17,.92);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+#sponsorModal.open{display:flex}
+.sm-box{background:var(--d2);border:1px solid rgba(43,117,116,.25);width:100%;max-width:480px;padding:44px 40px;position:relative;overflow:hidden;animation:dsIn .35s cubic-bezier(.25,.8,.25,1) both;margin:auto}
+.sm-close{position:absolute;top:18px;right:18px;background:none;border:none;color:rgba(226,226,224,.35);font-size:1.1rem;cursor:pointer;transition:color .3s;line-height:1;padding:4px}
+.sm-close:hover{color:var(--pe)}
+.sm-badge{font-size:.54rem;letter-spacing:4px;color:var(--t1);text-transform:uppercase;margin-bottom:8px}
+.sm-title{font-family:var(--font-d);font-size:2rem;font-weight:300;margin-bottom:6px}
+.sm-title em{font-style:italic;color:var(--t1)}
+.sm-range{font-size:.62rem;letter-spacing:2px;color:rgba(226,226,224,.3);text-transform:uppercase;margin-bottom:28px}
+.sm-field{margin-bottom:16px}
+.sm-toggle{display:flex;align-items:center;gap:12px;margin:20px 0 24px;cursor:pointer}
+.sm-toggle .anon-check{flex-shrink:0}
+.sm-submit-btn{width:100%;background:var(--cr);color:var(--pe);border:none;padding:16px;font-family:var(--font-b);font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .35s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));display:flex;align-items:center;justify-content:center;gap:10px}
+.sm-submit-btn:hover:not(:disabled){background:#a01615;letter-spacing:4px}
+.sm-submit-btn:disabled{opacity:.4;cursor:not-allowed}
+.sm-submit-btn .spinner{width:16px;height:16px;border:2px solid rgba(226,226,224,.3);border-top-color:var(--pe);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.sm-submit-btn.loading .spinner{display:block}
+.sm-submit-btn.loading .btn-label{display:none}
+
+#sponsor-tiers{padding:90px 6%}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pe2);margin-top:52px}
+.tier-card{background:var(--d2);padding:44px 36px;position:relative;overflow:hidden;transition:background .4s}
+.tier-card:hover{background:rgba(18,72,76,.15)}
+.tier-card.featured-tier{background:rgba(134,18,17,.06);border:1px solid rgba(134,18,17,.2)}
+.tier-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--t1),transparent)}
+.tier-card.featured-tier::after{background:linear-gradient(to right,var(--cr),transparent)}
+.tier-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:6rem;font-weight:300;color:rgba(226,226,224,.03);right:-8px;bottom:-8px;line-height:1;pointer-events:none}
+.tier-badge{font-size:.5rem;letter-spacing:4px;color:var(--t1);text-transform:uppercase;margin-bottom:14px}
+.tier-card.featured-tier .tier-badge{color:var(--cr)}
+.tier-name{font-family:var(--font-d);font-size:2rem;font-weight:300;margin-bottom:6px}
+.tier-range{font-size:.62rem;letter-spacing:2px;color:rgba(226,226,224,.28);text-transform:uppercase;margin-bottom:22px}
+.tier-perks{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.tier-perk{display:flex;align-items:flex-start;gap:10px;font-size:.74rem;color:rgba(226,226,224,.42);line-height:1.6}
+.tier-perk-dot{width:5px;height:5px;border-radius:50%;background:var(--t1);flex-shrink:0;margin-top:6px}
+.tier-card.featured-tier .tier-perk-dot{background:var(--cr)}
+
+footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+.f-brand{font-family:var(--font-d);font-size:2rem;font-style:italic;font-weight:300;margin-bottom:12px}
+.f-brand em{color:var(--t1)}
+.f-tagline{font-size:.78rem;color:rgba(226,226,224,.28);line-height:1.9;max-width:280px}
+.f-socs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.f-col h5{font-size:.6rem;letter-spacing:5px;color:rgba(226,226,224,.22);text-transform:uppercase;margin-bottom:22px}
+.f-col ul{display:flex;flex-direction:column;gap:11px}
+.f-col ul li a{color:rgba(226,226,224,.38);font-size:.8rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--t1)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid var(--pe2);font-size:.63rem;letter-spacing:2px;color:rgba(226,226,224,.18);flex-wrap:wrap;gap:10px}
+
+@media(min-width:481px) and (max-width:1024px){
+  #cur,#cur-r{display:none}
+  body{cursor:auto}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:18px 5%}
+  .causes-grid{grid-template-columns:1fr}
+  .donate-layout{grid-template-columns:1fr}
+  .tiers-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:480px){
+  body{font-size:14px;padding-bottom:62px;cursor:auto}
+  #cur,#cur-r{display:none}
+  #bottom-nav{display:block}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:13px 5%}
+  nav#mainNav.stuck{padding:9px 5%}
+  .n-mark{width:34px;height:34px;font-size:.95rem}
+  .n-text{font-size:.82rem;letter-spacing:2px}
+  .n-text small{font-size:.46rem;letter-spacing:3px}
+  #sp-hero{padding:90px 5% 48px;min-height:50vh}
+  .sph-title{font-size:clamp(2.8rem,13vw,4.5rem)}
+  .sph-desc{display:none}
+  .impact-strip{gap:24px;padding:16px 5%}
+  #causes{padding:52px 5%}
+  .causes-grid{grid-template-columns:1fr}
+  .cause-card{padding:28px 22px}
+  #donate-form{padding:52px 5%}
+  .donate-layout{grid-template-columns:1fr}
+  .df-left{padding:32px 20px}
+  .df-right{padding:32px 20px}
+  .amount-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .amt-btn{padding:11px 6px;font-size:.95rem}
+  #sponsor-tiers{padding:52px 5%}
+  .tiers-grid{grid-template-columns:1fr}
+  .tier-card{padding:32px 22px}
+  .ds-box{padding:36px 22px}
+  footer{padding:44px 5% 24px}
+  .foot-grid{grid-template-columns:1fr;gap:22px}
+  .f-bottom{font-size:.52rem;flex-direction:column;gap:4px}
+  #toast{bottom:70px;right:12px;left:12px;font-size:.62rem;padding:9px 14px}
+}
+@media(max-width:767px) and (orientation:landscape){
+  #bottom-nav{display:block}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  body{padding-bottom:62px}
+}
+@media(hover:none){body{cursor:auto}#cur,#cur-r{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15ms!important}
+  .rv,.rvl,.rvr{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div><div id="toast"></div>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-ticket"  viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></symbol>
+  <symbol id="i-heart"   viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-music"   viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-mic"     viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></symbol>
+  <symbol id="i-cross"   viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/></symbol>
+  <symbol id="i-check"   viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-lock"    viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-arrow"   viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-star"    viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="i-bag"     viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-fb"      viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig"      viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-yt"      viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></symbol>
+  <symbol id="i-tiktok"  viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527M9 15c1.5-1 3.5-.5 4.5.5M7 9c3-1.5 6-1 8.5 1"/></symbol>
+</svg>
+
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕ close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="music.html" onclick="closeMob()">Music</a>
+  <a href="events.html" onclick="closeMob()">Events</a>
+  <a href="gallery.html" onclick="closeMob()">Gallery</a>
+  <a href="merch.html" onclick="closeMob()">Merch</a>
+  <a href="sponsors.html" onclick="closeMob()">Sponsors</a>
+  <a href="ministry.html" onclick="closeMob()">Ministry</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="partner.html" onclick="closeMob()">Partner</a>
+</div>
+
+<nav id="mainNav">
+  <a href="index.html" class="n-logo">
+    <div class="n-mark"><img src="assets/images/logo.webp" alt="Micky Mimsanii" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+    <div class="n-text">MICKY MIMSANII<small>#dreambig</small></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="merch.html">Merch</a></li>
+    <li><a href="sponsors.html" class="active">Sponsors</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="partner.html">Partner</a></li>
+  </ul>
+  <div class="n-nav-icons" id="navIcons"></div>
+  <a href="events.html" class="n-tkt">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Get Tickets
+  </a>
+  <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<section id="sp-hero">
+  <div class="sph-bg"></div>
+  <div class="sph-ghost">GIVE</div>
+  <div class="sph-content">
+    <div class="sph-tag"><div class="sph-tag-line"></div><span class="sph-tag-txt">Support · Sponsor · Donate</span></div>
+    <h1 class="sph-title">Sow Into<br><em>the Vision</em></h1>
+    <div class="sph-verse">
+      <p>"Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver."</p>
+      <cite>2 Corinthians 9:7</cite>
+    </div>
+    <p class="sph-desc">Every shilling given to this ministry goes directly into creating music that saves lives, funding events that transform communities, and equipping a generation of worshippers. Your giving matters.</p>
+  </div>
+</section>
+
+<div class="impact-strip">
+  <div class="is-item rv">
+    <div class="is-num">50+</div>
+    <div class="is-label">Ministry Events Funded</div>
+  </div>
+  <div class="is-item rv d1">
+    <div class="is-num">12+</div>
+    <div class="is-label">Songs Recorded</div>
+  </div>
+  <div class="is-item rv d2">
+    <div class="is-num">5K+</div>
+    <div class="is-label">Lives Reached</div>
+  </div>
+  <div class="is-item rv d3">
+    <div class="is-num">8</div>
+    <div class="is-label">Years of Ministry</div>
+  </div>
+</div>
+
+<section id="causes">
+  <div class="sl rv">Where Your Money Goes</div>
+  <h2 class="st rv">Choose a <em>Cause</em></h2>
+  <div class="causes-grid">
+
+    <div class="cause-card selected" data-cause="Studio Recording Fund" data-icon="music" onclick="selectCause(this)">
+      <div class="cause-ghost">♪</div>
+      <div class="cause-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+      <div class="cause-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span></div>
+      <div class="cause-name">Studio Recording Fund</div>
+      <div class="cause-desc">Help Micky create more gospel music. Studio time, production costs, mixing and mastering — every shilling goes into creating songs that carry the gospel further.</div>
+      <div class="cause-goal">Goal: <span>KSh 500,000</span></div>
+    </div>
+
+    <div class="cause-card cr-cause" data-cause="Event & Concert Fund" data-icon="mic" onclick="selectCause(this)">
+      <div class="cause-ghost">🎤</div>
+      <div class="cause-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+      <div class="cause-icon"><span class="ir cr md"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></span></div>
+      <div class="cause-name">Event & Concert Fund</div>
+      <div class="cause-desc">Fund live events, worship nights and gospel concerts. Venue hire, sound equipment, lighting, transport — making sure every show happens and everyone can attend.</div>
+      <div class="cause-goal">Goal: <span>KSh 800,000</span></div>
+    </div>
+
+    <div class="cause-card" data-cause="Community Outreach Fund" data-icon="heart" onclick="selectCause(this)">
+      <div class="cause-ghost">❤</div>
+      <div class="cause-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+      <div class="cause-icon"><span class="ir md"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span></div>
+      <div class="cause-name">Community Outreach Fund</div>
+      <div class="cause-desc">Taking the gospel to the streets. Open-air crusades, community events, feeding programmes and ministry in underserved areas across Kenya.</div>
+      <div class="cause-goal">Goal: <span>KSh 300,000</span></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="donate-form">
+  <div class="sl rv">Make a Difference</div>
+  <h2 class="st rv">Give <em>Today</em></h2>
+
+  <div class="donate-layout rv">
+
+    <div class="df-left">
+      <div class="df-section-label" style="margin-bottom:16px">Select Amount</div>
+      <div class="amount-grid" id="amountGrid">
+        <button class="amt-btn active" data-amount="500" onclick="selectAmount(this)"><small>KSh</small>500</button>
+        <button class="amt-btn" data-amount="1500" onclick="selectAmount(this)"><small>KSh</small>1,500</button>
+        <button class="amt-btn" data-amount="3000" onclick="selectAmount(this)"><small>KSh</small>3,000</button>
+        <button class="amt-btn" data-amount="5000" onclick="selectAmount(this)"><small>KSh</small>5,000</button>
+        <button class="amt-btn" data-amount="10000" onclick="selectAmount(this)"><small>KSh</small>10,000</button>
+        <button class="amt-btn" data-amount="25000" onclick="selectAmount(this)"><small>KSh</small>25,000</button>
+      </div>
+
+      <div class="df-section-label">Or Enter Custom Amount</div>
+      <div class="custom-amt-wrap">
+        <span class="custom-amt-prefix">KSh</span>
+        <input class="custom-amt-input" id="customAmt" type="number" min="100" placeholder="e.g. 7,500" oninput="onCustomAmount()">
+      </div>
+
+      <div class="df-section-label">Giving Towards</div>
+      <div class="df-cause-display" id="causDisplay">
+        <div class="df-cause-icon"><span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-music"/></svg></span></div>
+        <div>
+          <div class="df-cause-name" id="causeName">Studio Recording Fund</div>
+          <div class="df-cause-sub">Selected cause</div>
+        </div>
+        <button class="change-cause-btn" onclick="scrollToCauses()">Change ↑</button>
+      </div>
+
+      <div class="anon-toggle" onclick="toggleAnon()">
+        <div class="anon-check" id="anonCheck"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+        <div class="anon-label">Give anonymously — don't display my name publicly</div>
+      </div>
+    </div>
+
+    <div class="df-right">
+      <div>
+        <div class="df-section-label" style="margin-bottom:16px">Your Details</div>
+        <div class="df-field">
+          <label class="df-label" for="dfName">Full Name</label>
+          <input class="df-input" id="dfName" type="text" placeholder="John Kamau" autocomplete="name">
+        </div>
+        <div class="df-field">
+          <label class="df-label" for="dfEmail">Email Address</label>
+          <input class="df-input" id="dfEmail" type="email" placeholder="john@example.com" autocomplete="email">
+        </div>
+        <div class="df-field">
+          <label class="df-label" for="dfPhone">Phone Number</label>
+          <input class="df-input" id="dfPhone" type="tel" placeholder="0712 345 678" autocomplete="tel">
+        </div>
+      </div>
+
+      <div>
+        <div class="df-summary">
+          <div class="df-summary-row">
+            <span>Cause</span>
+            <span id="sumCause">Studio Recording Fund</span>
+          </div>
+          <div class="df-summary-row">
+            <span>Donation</span>
+            <span id="sumAmount">KSh 500</span>
+          </div>
+          <div class="df-summary-row">
+            <span>Total</span>
+            <span id="sumTotal">KSh 500</span>
+          </div>
+        </div>
+
+        <button class="df-donate-btn" id="donateBtn" onclick="handleDonation()">
+          <div class="spinner"></div>
+          <span class="btn-label">
+            <span class="ir cr sm" style="margin-right:6px"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+            Donate Now
+          </span>
+        </button>
+        <div class="df-secure">
+          <svg viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+          Secured by Paystack · M-Pesa & Card accepted
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="sponsor-tiers">
+  <div class="sl rv">For Organisations & Partners</div>
+  <h2 class="st rv">Sponsorship <em>Tiers</em></h2>
+  <div class="tiers-grid">
+
+    <div class="tier-card rv">
+      <div class="tier-ghost">✦</div>
+      <div class="tier-badge">Seed Partner</div>
+      <div class="tier-name">Seed</div>
+      <div class="tier-range">KSh 5,000 – 24,999</div>
+      <div class="tier-perks">
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Name in event programme</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Social media mention</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>2 complimentary event tickets</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Certificate of appreciation</div>
+      </div>
+      <button class="btn-outline" style="font-size:.62rem;width:100%;justify-content:center" onclick="openSponsorModal('Seed', 5000, 24999)">
+        Become a Seed Partner
+      </button>
+    </div>
+
+    <div class="tier-card featured-tier rv d1">
+      <div class="tier-ghost">★</div>
+      <div class="tier-badge">Champion Partner</div>
+      <div class="tier-name">Champion</div>
+      <div class="tier-range">KSh 25,000 – 99,999</div>
+      <div class="tier-perks">
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Logo on all event materials</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Dedicated social media post</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>5 VIP event tickets</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Thank-you video message from Micky</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Logo on website sponsors page</div>
+      </div>
+      <button class="btn-primary" style="font-size:.62rem;width:100%;justify-content:center" onclick="openSponsorModal('Champion', 25000, 99999)">
+        Become a Champion
+      </button>
+    </div>
+
+    <div class="tier-card rv d2">
+      <div class="tier-ghost">♛</div>
+      <div class="tier-badge">Legacy Partner</div>
+      <div class="tier-name">Legacy</div>
+      <div class="tier-range">KSh 100,000+</div>
+      <div class="tier-perks">
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Naming rights on one event</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Featured in music video credits</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>10 VVIP event tickets</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Custom partnership agreement</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Direct line to Micky's management</div>
+        <div class="tier-perk"><div class="tier-perk-dot"></div>Annual impact report</div>
+      </div>
+      <a href="mailto:mimsanii40@gmail.com?subject=Legacy Partnership Enquiry" class="btn-outline" style="font-size:.62rem;width:100%;justify-content:center;display:inline-flex">
+        Contact for Legacy Deal
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="f-brand">Micky <em>Mimsanii</em></div>
+      <p class="f-tagline">Musician · Songwriter · Vocalist · Minister.<br>Dreaming big, one song at a time.</p>
+      <div class="f-socs">
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Facebook coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-fb"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Instagram coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ig"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('YouTube coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-yt"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('TikTok coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tiktok"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Spotify coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-spotify"/></svg></span>
+      </div>
+    </div>
+    <div class="f-col"><h5>Pages</h5><ul>
+      <li><a href="about.html">About &amp; Bio</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="events.html">Events &amp; Tickets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="merch.html">Merch Store</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Support</h5><ul>
+      <li><a href="sponsors.html">Sponsors &amp; Donate</a></li>
+      <li><a href="partner.html">Partner With Us</a></li>
+      <li><a href="ministry.html">Ministry</a></li>
+      <li><a href="blog.html">Blog &amp; News</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:mimsanii40@gmail.com">mimsanii40@gmail.com</a></li>
+      <li><a href="tel:+254115555072">+254 115 555 072</a></li>
+      <li><a href="#">Nairobi, Kenya</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Micky #mimsanii · All rights reserved.</span>
+    <span>Crafted with passion · by #mimsanii</span>
+  </div>
+</footer>
+
+<nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="bn-inner">
+    <a href="index.html" class="bn-item" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>Home
+    </a>
+    <a href="music.html" class="bn-item" aria-label="Music">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music
+    </a>
+    <a href="events.html" class="bn-item" aria-label="Events">
+      <svg viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></svg>Events
+    </a>
+    <a href="gallery.html" class="bn-item" aria-label="Gallery">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Gallery
+    </a>
+    <button class="bn-item" aria-label="More" onclick="openMoreSheet()" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>More
+    </button>
+  </div>
+</nav>
+
+<div id="bn-more-sheet" role="dialog" aria-modal="true">
+  <div class="bn-sheet-bg" onclick="closeMoreSheet()"></div>
+  <div class="bn-sheet-panel">
+    <div class="bn-sheet-handle"></div>
+    <div class="bn-sheet-grid">
+      <a href="merch.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg><span>Merch</span></a>
+      <a href="sponsors.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg><span>Donate</span></a>
+      <a href="ministry.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg><span>Ministry</span></a>
+      <a href="blog.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Blog</span></a>
+      <a href="about.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About</span></a>
+      <a href="partner.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Partner</span></a>
+    </div>
+  </div>
+</div>
+
+<div id="donateSuccess" role="dialog" aria-modal="true">
+  <div class="ds-box">
+    <div class="ds-stripe"></div>
+    <div class="ds-icon"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></div>
+    <h2 class="ds-title">Thank <em>You!</em></h2>
+    <div class="ds-amount" id="dsAmount">KSh 500</div>
+    <div class="ds-cause" id="dsCause">Studio Recording Fund</div>
+    <div class="ds-ref" id="dsRef"></div>
+    <div class="ds-verse">
+      <p>"God is not unjust; he will not forget your work and the love you have shown him as you have helped his people."</p>
+      <cite>Hebrews 6:10</cite>
+    </div>
+    <button class="btn-primary" style="font-size:.65rem;width:100%;justify-content:center" onclick="closeSuccess()">
+      God Bless You 🙏
+    </button>
+  </div>
+</div>
+
+<!-- SPONSOR FORM MODAL -->
+<div id="sponsorModal" role="dialog" aria-modal="true">
+  <div class="sm-box">
+    <button class="sm-close" onclick="closeSponsorModal()">✕</button>
+    <div class="sm-badge" id="smBadge">Seed Partner</div>
+    <h2 class="sm-title">Become a <em id="smTierName">Seed</em> Partner</h2>
+    <div class="sm-range" id="smRange">KSh 5,000 – 24,999</div>
+
+    <div class="sm-field">
+      <label class="df-label" for="smOrgName">Organisation / Business Name</label>
+      <input class="df-input" id="smOrgName" type="text" placeholder="Acme Ltd">
+    </div>
+    <div class="sm-field">
+      <label class="df-label" for="smContactName">Contact Person</label>
+      <input class="df-input" id="smContactName" type="text" placeholder="Jane Wanjiru">
+    </div>
+    <div class="sm-field">
+      <label class="df-label" for="smEmail">Email Address</label>
+      <input class="df-input" id="smEmail" type="email" placeholder="jane@acme.co.ke">
+    </div>
+    <div class="sm-field">
+      <label class="df-label" for="smPhone">Phone Number</label>
+      <input class="df-input" id="smPhone" type="tel" placeholder="0712 345 678">
+    </div>
+    <div class="sm-field">
+      <label class="df-label" for="smAmount">Sponsorship Amount (KSh)</label>
+      <input class="df-input" id="smAmount" type="number" min="100" oninput="onSponsorAmountInput()" onblur="clampSponsorAmount()">
+    </div>
+
+    <div class="sm-toggle" onclick="toggleSponsorDisplay()">
+      <div class="anon-check checked" id="smDisplayCheck"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+      <div class="anon-label">Display our logo & name publicly on the sponsors page</div>
+    </div>
+
+    <button class="sm-submit-btn" id="sponsorSubmitBtn" onclick="handleSponsorPayment()">
+      <div class="spinner"></div>
+      <span class="btn-label">
+        <span class="ir cr sm" style="margin-right:6px"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+        Pay & Become a Sponsor
+      </span>
+    </button>
+    <div class="df-secure">
+      <svg viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+      Secured by Paystack · M-Pesa & Card accepted
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════
+   CONFIG
+══════════════════════════════════ */
+const SUPABASE_URL = 'https://osbuvwtetizjvjqwhktu.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_H8CRGGDknZS19sFTM1LbLA_2R_nORFk';
+const PAYSTACK_KEY = 'pk_test_0a34f6bbdf2f0fd2e15b7ba5d990296344cbea37';
+
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* CURSOR */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a)})();
+
+/* STICKY NAV */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+/* MORE SHEET */
+function openMoreSheet(){document.getElementById('bn-more-sheet').classList.add('open');document.body.style.overflow='hidden'}
+function closeMoreSheet(){document.getElementById('bn-more-sheet').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMoreSheet()});
+let _sy=0;
+document.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_sy>60&&document.getElementById('bn-more-sheet').classList.contains('open'))closeMoreSheet()},{passive:true});
+
+/* TABLET ICON NAV */
+(function(){
+  const items=[
+    {href:'music.html',label:'Music',svg:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',cls:''},
+    {href:'events.html',label:'Events',svg:'<path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/>',cls:'tkt-icon'},
+    {href:'gallery.html',label:'Gallery',svg:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',cls:''},
+    {href:'merch.html',label:'Merch',svg:'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',cls:''},
+    {href:null,label:'More',svg:'<circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>',cls:'',more:true},
+  ];
+  const wrap=document.getElementById('navIcons');
+  items.forEach(({href,label,svg,cls,more})=>{
+    const el=more?document.createElement('button'):document.createElement('a');
+    if(!more)el.href=href;
+    else{el.style.cssText='background:none;border:none;font-family:inherit;cursor:pointer;';el.onclick=openMoreSheet;}
+    el.className='n-nav-icon '+(cls||'');
+    el.innerHTML=`<svg viewBox="0 0 24 24">${svg}</svg>${label}`;
+    wrap.appendChild(el);
+  });
+})();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+
+/* TOAST */
+let _tt;
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='';
+  if(type)t.classList.add(type);
+  t.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+/* ══════════════════════
+   DONATION STATE
+══════════════════════ */
+let donState = {
+  amount: 500,
+  cause: 'Studio Recording Fund',
+  anonymous: false
+};
+
+function selectCause(card){
+  document.querySelectorAll('.cause-card').forEach(c=>{
+    c.classList.remove('selected','selected-cr');
+  });
+  const isCr = card.classList.contains('cr-cause');
+  card.classList.add(isCr ? 'selected-cr' : 'selected');
+  donState.cause = card.dataset.cause;
+  document.getElementById('causeName').textContent = donState.cause;
+  document.getElementById('sumCause').textContent = donState.cause;
+  document.getElementById('donate-form').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function scrollToCauses(){
+  document.getElementById('causes').scrollIntoView({behavior:'smooth'});
+}
+
+function selectAmount(btn){
+  document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  donState.amount = parseInt(btn.dataset.amount);
+  document.getElementById('customAmt').value = '';
+  updateSummary();
+}
+
+function onCustomAmount(){
+  const val = parseInt(document.getElementById('customAmt').value);
+  if(val && val >= 100){
+    document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
+    donState.amount = val;
+    updateSummary();
+  }
+}
+
+function updateSummary(){
+  const formatted = 'KSh ' + donState.amount.toLocaleString();
+  document.getElementById('sumAmount').textContent = formatted;
+  document.getElementById('sumTotal').textContent = formatted;
+}
+
+function toggleAnon(){
+  donState.anonymous = !donState.anonymous;
+  document.getElementById('anonCheck').classList.toggle('checked', donState.anonymous);
+}
+
+function validateDonation(){
+  if(!donState.amount || donState.amount < 100){
+    toast('Minimum donation is KSh 100','err');
+    return false;
+  }
+  const name  = document.getElementById('dfName').value.trim();
+  const email = document.getElementById('dfEmail').value.trim();
+  const phone = document.getElementById('dfPhone').value.trim();
+  let ok = true;
+  [['dfName',name],['dfEmail',email],['dfPhone',phone]].forEach(([id,val])=>{
+    const el=document.getElementById(id);
+    if(!val){el.classList.add('err');ok=false;}
+    else el.classList.remove('err');
+  });
+  if(email && !email.includes('@')){document.getElementById('dfEmail').classList.add('err');ok=false;}
+  if(!ok) toast('Please fill in all your details','err');
+  return ok;
+}
+
+/* ══════════════════════════════════
+   SECURE PAYMENT FLOW
+   1. Insert a PENDING row before any charge happens
+   2. Paystack runs the charge in the browser
+   3. On success, ask the server (verify-donation Edge Function)
+      to independently confirm with Paystack and flip the row to paid
+   4. Only show the success modal once the server confirms
+══════════════════════════════════ */
+async function handleDonation(){
+  if(!validateDonation()) return;
+
+  const name  = document.getElementById('dfName').value.trim();
+  const email = document.getElementById('dfEmail').value.trim();
+  const phone = document.getElementById('dfPhone').value.trim();
+  const ref   = 'MM-DON-' + Date.now().toString(36).toUpperCase();
+
+  const btn = document.getElementById('donateBtn');
+  btn.classList.add('loading'); btn.disabled = true;
+
+  // Step 1: pending row first, before Paystack even opens
+  const { error: insertError } = await db.from('donations').insert([{
+    name:           donState.anonymous ? 'Anonymous' : name,
+    email:          email,
+    phone:          phone,
+    cause:          donState.cause,
+    amount:         donState.amount,
+    payment_ref:    ref,
+    payment_status: 'pending',
+    anonymous:      donState.anonymous
+  }]);
+
+  if (insertError) {
+    console.error('Pending donation insert error:', insertError);
+    btn.classList.remove('loading'); btn.disabled = false;
+    toast('Something went wrong, please try again','err');
+    return;
+  }
+
+  // Step 2: run the actual charge
+  const handler = PaystackPop.setup({
+    key:      PAYSTACK_KEY,
+    email:    email,
+    amount:   donState.amount * 100,
+    currency: 'KES',
+    ref:      ref,
+    metadata: {
+      custom_fields: [
+        {display_name:'Donor Name',  variable_name:'name',      value: donState.anonymous ? 'Anonymous' : name},
+        {display_name:'Phone',       variable_name:'phone',     value: phone},
+        {display_name:'Cause',       variable_name:'cause',     value: donState.cause},
+        {display_name:'Anonymous',   variable_name:'anonymous', value: donState.anonymous},
+      ]
+    },
+    callback: function(response){
+      // Step 3: don't trust the popup — ask the server to confirm
+      verifyDonation(response.reference);
+    },
+    onClose: function(){
+      btn.classList.remove('loading'); btn.disabled = false;
+      toast('Payment cancelled — your donation was not processed','err');
+    }
+  });
+  handler.openIframe();
+}
+
+async function verifyDonation(reference){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-donation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'apikey': SUPABASE_KEY
+      },
+      body: JSON.stringify({ reference })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Verification failed');
+    }
+
+    showSuccess(reference);
+
+  } catch (err) {
+    console.error('Donation verification error:', err);
+    const btn = document.getElementById('donateBtn');
+    btn.classList.remove('loading'); btn.disabled = false;
+    toast(`Payment received but couldn't be confirmed automatically. Save this reference and contact us: ${reference}`, 'err');
+  }
+}
+
+function showSuccess(ref){
+  const btn = document.getElementById('donateBtn');
+  btn.classList.remove('loading'); btn.disabled = false;
+  document.getElementById('dsAmount').textContent = 'KSh ' + donState.amount.toLocaleString();
+  document.getElementById('dsCause').textContent  = donState.cause;
+  document.getElementById('dsRef').textContent    = 'Ref: ' + ref;
+  document.getElementById('donateSuccess').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSuccess(){
+  document.getElementById('donateSuccess').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ══════════════════════════════════
+   SPONSOR TIER FORM (Seed / Champion)
+   Same secure pattern: pending row → Paystack → verify-sponsor
+══════════════════════════════════ */
+let spState = { tier: 'Seed', min: 5000, displayPublicly: true };
+
+function openSponsorModal(tier, min, max){
+  spState.tier = tier;
+  spState.min = min;
+  spState.displayPublicly = true;
+
+  document.getElementById('smBadge').textContent = tier + ' Partner';
+  document.getElementById('smTierName').textContent = tier;
+  document.getElementById('smRange').textContent = 'KSh ' + min.toLocaleString() + ' – ' + max.toLocaleString();
+  document.getElementById('smAmount').value = min;
+  document.getElementById('smAmount').min = min;
+  document.getElementById('smDisplayCheck').classList.add('checked');
+
+  ['smOrgName','smContactName','smEmail','smPhone'].forEach(id=>{
+    document.getElementById(id).value = '';
+    document.getElementById(id).classList.remove('err');
+  });
+
+  document.getElementById('sponsorModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSponsorModal(){
+  document.getElementById('sponsorModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function toggleSponsorDisplay(){
+  spState.displayPublicly = !spState.displayPublicly;
+  document.getElementById('smDisplayCheck').classList.toggle('checked', spState.displayPublicly);
+}
+
+/* Amount can't go below the tier's floor — warn live, clamp on blur */
+function onSponsorAmountInput(){
+  const el  = document.getElementById('smAmount');
+  const val = parseInt(el.value);
+  el.classList.toggle('err', !val || val < spState.min);
+}
+
+function clampSponsorAmount(){
+  const el  = document.getElementById('smAmount');
+  const val = parseInt(el.value);
+  if(!val || val < spState.min){
+    el.value = spState.min;
+    el.classList.remove('err');
+    toast(`Minimum for ${spState.tier} is KSh ${spState.min.toLocaleString()}`, 'err');
+  }
+}
+
+function validateSponsor(){
+  const orgName     = document.getElementById('smOrgName').value.trim();
+  const contactName = document.getElementById('smContactName').value.trim();
+  const email       = document.getElementById('smEmail').value.trim();
+  const phone       = document.getElementById('smPhone').value.trim();
+  const amount      = parseInt(document.getElementById('smAmount').value);
+
+  let ok = true;
+  [['smOrgName',orgName],['smContactName',contactName],['smEmail',email]].forEach(([id,val])=>{
+    const el = document.getElementById(id);
+    if(!val){ el.classList.add('err'); ok = false; }
+    else el.classList.remove('err');
+  });
+  if(email && !email.includes('@')){ document.getElementById('smEmail').classList.add('err'); ok = false; }
+  if(!amount || amount < spState.min){
+    document.getElementById('smAmount').classList.add('err');
+    toast(`Minimum for ${spState.tier} is KSh ${spState.min.toLocaleString()}`, 'err');
+    ok = false;
+  } else {
+    document.getElementById('smAmount').classList.remove('err');
+  }
+  if(!ok && amount >= spState.min) toast('Please fill in all fields','err');
+  return ok ? { orgName, contactName, email, phone, amount } : null;
+}
+
+async function handleSponsorPayment(){
+  const data = validateSponsor();
+  if(!data) return;
+
+  const ref = 'MM-SPN-' + Date.now().toString(36).toUpperCase();
+  const btn = document.getElementById('sponsorSubmitBtn');
+  btn.classList.add('loading'); btn.disabled = true;
+
+  // Step 1: pending row first
+  const { error: insertError } = await db.from('sponsors').insert([{
+    org_name:          data.orgName,
+    contact_name:      data.contactName,
+    email:             data.email,
+    phone:             data.phone,
+    tier:              spState.tier,
+    amount:            data.amount,
+    payment_ref:       ref,
+    payment_status:    'pending',
+    display_publicly:  spState.displayPublicly
+  }]);
+
+  if(insertError){
+    console.error('Pending sponsor insert error:', insertError);
+    btn.classList.remove('loading'); btn.disabled = false;
+    toast('Something went wrong, please try again','err');
+    return;
+  }
+
+  // Step 2: run the charge
+  const handler = PaystackPop.setup({
+    key:      PAYSTACK_KEY,
+    email:    data.email,
+    amount:   data.amount * 100,
+    currency: 'KES',
+    ref:      ref,
+    metadata: {
+      custom_fields: [
+        {display_name:'Organisation', variable_name:'org_name',     value: data.orgName},
+        {display_name:'Contact',      variable_name:'contact_name', value: data.contactName},
+        {display_name:'Tier',         variable_name:'tier',         value: spState.tier},
+      ]
+    },
+    callback: function(response){
+      // Step 3: verify server-side, don't trust the popup alone
+      verifySponsor(response.reference, data);
+    },
+    onClose: function(){
+      btn.classList.remove('loading'); btn.disabled = false;
+      toast('Payment cancelled — sponsorship was not processed','err');
+    }
+  });
+  handler.openIframe();
+}
+
+async function verifySponsor(reference, data){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-sponsor`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'apikey': SUPABASE_KEY
+      },
+      body: JSON.stringify({ reference })
+    });
+
+    const result = await res.json();
+
+    if(!res.ok || !result.success){
+      throw new Error(result.error || 'Verification failed');
+    }
+
+    closeSponsorModal();
+    showSponsorSuccess(reference, data);
+
+  } catch(err){
+    console.error('Sponsor verification error:', err);
+    const btn = document.getElementById('sponsorSubmitBtn');
+    btn.classList.remove('loading'); btn.disabled = false;
+    toast(`Payment received but couldn't be confirmed automatically. Save this reference and contact us: ${reference}`, 'err');
+  }
+}
+
+function showSponsorSuccess(ref, data){
+  const btn = document.getElementById('sponsorSubmitBtn');
+  btn.classList.remove('loading'); btn.disabled = false;
+  document.getElementById('dsAmount').textContent = 'KSh ' + data.amount.toLocaleString();
+  document.getElementById('dsCause').textContent  = spState.tier + ' Partner — ' + data.orgName;
+  document.getElementById('dsRef').textContent    = 'Ref: ' + ref;
+  document.getElementById('donateSuccess').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+</script>
+</body>
+</html>

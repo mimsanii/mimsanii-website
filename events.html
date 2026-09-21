@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micky Mimsanii — Events & Tickets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Paystack -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<style>
+:root{
+  --d1:#0E2931;--d2:#12484C;--t1:#2B7574;--cr:#861211;
+  --pe:#E2E2E0;--pe2:rgba(226,226,224,.07);
+  --font-d:'Cormorant Garamond',serif;--font-b:'Outfit',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--d1);color:var(--pe);overflow-x:hidden;cursor:none;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+ul{list-style:none}
+img{display:block;width:100%;object-fit:cover}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+/* CURSOR */
+#cur{width:8px;height:8px;background:var(--cr);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+#cur-r{width:30px;height:30px;border:1.5px solid rgba(43,117,116,.55);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:all .12s ease}
+
+/* GLOW RING */
+.ir{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:all .35s}
+.ir svg{display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ir{border:1px solid rgba(43,117,116,.5);background:radial-gradient(circle at 38% 38%,rgba(43,117,116,.22) 0%,transparent 68%);box-shadow:0 0 12px rgba(43,117,116,.22),inset 0 0 8px rgba(43,117,116,.08)}
+.ir svg{stroke:var(--t1);stroke-width:1.5}
+.ir.cr{border-color:rgba(134,18,17,.55);background:radial-gradient(circle at 38% 38%,rgba(134,18,17,.2) 0%,transparent 68%);box-shadow:0 0 12px rgba(134,18,17,.2),inset 0 0 8px rgba(134,18,17,.08)}
+.ir.cr svg{stroke:#c0302f}
+.ir.pe{border-color:rgba(226,226,224,.18);background:radial-gradient(circle at 38% 38%,rgba(226,226,224,.06) 0%,transparent 68%);box-shadow:0 0 8px rgba(226,226,224,.06),inset 0 0 6px rgba(226,226,224,.03)}
+.ir.pe svg{stroke:rgba(226,226,224,.45)}
+.ir.sm{width:32px;height:32px}.ir.sm svg{width:14px;height:14px}
+.ir.md{width:46px;height:46px}.ir.md svg{width:21px;height:21px}
+.ir.lg{width:58px;height:58px}.ir.lg svg{width:27px;height:27px}
+.ir.xl{width:76px;height:76px}.ir.xl svg{width:34px;height:34px}
+a:hover .ir,.ring-hover:hover .ir{box-shadow:0 0 22px rgba(43,117,116,.5),inset 0 0 14px rgba(43,117,116,.18);border-color:rgba(43,117,116,.9)}
+a:hover .ir.cr,.ring-hover:hover .ir.cr{box-shadow:0 0 22px rgba(134,18,17,.45),inset 0 0 14px rgba(134,18,17,.18);border-color:rgba(134,18,17,.9)}
+
+/* NAV */
+nav#mainNav{position:fixed;top:0;width:100%;z-index:900;padding:24px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav#mainNav.stuck{background:rgba(14,41,49,.92);backdrop-filter:blur(20px);padding:15px 6%;border-bottom:1px solid var(--pe2)}
+.n-logo{display:flex;align-items:center;gap:14px}
+.n-mark{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t1);box-shadow:0 0 12px rgba(43,117,116,.25);background:var(--d2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.25rem;font-weight:600;overflow:hidden;transition:all .3s;flex-shrink:0}
+.n-logo:hover .n-mark{border-color:var(--cr);box-shadow:0 0 18px rgba(134,18,17,.3)}
+.n-text{font-family:var(--font-d);font-size:1.05rem;font-weight:600;letter-spacing:3px;line-height:1.1}
+.n-text small{display:block;font-size:.58rem;letter-spacing:5px;color:var(--t1);font-family:var(--font-b);font-weight:400}
+.n-links{display:flex;gap:28px}
+.n-links a{color:rgba(226,226,224,.48);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cr);transition:width .3s}
+.n-links a:hover,.n-links a.active{color:var(--pe)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-tkt{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:1px solid var(--cr);color:var(--pe);padding:8px 20px;transition:all .3s}
+.n-tkt:hover{background:var(--cr)}
+.n-nav-icons{display:none;gap:10px;align-items:center}
+.n-nav-icon{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(226,226,224,.45);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;padding:4px}
+.n-nav-icon:hover,.n-nav-icon:active{color:var(--t1)}
+.n-nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n-nav-icon.tkt-icon{color:rgba(134,18,17,.8)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--pe);transition:all .3s}
+#mob{display:none;position:fixed;inset:0;z-index:800;background:var(--d1);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+#mob.open{display:flex}
+#mob a{font-family:var(--font-d);font-size:2.6rem;font-style:italic;color:var(--pe);transition:color .3s;letter-spacing:2px}
+#mob a:hover{color:var(--t1)}
+.mob-x{position:absolute;top:26px;right:6%;font-size:1.3rem;cursor:pointer;color:rgba(226,226,224,.4);background:none;border:none;font-family:var(--font-b)}
+
+/* BOTTOM NAV */
+#bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:950;background:rgba(6,13,17,.96);backdrop-filter:blur(18px);border-top:1px solid rgba(43,117,116,.25);height:62px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-inner{display:flex;height:62px;align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(226,226,224,.35);text-decoration:none;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .25s;-webkit-tap-highlight-color:transparent;position:relative;background:none;border:none;font-family:var(--font-b)}
+.bn-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.active{color:var(--t1)}
+.bn-item.active::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cr)}
+#bn-more-sheet{display:none;position:fixed;inset:0;z-index:940}
+#bn-more-sheet.open{display:block}
+.bn-sheet-bg{position:absolute;inset:0;background:rgba(6,13,17,.7)}
+.bn-sheet-panel{position:absolute;bottom:62px;left:0;right:0;background:var(--d2);border-top:1px solid rgba(43,117,116,.3);border-radius:20px 20px 0 0;padding:18px 0 24px;animation:sheetUp .28s cubic-bezier(.25,.8,.25,1) both}
+@keyframes sheetUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.bn-sheet-handle{width:36px;height:3px;border-radius:2px;background:rgba(226,226,224,.2);margin:0 auto 18px}
+.bn-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(226,226,224,.05)}
+.bn-sheet-item{background:var(--d1);padding:20px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--pe);-webkit-tap-highlight-color:transparent;transition:background .3s}
+.bn-sheet-item:active{background:rgba(43,117,116,.15)}
+.bn-sheet-item svg{width:22px;height:22px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bn-sheet-item.cr-item svg{stroke:#c0302f}
+.bn-sheet-item span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.55)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cr);color:var(--pe);padding:13px 30px;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));transition:all .35s;border:none}
+.btn-primary:hover{background:#a01615;letter-spacing:4px}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(226,226,224,.2);color:rgba(226,226,224,.65);padding:12px 28px;font-size:.7rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all .35s;background:none}
+.btn-outline:hover{border-color:var(--t1);color:var(--pe)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+.sec{padding:100px 6%}
+.sec-alt{background:var(--d2)}
+.sl{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase;margin-bottom:18px}
+.sl::before{content:'';width:26px;height:1px;background:var(--cr)}
+.st{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:.92;letter-spacing:-1px;margin-bottom:18px}
+.st em{font-style:italic;color:var(--t1)}
+
+/* TOAST */
+#toast{position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--d2);border:1px solid rgba(43,117,116,.45);color:var(--pe);padding:13px 24px;font-size:.73rem;letter-spacing:2px;transform:translateY(70px);opacity:0;pointer-events:none;transition:all .4s}
+#toast.show{transform:none;opacity:1}
+#toast.err{border-color:rgba(134,18,17,.6);background:rgba(134,18,17,.15)}
+#toast.ok{border-color:rgba(43,117,116,.7);background:rgba(43,117,116,.12)}
+
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════
+   EVENTS HERO
+═══════════════════════ */
+#ev-hero{min-height:72vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:100px}
+.evh-left{display:flex;flex-direction:column;justify-content:center;padding:60px 6% 60px;position:relative;z-index:2}
+.evh-right{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--d2),var(--t1))}
+.evh-card-bg{position:absolute;inset:0;background:linear-gradient(155deg,var(--d2) 0%,rgba(43,117,116,.6) 50%,var(--d1) 100%)}
+.evh-card-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,13,17,.25) 0%,rgba(6,13,17,.55) 55%,rgba(6,13,17,.88) 100%)}
+.evh-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:clamp(6rem,16vw,14rem);font-weight:300;color:rgba(226,226,224,.03);letter-spacing:-6px;top:50%;left:0;transform:translateY(-50%);white-space:nowrap;pointer-events:none;z-index:1}
+.evh-tag{display:flex;align-items:center;gap:14px;margin-bottom:22px;opacity:0;animation:rise .9s .1s both}
+.evh-tag-line{width:36px;height:1px;background:var(--cr)}
+.evh-tag-txt{font-size:.62rem;letter-spacing:5px;color:var(--t1);text-transform:uppercase}
+.evh-title{font-family:var(--font-d);font-size:clamp(3rem,8vw,7.5rem);font-weight:300;line-height:.88;letter-spacing:-2px;margin-bottom:24px;opacity:0;animation:rise .9s .25s both}
+.evh-title em{font-style:italic;color:var(--t1);display:block}
+.evh-desc{font-size:.86rem;color:rgba(226,226,224,.45);line-height:1.95;max-width:400px;margin-bottom:38px;opacity:0;animation:rise .9s .4s both}
+.evh-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:rise .9s .55s both}
+.evh-card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:44px}
+.evh-card-bg{position:absolute;inset:0;background:linear-gradient(155deg,var(--d2) 0%,rgba(43,117,116,.6) 50%,var(--d1) 100%)}
+.evh-date-block{position:relative;z-index:2;margin-bottom:20px}
+.evh-month{font-size:.6rem;letter-spacing:5px;color:var(--cr);text-transform:uppercase;margin-bottom:4px}
+.evh-day{font-family:var(--font-d);font-size:7rem;font-weight:300;line-height:.8;color:var(--pe);opacity:.9}
+.evh-year{font-size:.65rem;letter-spacing:4px;color:rgba(226,226,224,.3)}
+.evh-info{position:relative;z-index:2}
+.evh-event-name{font-family:var(--font-d);font-size:2rem;font-weight:300;margin-bottom:12px;line-height:1}
+.evh-meta-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.evh-meta-item{display:flex;align-items:center;gap:10px;font-size:.74rem;color:rgba(226,226,224,.5)}
+.evh-red-stripe{position:absolute;top:0;right:0;width:5px;height:100%;background:linear-gradient(to bottom,var(--cr),#5a0b0a)}
+
+/* COUNTDOWN */
+.countdown-bar{background:rgba(14,41,49,.85);backdrop-filter:blur(12px);border-top:1px solid var(--pe2);border-bottom:1px solid var(--pe2);padding:22px 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.cd-label-main{font-size:.6rem;letter-spacing:4px;color:rgba(226,226,224,.3);text-transform:uppercase}
+.cd-units{display:flex;gap:0}
+.cd-unit{text-align:center;padding:0 24px;border-right:1px solid var(--pe2)}
+.cd-unit:last-child{border-right:none}
+.cd-num{font-family:var(--font-d);font-size:3rem;font-weight:300;line-height:1;color:var(--pe)}
+.cd-sublabel{font-size:.52rem;letter-spacing:3px;color:rgba(226,226,224,.3);text-transform:uppercase;margin-top:2px}
+.cd-event-name{font-family:var(--font-d);font-size:1.1rem;font-style:italic;color:var(--t1)}
+
+/* EVENTS LIST */
+#events-list{padding:90px 6%}
+.ev-grid{display:flex;flex-direction:column;gap:1px;background:var(--pe2);margin-top:48px}
+.ev-card{background:var(--d1);display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:0;transition:background .4s;position:relative;overflow:hidden}
+.ev-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--t1);transform:scaleY(0);transition:transform .4s;transform-origin:bottom}
+.ev-card:hover{background:rgba(18,72,76,.22)}
+.ev-card:hover::before{transform:scaleY(1)}
+.ev-card.featured{background:rgba(18,72,76,.15)}
+.ev-card.featured::before{background:var(--cr);transform:scaleY(1)}
+.ev-date-col{padding:32px 28px;border-right:1px solid var(--pe2);text-align:center;flex-shrink:0}
+.ev-day{font-family:var(--font-d);font-size:3.2rem;font-weight:300;line-height:.85;color:var(--t1)}
+.ev-card.featured .ev-day{color:var(--cr)}
+.ev-month-yr{font-size:.54rem;letter-spacing:3px;color:rgba(226,226,224,.3);text-transform:uppercase;margin-top:6px}
+.ev-body{padding:28px 36px}
+.ev-badge{display:inline-block;font-size:.5rem;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(134,18,17,.5);color:var(--cr);margin-bottom:10px}
+.ev-name{font-family:var(--font-d);font-size:1.8rem;font-weight:300;margin-bottom:10px;line-height:1}
+.ev-meta-row{display:flex;flex-wrap:wrap;gap:16px}
+.ev-meta-item{display:flex;align-items:center;gap:8px;font-size:.72rem;color:rgba(226,226,224,.45)}
+.ev-meta-item svg{width:13px;height:13px;flex-shrink:0;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ev-actions{padding:28px 36px 28px 0;display:flex;flex-direction:column;gap:10px;align-items:flex-end;flex-shrink:0}
+.ev-price{font-family:var(--font-d);font-size:1.4rem;font-weight:300;color:var(--pe);text-align:right}
+.ev-price small{display:block;font-family:var(--font-b);font-size:.52rem;letter-spacing:3px;color:rgba(226,226,224,.3);text-transform:uppercase;margin-bottom:2px}
+.ev-sold-out{font-size:.6rem;letter-spacing:3px;color:rgba(226,226,224,.3);text-transform:uppercase;padding:8px 16px;border:1px solid rgba(226,226,224,.1)}
+
+/* VENUES */
+#venues{padding:90px 6%;background:var(--d2)}
+.venue-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pe2);margin-top:48px}
+.venue-card{background:var(--d1);padding:40px 36px;position:relative;overflow:hidden;transition:background .4s}
+.venue-card:hover{background:rgba(18,72,76,.2)}
+.venue-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--cr),transparent)}
+.venue-name{font-family:var(--font-d);font-size:1.8rem;font-weight:300;margin-bottom:6px}
+.venue-city{font-size:.6rem;letter-spacing:4px;color:var(--t1);text-transform:uppercase;margin-bottom:20px}
+.venue-details{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.venue-detail-row{display:flex;align-items:flex-start;gap:12px;font-size:.78rem;color:rgba(226,226,224,.5);line-height:1.6}
+.venue-detail-row svg{width:14px;height:14px;flex-shrink:0;margin-top:2px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.venue-map-btn{display:inline-flex;align-items:center;gap:8px;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--t1);border:1px solid rgba(43,117,116,.35);padding:9px 18px;transition:all .3s}
+.venue-map-btn:hover{border-color:var(--t1);background:rgba(43,117,116,.1)}
+.venue-map-btn svg{width:13px;height:13px;fill:none;stroke:var(--t1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.venue-ghost{position:absolute;font-family:var(--font-d);font-style:italic;font-size:6rem;font-weight:300;color:rgba(226,226,224,.03);right:-10px;bottom:-10px;line-height:1;pointer-events:none}
+.venue-map-embed{width:100%;height:220px;border:0;margin-top:20px;filter:grayscale(.3) contrast(1.1);border-radius:2px}
+
+/* NOTIFY CTA */
+#ev-cta{padding:90px 6%;text-align:center;position:relative;overflow:hidden}
+#ev-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(43,117,116,.12),transparent 70%)}
+.ev-cta-inner{position:relative;z-index:1;max-width:560px;margin:0 auto}
+.ev-cta-title{font-family:var(--font-d);font-size:clamp(2rem,5vw,4rem);font-weight:300;line-height:.9;margin-bottom:16px}
+.ev-cta-title em{font-style:italic;color:var(--t1)}
+.ev-cta-desc{font-size:.84rem;color:rgba(226,226,224,.4);line-height:1.9;margin-bottom:36px}
+.ev-notify-form{display:flex;gap:0;max-width:420px;margin:0 auto}
+.ev-notify-input{flex:1;background:var(--d2);border:1px solid rgba(43,117,116,.3);border-right:none;color:var(--pe);font-family:var(--font-b);font-size:.75rem;padding:13px 18px;outline:none;transition:border-color .3s}
+.ev-notify-input::placeholder{color:rgba(226,226,224,.25)}
+.ev-notify-input:focus{border-color:rgba(43,117,116,.7)}
+.ev-notify-btn{background:var(--cr);color:var(--pe);border:none;padding:13px 22px;font-family:var(--font-b);font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .3s;white-space:nowrap;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,0 100%)}
+.ev-notify-btn:hover{background:#a01615}
+
+/* ═══════════════════════════════════════
+   TICKET MODAL
+═══════════════════════════════════════ */
+#ticketModal{display:none;position:fixed;inset:0;z-index:9800;background:rgba(6,13,17,.92);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:20px}
+#ticketModal.open{display:flex}
+.tm-box{background:var(--d2);border:1px solid rgba(43,117,116,.25);width:100%;max-width:480px;position:relative;overflow:hidden;animation:tmIn .35s cubic-bezier(.25,.8,.25,1) both}
+@keyframes tmIn{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+.tm-stripe{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,var(--cr),var(--t1))}
+.tm-head{padding:36px 36px 0}
+.tm-event-label{font-size:.52rem;letter-spacing:4px;color:var(--t1);text-transform:uppercase;margin-bottom:8px}
+.tm-event-name{font-family:var(--font-d);font-size:1.8rem;font-weight:300;line-height:1;margin-bottom:4px}
+.tm-event-date{font-size:.68rem;color:rgba(226,226,224,.35);letter-spacing:2px}
+.tm-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(226,226,224,.15);background:none;color:rgba(226,226,224,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .3s}
+.tm-close:hover{border-color:var(--cr);color:var(--pe)}
+.tm-divider{height:1px;background:var(--pe2);margin:24px 36px}
+.tm-body{padding:0 36px 36px}
+
+/* Ticket type selector */
+.tm-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:24px}
+.tm-type-card{border:1px solid rgba(226,226,224,.12);padding:14px 10px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.tm-type-card:hover{border-color:rgba(43,117,116,.5);background:rgba(43,117,116,.07)}
+.tm-type-card.selected{border-color:var(--t1);background:rgba(43,117,116,.12)}
+.tm-type-card.selected::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--t1)}
+.tm-type-name{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:rgba(226,226,224,.5);margin-bottom:4px}
+.tm-type-card.selected .tm-type-name{color:var(--t1)}
+.tm-type-price{font-family:var(--font-d);font-size:1.2rem;font-weight:300;color:var(--pe)}
+.tm-type-card.vvip{border-color:rgba(134,18,17,.25)}
+.tm-type-card.vvip:hover,.tm-type-card.vvip.selected{border-color:var(--cr);background:rgba(134,18,17,.08)}
+.tm-type-card.vvip.selected::before{background:var(--cr)}
+.tm-type-card.vvip.selected .tm-type-name{color:var(--cr)}
+
+/* Form fields */
+.tm-field{margin-bottom:16px}
+.tm-label{display:block;font-size:.58rem;letter-spacing:3px;color:rgba(226,226,224,.3);text-transform:uppercase;margin-bottom:8px}
+.tm-input{width:100%;background:var(--d1);border:1px solid rgba(226,226,224,.1);color:var(--pe);font-family:var(--font-b);font-size:.8rem;padding:12px 16px;outline:none;transition:border-color .3s}
+.tm-input::placeholder{color:rgba(226,226,224,.2)}
+.tm-input:focus{border-color:rgba(43,117,116,.5)}
+.tm-input.err{border-color:rgba(134,18,17,.6)}
+
+/* Quantity */
+.tm-qty-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding:14px 16px;background:var(--d1);border:1px solid rgba(226,226,224,.08)}
+.tm-qty-label{font-size:.62rem;letter-spacing:2px;color:rgba(226,226,224,.4);text-transform:uppercase}
+.tm-qty-ctrl{display:flex;align-items:center;gap:0}
+.tm-qty-btn{width:32px;height:32px;background:var(--d2);border:1px solid rgba(226,226,224,.12);color:var(--pe);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .3s}
+.tm-qty-btn:hover{background:rgba(43,117,116,.2);border-color:var(--t1)}
+.tm-qty-val{width:44px;text-align:center;font-family:var(--font-d);font-size:1.3rem;font-weight:300;color:var(--pe);background:var(--d1);border-top:1px solid rgba(226,226,224,.12);border-bottom:1px solid rgba(226,226,224,.12);padding:4px 0}
+
+/* Order summary */
+.tm-summary{background:var(--d1);border:1px solid rgba(226,226,224,.07);padding:14px 16px;margin-bottom:24px}
+.tm-summary-row{display:flex;justify-content:space-between;font-size:.72rem;color:rgba(226,226,224,.4);margin-bottom:8px}
+.tm-summary-row:last-child{margin-bottom:0;padding-top:10px;border-top:1px solid var(--pe2);color:var(--pe);font-size:.8rem;font-weight:500}
+.tm-summary-row span:last-child{font-family:var(--font-d);font-size:1rem;color:var(--t1)}
+.tm-summary-row:last-child span:last-child{color:var(--pe);font-size:1.1rem}
+
+/* Pay button */
+.tm-pay-btn{width:100%;background:var(--cr);color:var(--pe);border:none;padding:15px 20px;font-family:var(--font-b);font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .35s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));display:flex;align-items:center;justify-content:center;gap:10px}
+.tm-pay-btn:hover:not(:disabled){background:#a01615;letter-spacing:4px}
+.tm-pay-btn:disabled{opacity:.5;cursor:not-allowed}
+.tm-pay-btn .spinner{width:16px;height:16px;border:2px solid rgba(226,226,224,.3);border-top-color:var(--pe);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.tm-pay-btn.loading .spinner{display:block}
+.tm-pay-btn.loading .btn-label{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tm-secure{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:.56rem;letter-spacing:2px;color:rgba(226,226,224,.22);text-transform:uppercase}
+.tm-secure svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.5}
+
+/* Success state */
+.tm-success{display:none;padding:36px;text-align:center}
+.tm-success.show{display:block}
+.tm-success-icon{width:64px;height:64px;border-radius:50%;border:2px solid var(--t1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 0 24px rgba(43,117,116,.3)}
+.tm-success-icon svg{width:28px;height:28px;fill:none;stroke:var(--t1);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tm-success-title{font-family:var(--font-d);font-size:2rem;font-weight:300;margin-bottom:8px}
+.tm-success-title em{font-style:italic;color:var(--t1)}
+.tm-success-desc{font-size:.78rem;color:rgba(226,226,224,.4);line-height:1.85;margin-bottom:6px}
+.tm-ticket-ref{font-family:var(--font-d);font-size:1.1rem;font-style:italic;color:var(--t1);margin-bottom:24px;letter-spacing:2px}
+
+/* FOOTER */
+footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+.f-brand{font-family:var(--font-d);font-size:2rem;font-style:italic;font-weight:300;margin-bottom:12px}
+.f-brand em{color:var(--t1)}
+.f-tagline{font-size:.78rem;color:rgba(226,226,224,.28);line-height:1.9;max-width:280px}
+.f-socs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.f-col h5{font-size:.6rem;letter-spacing:5px;color:rgba(226,226,224,.22);text-transform:uppercase;margin-bottom:22px}
+.f-col ul{display:flex;flex-direction:column;gap:11px}
+.f-col ul li a{color:rgba(226,226,224,.38);font-size:.8rem;transition:color .3s}
+.f-col ul li a:hover{color:var(--t1)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid var(--pe2);font-size:.63rem;letter-spacing:2px;color:rgba(226,226,224,.18);flex-wrap:wrap;gap:10px}
+
+/* RESPONSIVE */
+@media(min-width:481px) and (max-width:1024px){
+  #cur,#cur-r{display:none}
+  body{cursor:auto}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:18px 5%}
+  #ev-hero{grid-template-columns:1fr 1fr;padding-top:80px}
+  .evh-left{padding:40px 5% 40px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .venue-grid{grid-template-columns:1fr}
+  .ev-card{grid-template-columns:100px 1fr auto}
+}
+@media(max-width:480px){
+  body{font-size:14px;padding-bottom:62px;cursor:auto}
+  #cur,#cur-r{display:none}
+  #bottom-nav{display:block}
+  .burger{display:none!important}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  nav#mainNav{padding:13px 5%}
+  nav#mainNav.stuck{padding:9px 5%}
+  .n-mark{width:34px;height:34px;font-size:.95rem}
+  .n-text{font-size:.82rem;letter-spacing:2px}
+  .n-text small{font-size:.46rem;letter-spacing:3px}
+  #ev-hero{grid-template-columns:1fr;min-height:auto;padding-top:70px}
+  .evh-right{height:52vw;min-height:200px}
+  .evh-left{padding:28px 5% 32px}
+  .evh-title{font-size:clamp(2.6rem,12vw,4rem)}
+  .evh-desc{display:none}
+  .evh-day{font-size:5rem}
+  .countdown-bar{padding:16px 5%;flex-direction:column;align-items:flex-start;gap:10px}
+  .cd-unit{padding:0 16px}
+  .cd-num{font-size:2.2rem}
+  #events-list{padding:52px 5%}
+  .ev-card{grid-template-columns:80px 1fr}
+  .ev-actions{display:none}
+  .ev-date-col{padding:20px 14px}
+  .ev-day{font-size:2.4rem}
+  .ev-body{padding:20px 16px}
+  .ev-name{font-size:1.35rem}
+  #venues{padding:52px 5%}
+  .venue-grid{grid-template-columns:1fr}
+  .venue-card{padding:28px 20px}
+  #ev-cta{padding:52px 5%}
+  .ev-notify-form{flex-direction:column}
+  .ev-notify-input{border-right:1px solid rgba(43,117,116,.3);border-bottom:none}
+  .ev-notify-btn{clip-path:none;padding:12px}
+  footer{padding:44px 5% 24px}
+  .foot-grid{grid-template-columns:1fr;gap:22px}
+  .f-bottom{font-size:.52rem;flex-direction:column;gap:4px}
+  #toast{bottom:70px;right:12px;left:12px;font-size:.62rem;padding:9px 14px}
+  .tm-box{max-width:100%;margin:0}
+  .tm-head{padding:28px 22px 0}
+  .tm-divider{margin:18px 22px}
+  .tm-body{padding:0 22px 28px}
+  .tm-type-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .tm-type-price{font-size:1rem}
+  #ticketModal{padding:12px}
+}
+@media(max-width:767px) and (orientation:landscape){
+  #bottom-nav{display:block}
+  .n-links{display:none!important}
+  .n-tkt{display:none!important}
+  .n-nav-icons{display:flex!important}
+  body{padding-bottom:62px}
+}
+@media(hover:none){body{cursor:auto}#cur,#cur-r{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15ms!important}
+  .rv,.rvl,.rvr{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div><div id="toast"></div>
+
+<!-- ICON DEFS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527M9 15c1.5-1 3.5-.5 4.5.5M7 9c3-1.5 6-1 8.5 1"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+</svg>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕ close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
+  <a href="music.html" onclick="closeMob()">Music</a>
+  <a href="events.html" onclick="closeMob()">Events</a>
+  <a href="gallery.html" onclick="closeMob()">Gallery</a>
+  <a href="merch.html" onclick="closeMob()">Merch</a>
+  <a href="sponsors.html" onclick="closeMob()">Sponsors</a>
+  <a href="ministry.html" onclick="closeMob()">Ministry</a>
+  <a href="blog.html" onclick="closeMob()">Blog</a>
+  <a href="partner.html" onclick="closeMob()">Partner</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="n-logo">
+    <div class="n-mark"><img src="assets/images/logo.webp" alt="Micky Mimsanii" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+    <div class="n-text">MICKY MIMSANII<small>#dreambig</small></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="events.html" class="active">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="merch.html">Merch</a></li>
+    <li><a href="sponsors.html">Sponsors</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="partner.html">Partner</a></li>
+  </ul>
+  <div class="n-nav-icons" id="navIcons"></div>
+  <a href="events.html" class="n-tkt">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Get Tickets
+  </a>
+  <div class="burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="ev-hero">
+  <div class="evh-left">
+    <div class="evh-bg"></div>
+    <div class="evh-ghost">LIVE</div>
+    <div class="evh-tag"><div class="evh-tag-line"></div><span class="evh-tag-txt">Live Shows · Concerts · Worship Nights</span></div>
+    <h1 class="evh-title">Events &<br><em>Tickets</em></h1>
+    <p class="evh-desc">Experience Micky Mimsanii live — raw worship, gospel energy, and a performance you won't forget. Secure your spot before they sell out.</p>
+    <div class="evh-btns">
+      <a href="#events-list" class="btn-primary">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+        View All Events
+      </a>
+      <a href="#venues" class="btn-outline">
+        <span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-map"/></svg></span>
+        Venues & Maps
+      </a>
+    </div>
+  </div>
+  <div class="evh-right">
+    <div class="evh-card" id="heroCard">
+      <!-- Filled dynamically by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-bar" id="countdownBar" style="display:none">
+  <div>
+    <div class="cd-label-main">Counting down to</div>
+    <div class="cd-event-name" id="cdEventName"></div>
+  </div>
+  <div class="cd-units">
+    <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-sublabel">Days</div></div>
+    <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-sublabel">Hours</div></div>
+    <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-sublabel">Mins</div></div>
+    <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-sublabel">Secs</div></div>
+  </div>
+  <button class="btn-primary" style="font-size:.62rem" id="cdBookBtn">
+    <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+    Secure Your Seat
+  </button>
+</div>
+
+<!-- EVENTS LIST -->
+<section id="events-list">
+  <div class="sl rv">All Shows</div>
+  <h2 class="st rv">Upcoming <em>Events</em></h2>
+  <div class="ev-grid" id="evGrid">
+    <!-- Filled dynamically by JS -->
+  </div>
+</section>
+
+<!-- VENUES -->
+<section id="venues">
+  <div class="sl rv">Where to Find Us</div>
+  <h2 class="st rv">Venues & <em>Locations</em></h2>
+  <div class="venue-grid" id="venueGrid">
+    <!-- Filled dynamically by JS -->
+  </div>
+</section>
+
+<!-- NOTIFY CTA -->
+<section id="ev-cta">
+  <div class="ev-cta-inner rv">
+    <div class="sl" style="justify-content:center;margin-bottom:24px">Stay Updated</div>
+    <h2 class="ev-cta-title">Never Miss a<br><em>Live Show</em></h2>
+    <p class="ev-cta-desc">Drop your email and be the first to know when new events drop, tickets go on sale, and exclusive fan presales open.</p>
+    <div class="ev-notify-form">
+      <input type="email" class="ev-notify-input" placeholder="your@email.com" id="notifyEmail">
+      <button class="ev-notify-btn" onclick="handleNotify()">Notify Me</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="f-brand">Micky <em>Mimsanii</em></div>
+      <p class="f-tagline">Musician · Songwriter · Vocalist · Minister.<br>Dreaming big, one song at a time.</p>
+      <div class="f-socs">
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Facebook coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-fb"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Instagram coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ig"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('YouTube coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-yt"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('TikTok coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tiktok"/></svg></span>
+        <span class="ir pe sm ring-hover" style="cursor:pointer" onclick="toast('Spotify coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(226,226,224,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-spotify"/></svg></span>
+      </div>
+    </div>
+    <div class="f-col"><h5>Pages</h5><ul>
+      <li><a href="about.html">About &amp; Bio</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="events.html">Events &amp; Tickets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="merch.html">Merch Store</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Support</h5><ul>
+      <li><a href="sponsors.html">Sponsors &amp; Donate</a></li>
+      <li><a href="partner.html">Partner With Us</a></li>
+      <li><a href="ministry.html">Ministry</a></li>
+      <li><a href="blog.html">Blog &amp; News</a></li>
+    </ul></div>
+    <div class="f-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:mimsanii40@gmail.com">mimsanii40@gmail.com</a></li>
+      <li><a href="tel:+254115555072">+254 115 555 072</a></li>
+      <li><a href="#">Nairobi, Kenya</a></li>
+    </ul></div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Micky #mimsanii · All rights reserved.</span>
+    <span>Crafted with passion · by #mimsanii</span>
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="bn-inner">
+    <a href="index.html" class="bn-item" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>Home
+    </a>
+    <a href="music.html" class="bn-item" aria-label="Music">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music
+    </a>
+    <a href="events.html" class="bn-item active" aria-label="Events">
+      <svg viewBox="0 0 24 24"><path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/></svg>Events
+    </a>
+    <a href="gallery.html" class="bn-item" aria-label="Gallery">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Gallery
+    </a>
+    <button class="bn-item" aria-label="More" onclick="openMoreSheet()" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>More
+    </button>
+  </div>
+</nav>
+
+<!-- MORE SHEET -->
+<div id="bn-more-sheet" role="dialog" aria-modal="true">
+  <div class="bn-sheet-bg" onclick="closeMoreSheet()"></div>
+  <div class="bn-sheet-panel">
+    <div class="bn-sheet-handle"></div>
+    <div class="bn-sheet-grid">
+      <a href="merch.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg><span>Merch</span></a>
+      <a href="sponsors.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg><span>Donate</span></a>
+      <a href="ministry.html" class="bn-sheet-item cr-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><use href="#i-cross"/></svg><span>Ministry</span></a>
+      <a href="blog.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Blog</span></a>
+      <a href="about.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About</span></a>
+      <a href="partner.html" class="bn-sheet-item" onclick="closeMoreSheet()"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Partner</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     TICKET MODAL
+════════════════════════════════════ -->
+<div id="ticketModal" role="dialog" aria-modal="true" aria-label="Buy Tickets">
+  <div class="tm-box">
+    <div class="tm-stripe"></div>
+    <button class="tm-close" onclick="closeTicketModal()" aria-label="Close">✕</button>
+
+    <!-- FORM VIEW -->
+    <div id="tmForm">
+      <div class="tm-head">
+        <div class="tm-event-label">Secure Your Ticket</div>
+        <div class="tm-event-name" id="tmEventName">Dream Big Concert</div>
+        <div class="tm-event-date" id="tmEventDate">Dec 12, 2026 · KICC, Nairobi</div>
+      </div>
+      <div class="tm-divider"></div>
+      <div class="tm-body">
+
+        <!-- Ticket type selector -->
+        <div style="font-size:.58rem;letter-spacing:3px;color:rgba(226,226,224,.3);text-transform:uppercase;margin-bottom:12px">Select Ticket Type</div>
+        <div class="tm-type-grid" id="tmTypeGrid">
+          <div class="tm-type-card selected" data-type="Regular" data-price="1500" onclick="selectType(this)">
+            <div class="tm-type-name">Regular</div>
+            <div class="tm-type-price">1,500</div>
+            <div style="font-size:.48rem;color:rgba(226,226,224,.25);letter-spacing:1px;margin-top:2px">KSh</div>
+          </div>
+          <div class="tm-type-card" data-type="VIP" data-price="3000" onclick="selectType(this)">
+            <div class="tm-type-name">VIP</div>
+            <div class="tm-type-price">3,000</div>
+            <div style="font-size:.48rem;color:rgba(226,226,224,.25);letter-spacing:1px;margin-top:2px">KSh</div>
+          </div>
+          <div class="tm-type-card vvip" data-type="VVIP" data-price="5000" onclick="selectType(this)">
+            <div class="tm-type-name">VVIP</div>
+            <div class="tm-type-price">5,000</div>
+            <div style="font-size:.48rem;color:rgba(226,226,224,.25);letter-spacing:1px;margin-top:2px">KSh</div>
+          </div>
+        </div>
+
+        <!-- Quantity -->
+        <div class="tm-qty-row">
+          <div class="tm-qty-label">Quantity</div>
+          <div class="tm-qty-ctrl">
+            <button class="tm-qty-btn" onclick="changeQty(-1)">−</button>
+            <div class="tm-qty-val" id="tmQtyVal">1</div>
+            <button class="tm-qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+
+        <!-- Buyer details -->
+        <div class="tm-field">
+          <label class="tm-label" for="tmName">Full Name</label>
+          <input class="tm-input" id="tmName" type="text" placeholder="e.g. John Kamau" autocomplete="name">
+        </div>
+        <div class="tm-field">
+          <label class="tm-label" for="tmEmail">Email Address</label>
+          <input class="tm-input" id="tmEmail" type="email" placeholder="john@example.com" autocomplete="email">
+        </div>
+        <div class="tm-field">
+          <label class="tm-label" for="tmPhone">Phone Number</label>
+          <input class="tm-input" id="tmPhone" type="tel" placeholder="e.g. 0712345678" autocomplete="tel">
+        </div>
+
+        <!-- Order summary -->
+        <div class="tm-summary">
+          <div class="tm-summary-row">
+            <span id="sumType">Regular × 1</span>
+            <span id="sumSubtotal">KSh 1,500</span>
+          </div>
+          <div class="tm-summary-row">
+            <span>Processing fee</span>
+            <span>KSh 0</span>
+          </div>
+          <div class="tm-summary-row">
+            <span>Total</span>
+            <span id="sumTotal">KSh 1,500</span>
+          </div>
+        </div>
+
+        <!-- Pay button -->
+        <button class="tm-pay-btn" id="tmPayBtn" onclick="handlePayment()">
+          <div class="spinner"></div>
+          <span class="btn-label">Pay with M-Pesa / Card</span>
+        </button>
+        <div class="tm-secure">
+          <svg viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+          Secured 
+        </div>
+
+      </div>
+    </div><!-- /tmForm -->
+
+    <!-- SUCCESS VIEW -->
+    <div class="tm-success" id="tmSuccess">
+      <div class="tm-success-icon">
+        <svg viewBox="0 0 24 24"><use href="#i-check"/></svg>
+      </div>
+      <h3 class="tm-success-title">Ticket <em>Confirmed!</em></h3>
+      <p class="tm-success-desc">Your ticket has been booked successfully. Check your email for confirmation.</p>
+      <div class="tm-ticket-ref" id="tmTicketRef"></div>
+      <p class="tm-success-desc" style="font-size:.68rem;color:rgba(226,226,224,.25)">Show this confirmation or your email at the venue entrance.</p>
+      <button class="btn-primary" style="margin-top:20px;font-size:.65rem" onclick="closeTicketModal()">
+        Done — See You There! 🎉
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   CONFIG — Replace these with your real values
+══════════════════════════════════════════════ */
+const SUPABASE_URL  = 'https://osbuvwtetizjvjqwhktu.supabase.co';
+const SUPABASE_KEY  = 'sb_publishable_H8CRGGDknZS19sFTM1LbLA_2R_nORFk';
+// ⚠️ Replace with your actual Paystack PUBLIC key from paystack.com/developer
+const PAYSTACK_KEY  = 'pk_test_0a34f6bbdf2f0fd2e15b7ba5d990296344cbea37';
+
+/* Init Supabase */
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* ══════════════════════════════════════════════
+   CURSOR
+══════════════════════════════════════════════ */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a)})();
+
+/* STICKY NAV */
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+/* MORE SHEET */
+function openMoreSheet(){document.getElementById('bn-more-sheet').classList.add('open');document.body.style.overflow='hidden'}
+function closeMoreSheet(){document.getElementById('bn-more-sheet').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTicketModal();closeMoreSheet();}});
+let _sy=0;
+document.addEventListener('touchstart',e=>{_sy=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-_sy>60&&document.getElementById('bn-more-sheet').classList.contains('open'))closeMoreSheet()},{passive:true});
+
+/* TABLET ICON NAV */
+(function(){
+  const items=[
+    {href:'music.html',label:'Music',svg:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',cls:''},
+    {href:'events.html',label:'Events',svg:'<path d="M2 9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v2a2 2 0 0 0 0 4v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a2 2 0 0 0 0-4V9z"/><line x1="9" y1="9" x2="9" y2="15"/>',cls:'tkt-icon'},
+    {href:'gallery.html',label:'Gallery',svg:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',cls:''},
+    {href:'merch.html',label:'Merch',svg:'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',cls:''},
+    {href:null,label:'More',svg:'<circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>',cls:'',more:true},
+  ];
+  const wrap=document.getElementById('navIcons');
+  items.forEach(({href,label,svg,cls,more})=>{
+    const el=more?document.createElement('button'):document.createElement('a');
+    if(!more)el.href=href;
+    else{el.style.cssText='background:none;border:none;font-family:inherit;cursor:pointer;';el.onclick=openMoreSheet;}
+    el.className='n-nav-icon '+(cls||'');
+    el.innerHTML=`<svg viewBox="0 0 24 24">${svg}</svg>${label}`;
+    wrap.appendChild(el);
+  });
+})();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.1});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+
+/* TOAST */
+let _tt;
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='';
+  if(type) t.classList.add(type);
+  t.classList.add('show');
+  clearTimeout(_tt);
+  _tt=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+/* NOTIFY */
+function handleNotify(){
+  const v=document.getElementById('notifyEmail').value.trim();
+  if(!v||!v.includes('@')){toast('Please enter a valid email','err');return;}
+  toast('You\'re on the list! We\'ll notify you first.','ok');
+  document.getElementById('notifyEmail').value='';
+}
+
+/* ══════════════════════════════════════════════
+   TICKET MODAL STATE
+══════════════════════════════════════════════ */
+let tmState = {
+  event: '',
+  date: '',
+  type: 'Regular',
+  price: 1500,
+  qty: 1
+};
+
+function openTicketModal(eventName, eventDate) {
+  tmState.event = eventName;
+  tmState.date  = eventDate;
+  document.getElementById('tmEventName').textContent = eventName;
+  document.getElementById('tmEventDate').textContent = eventDate;
+  // reset
+  tmState.qty = 1;
+  document.getElementById('tmQtyVal').textContent = '1';
+  selectTypeByName('Regular');
+  document.getElementById('tmName').value  = '';
+  document.getElementById('tmEmail').value = '';
+  document.getElementById('tmPhone').value = '';
+  document.getElementById('tmName').classList.remove('err');
+  document.getElementById('tmEmail').classList.remove('err');
+  document.getElementById('tmPhone').classList.remove('err');
+  document.getElementById('tmForm').style.display   = '';
+  document.getElementById('tmSuccess').classList.remove('show');
+  document.getElementById('ticketModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateSummary();
+}
+
+function closeTicketModal() {
+  document.getElementById('ticketModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* Ticket type selection */
+function selectType(card) {
+  document.querySelectorAll('.tm-type-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  tmState.type  = card.dataset.type;
+  tmState.price = parseInt(card.dataset.price);
+  updateSummary();
+}
+
+function selectTypeByName(name) {
+  const card = document.querySelector(`.tm-type-card[data-type="${name}"]`);
+  if(card) selectType(card);
+}
+
+/* Quantity */
+function changeQty(delta) {
+  tmState.qty = Math.max(1, Math.min(10, tmState.qty + delta));
+  document.getElementById('tmQtyVal').textContent = tmState.qty;
+  updateSummary();
+}
+
+/* Summary */
+function updateSummary() {
+  const total = tmState.price * tmState.qty;
+  document.getElementById('sumType').textContent    = `${tmState.type} × ${tmState.qty}`;
+  document.getElementById('sumSubtotal').textContent = `KSh ${total.toLocaleString()}`;
+  document.getElementById('sumTotal').textContent    = `KSh ${total.toLocaleString()}`;
+}
+
+/* ══════════════════════════════════════════════
+   FORM VALIDATION
+══════════════════════════════════════════════ */
+function validateForm() {
+  const name  = document.getElementById('tmName').value.trim();
+  const email = document.getElementById('tmEmail').value.trim();
+  const phone = document.getElementById('tmPhone').value.trim();
+  let ok = true;
+
+  [['tmName',name],['tmEmail',email],['tmPhone',phone]].forEach(([id,val])=>{
+    const el = document.getElementById(id);
+    if(!val){ el.classList.add('err'); ok=false; }
+    else { el.classList.remove('err'); }
+  });
+
+  if(email && !email.includes('@')) {
+    document.getElementById('tmEmail').classList.add('err');
+    ok = false;
+  }
+  if(phone && phone.replace(/\D/g,'').length < 9) {
+    document.getElementById('tmPhone').classList.add('err');
+    ok = false;
+  }
+  if(!ok) toast('Please fill in all fields correctly','err');
+  return ok;
+}
+
+/* ══════════════════════════════════════════════
+   PAYMENT FLOW (Paystack → Supabase)
+══════════════════════════════════════════════ */
+function handlePayment() {
+  if(!validateForm()) return;
+
+  const name  = document.getElementById('tmName').value.trim();
+  const email = document.getElementById('tmEmail').value.trim();
+  const phone = document.getElementById('tmPhone').value.trim();
+  const total = tmState.price * tmState.qty; // in KSh
+
+  // Set loading state
+  const btn = document.getElementById('tmPayBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  // Generate a short ticket reference
+  const ref = 'MM-' + Date.now().toString(36).toUpperCase();
+
+  const handler = PaystackPop.setup({
+    key:    PAYSTACK_KEY,
+    email:  email,
+    amount: total * 100,      // Paystack uses kobo/cents — multiply by 100
+    currency: 'KES',
+    ref:    ref,
+    metadata: {
+      custom_fields: [
+        { display_name: 'Buyer Name',   variable_name: 'name',        value: name },
+        { display_name: 'Phone',        variable_name: 'phone',       value: phone },
+        { display_name: 'Event',        variable_name: 'event_name',  value: tmState.event },
+        { display_name: 'Ticket Type',  variable_name: 'ticket_type', value: tmState.type },
+        { display_name: 'Quantity',     variable_name: 'quantity',    value: tmState.qty },
+      ]
+    },
+    // ✅ Called ONLY after successful payment
+    callback: function(response) {
+      verifyAndSaveTicket({
+        reference: response.reference,
+        name,
+        email,
+        phone,
+        event_name: tmState.event,
+        ticket_type: tmState.type,
+        quantity: tmState.qty
+      });
+    },
+    // Called if user closes Paystack popup
+    onClose: function() {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      toast('Payment cancelled — your spot is not yet reserved','err');
+    }
+  });
+
+  handler.openIframe();
+}
+
+/* Verify payment server-side via our edge function, then show success */
+async function verifyAndSaveTicket(payload) {
+  const btn = document.getElementById('tmPayBtn');
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/functions/v1/verify-payment`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey': SUPABASE_KEY
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    const result = await res.json();
+
+    if (!res.ok || !result.success) {
+      console.error('Verification failed:', result);
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      toast('Payment received but verification failed. Contact us with ref: ' + payload.reference, 'err');
+      return;
+    }
+
+    showSuccess(payload.reference);
+  } catch (err) {
+    console.error('Network error verifying payment:', err);
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    toast('Payment received! Contact us with ref: ' + payload.reference, 'ok');
+  }
+}
+
+/* Show success screen */
+function showSuccess(ref) {
+  const btn = document.getElementById('tmPayBtn');
+  btn.classList.remove('loading');
+  btn.disabled = false;
+  document.getElementById('tmForm').style.display = 'none';
+  document.getElementById('tmSuccess').classList.add('show');
+  document.getElementById('tmTicketRef').textContent = ref || 'MM-' + Date.now().toString(36).toUpperCase();
+}
+
+/* ══════════════════════════════════════════════
+   DYNAMIC EVENTS — fetched from Supabase
+══════════════════════════════════════════════ */
+let featuredEventDate = null; // used by the countdown ticker
+
+async function loadEvents() {
+  const { data: events, error } = await db
+    .from('events')
+    .select('*')
+    .order('event_date', { ascending: true });
+
+  if (error) {
+    console.error('Error loading events:', error);
+    return;
+  }
+
+  if (!events || events.length === 0) return;
+  const featured = events.find(e => e.is_featured) || events[0];
+  renderHero(featured);
+  renderEventsList(events);
+  renderVenues(events);
+}
+
+/* Auto-generate the venues section from unique venues found in events */
+function renderVenues(events) {
+  const grid = document.getElementById('venueGrid');
+  const seen = new Set();
+  const uniqueVenues = [];
+
+  events.forEach(ev => {
+    if (ev.venue_name && !seen.has(ev.venue_name)) {
+      seen.add(ev.venue_name);
+      uniqueVenues.push(ev);
+    }
+  });
+
+  if (uniqueVenues.length === 0) {
+    grid.innerHTML = '<p style="color:rgba(226,226,224,.4);font-size:.85rem">No venues yet.</p>';
+    return;
+  }
+
+  grid.innerHTML = uniqueVenues.map((ev, i) => {
+    const queryAddr = encodeURIComponent(ev.venue_full_address || ev.venue_name);
+    const mapEmbedUrl = `https://maps.google.com/maps?q=${queryAddr}&output=embed`;
+    const mapLinkUrl = `https://maps.google.com/?q=${queryAddr}`;
+    const delayClass = i > 0 ? `d${Math.min(i, 4)}` : '';
+    const shortCode = ev.venue_name.split(' ').map(w => w[0]).join('').slice(0, 4).toUpperCase();
+
+    return `
+      <div class="venue-card rv ${delayClass}">
+        <div class="venue-ghost">${shortCode}</div>
+        <div class="venue-name">${ev.venue_name}</div>
+        <div class="venue-city">Kenya</div>
+        <div class="venue-details">
+          <div class="venue-detail-row"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg>${ev.venue_full_address || ev.venue_name}</div>
+          ${ev.doors_open ? `<div class="venue-detail-row"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg>Doors open ${ev.doors_open}</div>` : ''}
+        </div>
+        <iframe class="venue-map-embed" src="${mapEmbedUrl}" loading="lazy"></iframe>
+        <a href="${mapLinkUrl}" target="_blank" class="venue-map-btn" style="margin-top:16px">
+          <svg viewBox="0 0 24 24"><use href="#i-map"/></svg>Open in Google Maps
+        </a>
+      </div>
+    `;
+  }).join('');
+
+  document.querySelectorAll('#venueGrid .rv').forEach(el => obs.observe(el));
+}
+/* Format a JS Date into useful pieces */
+function formatDateParts(dateStr) {
+  const d = new Date(dateStr);
+  return {
+    day: String(d.getDate()).padStart(2, '0'),
+    month: d.toLocaleString('en-US', { month: 'short' }),
+    monthFull: d.toLocaleString('en-US', { month: 'long' }),
+    year: d.getFullYear(),
+    display: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  };
+}
+
+/* Render the big hero card */
+function renderHero(ev) {
+  const card = document.getElementById('heroCard');
+  const posterStyle = ev.poster_url
+    ? `background-image:url('${ev.poster_url}');background-size:cover;background-position:center;`
+    : '';
+  const parts = ev.event_date ? formatDateParts(ev.event_date) : null;
+
+  card.innerHTML = `
+    <div class="evh-card-bg" style="${posterStyle}"></div>
+    <div class="evh-red-stripe"></div>
+    ${parts ? `
+    <div class="evh-date-block">
+      <div class="evh-month">${parts.monthFull} ${parts.year}</div>
+      <div class="evh-day">${parts.day}</div>
+      <div class="evh-year">${parts.year}</div>
+    </div>` : ''}
+    <div class="evh-info">
+      <div class="evh-event-name">${ev.event_name}</div>
+      <div class="evh-meta-list">
+        <div class="evh-meta-item"><span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg></span>${ev.venue_name || ''}</div>
+        <div class="evh-meta-item"><span class="ir sm"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg></span>Doors open — ${ev.doors_open || 'TBA'}</div>
+        <div class="evh-meta-item"><span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>From KSh ${(ev.price_regular || 0).toLocaleString()}</div>
+      </div>
+      <button class="btn-primary" style="font-size:.62rem;padding:10px 20px" onclick="openTicketModalFromEvent('${ev.id}')">
+        <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+        Get Tickets
+      </button>
+    </div>
+  `;
+
+  // Wire up countdown to this featured event
+  if (ev.event_date && ev.status === 'upcoming') {
+    featuredEventDate = ev.event_date;
+    document.getElementById('cdEventName').textContent = ev.event_name;
+    document.getElementById('cdBookBtn').onclick = () => openTicketModalFromEvent(ev.id);
+    document.getElementById('countdownBar').style.display = 'flex';
+  } else {
+    document.getElementById('countdownBar').style.display = 'none';
+  }
+}
+
+/* Render the full events list */
+function renderEventsList(events) {
+  const grid = document.getElementById('evGrid');
+  grid.innerHTML = events.map((ev, i) => {
+    const isFeatured = ev.is_featured;
+    const isSoldOut = ev.status === 'sold_out';
+    const isTBA = ev.status === 'tba';
+    const parts = ev.event_date ? formatDateParts(ev.event_date) : null;
+    const delayClass = i > 0 ? `d${Math.min(i, 4)}` : '';
+
+    let actionsHTML = '';
+    if (isSoldOut) {
+      actionsHTML = `<div class="ev-sold-out">Sold Out</div>`;
+    } else if (isTBA) {
+      actionsHTML = `<div class="ev-sold-out">Coming Soon</div>`;
+    } else {
+      actionsHTML = `
+        <div class="ev-price"><small>From</small>KSh ${(ev.price_regular || 0).toLocaleString()}</div>
+        <button class="btn-primary" style="font-size:.62rem;padding:10px 20px;white-space:nowrap" onclick="openTicketModalFromEvent('${ev.id}')">
+          <span class="ir cr sm"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+          Buy Tickets
+        </button>`;
+    }
+
+    return `
+      <div class="ev-card ${isFeatured ? 'featured' : ''} rv ${delayClass}" style="${isTBA ? 'opacity:.55' : ''}">
+        <div class="ev-date-col">
+          ${parts ? `
+            <div class="ev-day">${parts.day}</div>
+            <div class="ev-month-yr">${parts.month} · ${parts.year}</div>
+          ` : `
+            <div class="ev-day" style="font-size:1.6rem;margin-top:6px">TBA</div>
+          `}
+        </div>
+        <div class="ev-body">
+          ${isFeatured ? '<span class="ev-badge">Next Show</span>' : ''}
+          <div class="ev-name">${ev.event_name}</div>
+          <div class="ev-meta-row">
+            <div class="ev-meta-item"><svg viewBox="0 0 24 24"><use href="#i-pin"/></svg>${ev.venue_name || 'Location TBC'}</div>
+            ${ev.doors_open ? `<div class="ev-meta-item"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg>${ev.doors_open}</div>` : ''}
+            ${ev.genre_tags ? `<div class="ev-meta-item"><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg>${ev.genre_tags}</div>` : ''}
+          </div>
+        </div>
+        <div class="ev-actions">${actionsHTML}</div>
+      </div>
+    `;
+  }).join('');
+
+  // Re-observe new .rv elements for scroll reveal animation
+  document.querySelectorAll('#evGrid .rv').forEach(el => obs.observe(el));
+}
+
+/* Open ticket modal using event data fetched from Supabase */
+async function openTicketModalFromEvent(eventId) {
+  const { data: ev, error } = await db
+    .from('events')
+    .select('*')
+    .eq('id', eventId)
+    .single();
+
+  if (error || !ev) {
+    toast('Could not load event details', 'err');
+    return;
+  }
+
+  const dateDisplay = ev.event_date ? formatDateParts(ev.event_date).display : 'TBA';
+  const eventLabel = `${dateDisplay} · ${ev.venue_name || ''}`;
+
+  // Update ticket type prices dynamically from this event's pricing
+  document.querySelector('.tm-type-card[data-type="Regular"]').dataset.price = ev.price_regular || 0;
+  document.querySelector('.tm-type-card[data-type="Regular"] .tm-type-price').textContent = (ev.price_regular || 0).toLocaleString();
+  document.querySelector('.tm-type-card[data-type="VIP"]').dataset.price = ev.price_vip || 0;
+  document.querySelector('.tm-type-card[data-type="VIP"] .tm-type-price').textContent = (ev.price_vip || 0).toLocaleString();
+  document.querySelector('.tm-type-card[data-type="VVIP"]').dataset.price = ev.price_vvip || 0;
+  document.querySelector('.tm-type-card[data-type="VVIP"] .tm-type-price').textContent = (ev.price_vvip || 0).toLocaleString();
+
+  openTicketModal(ev.event_name, eventLabel);
+}
+
+/* COUNTDOWN — targets whichever event is featured */
+function tick(){
+  if (!featuredEventDate) return;
+  const diff = new Date(featuredEventDate) - new Date();
+  if(diff<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>document.getElementById(id).textContent='00');return;}
+  const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+  document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+}
+setInterval(tick,1000);
+
+/* Kick off */
+loadEvents();
+</script>
+</body>
+</html>
