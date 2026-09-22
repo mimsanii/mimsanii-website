@@ -438,14 +438,24 @@ footer{background:#060d11;padding:72px 6% 32px;border-top:1px solid var(--pe2)}
   .sl{font-size:.52rem;letter-spacing:4px}
 
   /* Featured event stacked */
-  .feat-event{grid-template-columns:1fr}
-  .fe-left{padding:26px 18px}
-  .fe-date-big{font-size:4rem}
-  .fe-name{font-size:1.65rem;margin:10px 0 9px}
-  .fe-right{min-height:170px}
-  .fe-countdown{padding:11px 14px;gap:12px}
-  .cd-num{font-size:1.5rem}
-  .cd-label{font-size:.46rem}
+.feat-event{grid-template-columns:1fr}
+.fe-left{padding:26px 18px}
+.fe-date-big{font-size:4rem}
+.fe-name{font-size:1.65rem;margin:10px 0 9px}
+
+/* Featured event photo — was cramped at 170px, now has room + a darker
+   fade so the countdown numbers stay readable over the poster image */
+.fe-right{min-height:320px}
+.fe-right::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(6,13,17,.1) 0%,rgba(6,13,17,.55) 65%,rgba(6,13,17,.92) 100%);
+  pointer-events:none;
+}
+.fe-countdown{padding:14px 16px;gap:10px;justify-content:space-between}
+.cd-num{font-size:1.6rem}
+.cd-label{font-size:.48rem}
 
   /* About teaser — image bleeds full width like about.html hero */
   .about-teaser{grid-template-columns:1fr;gap:0}
